@@ -8,6 +8,7 @@ Makefile
 # Compiled Object files
 *.o
 *.obj
+*.c
 
 # Binary files
 *.bin
@@ -17,5 +18,6 @@ Makefile
 *.ld
 *.map
 
+*.visualcode/
 *.vscode/
 
