@@ -1,6 +1,9 @@
 # Makefiles
 Makefile
 *.mk
+*.inc
+*.link
+*.native
 
 # Compiled Object files
 *.o
