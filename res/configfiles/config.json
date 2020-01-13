@@ -1,0 +1,10 @@
+{
+    "Info" :
+    [   
+        {
+            "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
+            "Version" : "V1.0",
+            "Github" : "https://github.com/DaanZVW/TowerDefense"
+        }
+    ]
+}
