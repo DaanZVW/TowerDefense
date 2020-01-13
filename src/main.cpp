@@ -13,22 +13,29 @@
 #include <jsoncpp/json/json.h>
 #include <SFML/Graphics.hpp>
 
+// Include External hpp's
+#include "path.hpp"
+
+
+
 int main() {
     // Starting message
     std::cout << "Factory starting ..." << std::endl;
 
-
+    std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{10,3}, sf::Vector2i{10, 25}, sf::Vector2i{5, 25} };
+    path pathmaker { v };
 
     // Make SFML window
-    sf::RenderWindow window{ sf::VideoMode{ 3000, 2000 }, "SFML window", sf::Style::Fullscreen };
-    window.Style
+    sf::RenderWindow window{ sf::VideoMode{1920, 1080}, "SFML window", sf::Style::Fullscreen };
+
     // Do this while the window is open
     while (window.isOpen()) {
 
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Green );
 
-               
+
+
 
         // Draw all excisting objects on the screen
 		window.display();
@@ -39,9 +46,18 @@ int main() {
         // Close SFML window when it gets closed
         sf::Event event;		
 	    while( window.pollEvent(event) ){
-			if( event.type == sf::Event::Closed ){
-				window.close();
-			}
+
+
+            if( event.type == sf::Event::KeyPressed ){
+                // Close window
+                if( event.key.code == sf::Keyboard::Escape ){
+                    window.close();
+                }
+            }
+            // Close window when cross right top of the window is pressed
+            if( event.type == sf::Event::Closed ) {
+                window.close();
+            }
 		}	
 	}
 

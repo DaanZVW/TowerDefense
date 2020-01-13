@@ -3,8 +3,25 @@
     [   
         {
             "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
-            "Version" : "V1.0",
+            "Version" : "Alpha 1.0",
             "Github" : "https://github.com/DaanZVW/TowerDefense"
+        }
+    ],
+    "Maps" :
+    [
+        {
+            "Name" : "Easy",
+            "Filename" : "easy.json"
+        },
+
+        {
+            "Name" : "Medium",
+            "Filename" : "medium.json"
+        },
+
+        {
+            "Name" : "Hard",
+            "Filename" : "hard.json"
         }
     ]
 }

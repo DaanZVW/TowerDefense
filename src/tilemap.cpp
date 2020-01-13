@@ -4,18 +4,12 @@
 // = Date: 12/12/2019                   =
 // ======================================
 
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <iostream>
+#include "tilemap.hpp"
 
+tile::tile( const sf::Color &color, const sf::Vector2f &size ){
 
-class path {
-private:
+}
 
-    std::vector<sf::Vector2i> nodes;
+tilemap::tilemap( const sf::Color &color ) {
 
-public:
-
-    path( const std::vector<sf::Vector2i> &nodes );
-
-};
+}
