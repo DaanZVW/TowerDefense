@@ -11,23 +11,33 @@
 class tile : public sf::RectangleShape{
 private:
 
-    sf::RectangleShape tile;
+    sf::Vector2f position;
+    sf::Vector2f size;
+    sf::Color color;
+
+    bool placeable;
 
 public:
 
-    tile( const sf::Color &color, const sf::Vector2f &size );
-    void draw( const sf::Vector2f &Position )
-
+    // Default constructor
+    tile( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Color &color );
 };
 
 class tilemap {
 private:
 
-    std::vector<std::vector<sf::Drawable*>> grid;
+    sf::Vector2f position;
+    sf::Vector2f size;
+    sf::Vector2i gridSize;
+    const sf::Color &color;
+
+    std::vector<std::vector<tile*>> grid;
 
 public:
 
-    tilemap( const sf::Color &color );
+    // Default constructor
+    // NOTE: position and size is for the tilemap itself
+    tilemap( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Vector2i &gridSize, const sf::Color &color );
     void draw( sf::RenderWindow &window );
 
 };
