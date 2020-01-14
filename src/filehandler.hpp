@@ -19,25 +19,23 @@
 #include <SFML/Graphics.hpp>
 
 // Include Nessecery files
-#include "ball.hpp"
-#include "rectangle.hpp"
-#include "picture.hpp"
+// something
 
-class fileHandeler {
+class fileHandler {
 private:
 
     // Private Variables
-    std::string filename_read;
-    sf::RenderWindow &window;
+    std::string filename;
 
-    // Checks if string is considered a color
-    // If not returns by default white
-    sf::Color isColor( const std::string &color );
+    Json::Value fileInfo;
 
 public:
 
     // Constructor
-    fileHandeler( const std::string &filename, sf::RenderWindow &window );
+    fileHandler( const std::string &filename );
+
+    // Map information getter
+    // Returns 
 
     // Reads the file given in constructor
     // Returns a drawable pointer vector

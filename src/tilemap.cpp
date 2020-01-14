@@ -76,20 +76,22 @@ bool tilemap::changeTile( const sf::Vector2i &tmpPosition, const sf::Color &colo
 void tilemap::makePath( const std::vector<sf::Vector2i> &nodes, const sf::Color &color ) {
     sf::Vector2i currentnode = nodes[0];
     for ( unsigned int i = 1; i < nodes.size(); i++ ) {
-        if ( currentnode.x == nodes[i].x ) {
-            int tmp = (currentnode.y > nodes[i].y) ? -1 : 1;
-
-            while (currentnode.y != nodes[i].y) {
-                changeTile( currentnode, color, false );
-                currentnode.y += tmp;
-            }
-        } else if ( currentnode.y == nodes[i].y ) {
+        if ( currentnode.x != nodes[i].x ) {
             int tmp = (currentnode.x > nodes[i].x) ? -1 : 1;
 
             while (currentnode.x != nodes[i].x) {
                 changeTile( currentnode, color, false );
                 currentnode.x += tmp;
             }
+        }
+        if ( currentnode.y != nodes[i].y ) {
+            int tmp = (currentnode.y > nodes[i].y) ? -1 : 1;
+
+            while (currentnode.y != nodes[i].y) {
+                changeTile( currentnode, color, false );
+                currentnode.y += tmp;
+            }
+            
         }
         changeTile( currentnode, color, false );
     }

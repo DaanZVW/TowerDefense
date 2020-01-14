@@ -5,7 +5,6 @@
 // ======================================
 
 // Include std::libs
-#include <fstream>
 #include <iostream>
 #include <vector>
 
@@ -14,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 
 // Include External hpp's
-// #include "path.hpp"
+//#include "filehandeler.hpp"
 #include "tilemap.hpp"
 
 
@@ -28,7 +27,7 @@ int main() {
     sf::Color maffekleur = sf::Color::Green;
     tilemap mafklapper{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, 30, maffekleur };
 
-    std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{3,6}, sf::Vector2i{9,6}, sf::Vector2i{9, 14} };
+    std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{3,6}, sf::Vector2i{9,3}, sf::Vector2i{15, 14} };
     mafklapper.makePath(v, sf::Color::Yellow);
 
     // Do this while the window is open
