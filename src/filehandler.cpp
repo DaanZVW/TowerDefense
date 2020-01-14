@@ -4,37 +4,23 @@
 // = Date: 12/12/2019                   =
 // ======================================
 
-#include "fileHandeler.hpp"
-
-sf::Color fileHandeler::isColor( const std::string &color ) {
-    if ( color == "red" ) {
-        return sf::Color::Red;
-    } else if ( color == "blue" ){
-        return sf::Color::Blue;
-    } else if ( color == "green"){
-        return sf::Color::Green;
-    } else if ( color == "yellow") {
-        return sf::Color::Yellow;
-    } else if ( color == "cyan" ){
-        return sf::Color::Cyan;
-    } else if ( color == "magenta") {
-        return sf::Color::Magenta;
-    }
-    return sf::Color::White;
-}
+#include "filehandler.hpp"
 
 // =================================================================================
 // =================================================================================
 // ===============================Constructor=======================================
 
-fileHandeler::fileHandeler( const std::string &filename, sf::RenderWindow &window ):
-    filename_read( filename ),
-    window ( window )
-{}
+fileHandler::fileHandler( const std::string &filename ):
+    filename( filename )
+{
+    Json::Reader reader;
+    std::ifstream fileReader(filename);
+    reader.parse( fileReader, fileInfo );
+}
 
 // =================================================================================
 
-std::vector<drawable*> fileHandeler::readFile() {
+std::vector<drawable*> fileHandler::readFile() {
     Json::Reader reader;
     Json::Value objects;
 
@@ -81,7 +67,7 @@ std::vector<drawable*> fileHandeler::readFile() {
 
 // =================================================================================
 
-void fileHandeler::writeFile( std::vector<drawable*> &drawableObjects, const std::string &filename ) {
+void fileHandler::writeFile( std::vector<drawable*> &drawableObjects, const std::string &filename ) {
     Json::Reader reader;
     Json::Value objects;
 
@@ -109,6 +95,6 @@ void fileHandeler::writeFile( std::vector<drawable*> &drawableObjects, const std
     writer -> write(objects, &outputFileStream);
 }
 
-void fileHandeler::writeFile( std::vector<drawable*> &drawableObjects ) {
+void fileHandler::writeFile( std::vector<drawable*> &drawableObjects ) {
     writeFile( drawableObjects, filename_read );
 }
