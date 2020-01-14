@@ -18,18 +18,18 @@
 #include "tilemap.hpp"
 
 
-
 int main() {
     // Starting message
-    std::cout << "Factory starting ..." << std::endl;
-
-    // std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{10,3}, sf::Vector2i{10, 25}, sf::Vector2i{5, 25} };
-    // path pathmaker { v };
-
-    tilemap mafklapper{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, sf::Vector2i{0,0}, sf::Color::Green };
+    std::cout << "Application starting ..." << std::endl;
 
     // Make SFML window
     sf::RenderWindow window{ sf::VideoMode{1920, 1080}, "SFML window", sf::Style::Fullscreen };
+
+    sf::Color maffekleur = sf::Color::Green;
+    tilemap mafklapper{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, 30, maffekleur };
+
+    std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{3,6}, sf::Vector2i{9,6}, sf::Vector2i{9, 14} };
+    mafklapper.makePath(v, sf::Color::Yellow);
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -37,10 +37,8 @@ int main() {
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
 
-        // sf::RectangleShape jon{sf::Vector2f{40,40}};
-        // jon.setPosition( sf::Vector2f{40,40});
-
-        // window.draw( jon );
+        sf::Vector2i test = mafklapper.getTilePosition( sf::Mouse::getPosition( window ) );
+        std::cout << test.x << " " << test.y << std::endl;
 
         mafklapper.draw( window );
 
