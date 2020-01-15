@@ -33,11 +33,17 @@ private:
     sf::Vector2f position;
     sf::Vector2f size;
 
+    // Variable used for sizeing the grid
+    sf::Vector2i gridSize;
+
     // Standard texture for rest tiles
     const sf::Color &color;
 
-    // Variable used for sizeing the grid
-    sf::Vector2i gridSize;
+    // X and Y offsets
+    float XOffset;
+    float YOffset;
+
+    float tileSize;
 
     // Gridvector where all the tiles are stored
     std::vector<std::vector<tile*>> grid;

@@ -27,6 +27,9 @@ void game::run() {
         sf::Style::Fullscreen
     };
 
+    // Make fileReader for pathnodes
+    fileReader maffeHandler{ "../res/configfiles/maps/test.json" };
+
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
     tilemap map{
@@ -35,14 +38,11 @@ void game::run() {
             int( window.getSize().x * MENUSIZE ),
             int( window.getSize().y )
         }, 
-        sf::Vector2i{ 30, 50 }, 
+        maffeHandler.getGridSize(), 
         standardColor 
     };
     
     // levelEditor lvlEditor{ map };
-
-    // Make fileReader for pathnodes
-    fileReader maffeHandler{ "../res/configfiles/maps/test.json" };
 
     // Make the path
     map.makePath( maffeHandler.makeNodes() , sf::Color::Yellow);
@@ -55,9 +55,6 @@ void game::run() {
 
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
-
-        // sf::Vector2i test = map.getTilePosition( sf::Mouse::getPosition( window ) );
-        // std::cout << test.x << " " << test.y << std::endl;
 
         map.draw( window );
 
@@ -82,6 +79,7 @@ void game::run() {
                         window.close();
                     } else if ( event.key.code == sf::Keyboard::Return ) {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
+                        // return;
                     }
                     break;
                 
@@ -92,7 +90,7 @@ void game::run() {
 
                 case sf::Event::MouseButtonPressed:
                     if ( event.mouseButton.button == sf::Mouse::Left ) {
-                        // lvlEditor.addNode( sf::Mouse::getPosition() );
+                        // lvlEditor.addNode( sf::Mouse::getPosition( window ) );
                     } else if ( event.mouseButton.button == sf::Mouse::Right ) {
                         // lvlEditor.popNode();
                     }

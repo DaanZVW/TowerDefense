@@ -16,7 +16,11 @@ void levelEditor::writeTileMap() {
 }
 
 void levelEditor::addNode( const sf::Vector2i &position ) {
-    nodes.push_back( map.getTilePosition( position ) );
+    sf::Vector2i tileIndex = map.getTilePosition( position );
+    if ( tileIndex == sf::Vector2i{ -1, -1 } ) {
+        return;
+    }
+    nodes.push_back( tileIndex );
     writeTileMap();
 }
 

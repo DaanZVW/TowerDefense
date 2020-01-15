@@ -38,6 +38,7 @@ public:
     // Returns
 
     std::vector<sf::Vector2i> makeNodes();
+    sf::Vector2i getGridSize();
 
     // // Reads the file given in constructor
     // // Returns a drawable pointer vector
