@@ -16,8 +16,9 @@ enemyChar::enemyChar(int health, int baseDamage, float speed)
 {
 	setSize(sf::Vector2f(32, 32));
 	setPosition(sf::Vector2f{ 128,224 });
-	texture.loadFromFile("mario.png");
-	setTexture(&texture);
+	setFillColor( sf::Color::Red );
+	// texture.loadFromFile("mario.png");
+	// setTexture(&texture);
 }
 
 enemyChar::enemyChar(sf::Vector2f size, sf::Vector2f position, std::string textureFile="mario.png",int health =10, int baseDamage=10, float speed=10) 

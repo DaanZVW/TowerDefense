@@ -13,9 +13,10 @@
 #include <SFML/Graphics.hpp>
 
 // Include External hpp's
-//#include "filehandeler.hpp"
+#include "filehandler.hpp"
 #include "tilemap.hpp"
-
+#include "enemyChar.hpp"
+#include "levelEditor.hpp"
 
 int main() {
     // Starting message
@@ -24,11 +25,20 @@ int main() {
     // Make SFML window
     sf::RenderWindow window{ sf::VideoMode{1920, 1080}, "SFML window", sf::Style::Fullscreen };
 
-    sf::Color maffekleur = sf::Color::Green;
-    tilemap mafklapper{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, 30, maffekleur };
+    // Make tiles
+    sf::Color standardColor = sf::Color::Green;
+    tilemap map{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, 30, standardColor };
+    
+    // levelEditor lvlEditor{ map };
 
-    std::vector<sf::Vector2i> v = { sf::Vector2i{3,3}, sf::Vector2i{3,6}, sf::Vector2i{9,3}, sf::Vector2i{15, 14} };
-    mafklapper.makePath(v, sf::Color::Yellow);
+    // Make fileReader for pathnodes
+    fileReader maffeHandler{ "../res/configfiles/maps/test.json" };
+
+    // Make the path
+    map.makePath( maffeHandler.makeNodes() , sf::Color::Yellow);
+
+    // Make enemy character
+    enemyChar pietje{ 100, 10, 0.5 };
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -36,10 +46,13 @@ int main() {
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
 
-        sf::Vector2i test = mafklapper.getTilePosition( sf::Mouse::getPosition( window ) );
-        std::cout << test.x << " " << test.y << std::endl;
+        // sf::Vector2i test = map.getTilePosition( sf::Mouse::getPosition( window ) );
+        // std::cout << test.x << " " << test.y << std::endl;
 
-        mafklapper.draw( window );
+        map.draw( window );
+
+        pietje.followPath( 1 );
+        window.draw( pietje );
 
         // Draw all excisting objects on the screen
 		window.display();
@@ -47,18 +60,37 @@ int main() {
         // Sleep 5 miliseconds so the close event gets time
 		sf::sleep( sf::milliseconds( 10 ));
 
-        // Close SFML window when it gets closed
+        // SFML events
         sf::Event event;		
 	    while( window.pollEvent(event) ){
-            if( event.type == sf::Event::KeyPressed ){
-                // Close window
-                if( event.key.code == sf::Keyboard::Escape ){
+            switch( event.type ) {
+
+                // Keyboard inputs case
+                case sf::Event::KeyPressed:
+                    // Close screen when escape is pressed
+                    if( event.key.code == sf::Keyboard::Escape ){
+                        window.close();
+                    } else if ( event.key.code == sf::Keyboard::Enter ) {
+                        //lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
+                        return 0;
+                    }
+                    break;
+                
+                // Close screen when closed
+                case sf::Event::Closed:
                     window.close();
-                }
-            }
-            // Close window when cross right top of the window is pressed
-            if( event.type == sf::Event::Closed ) {
-                window.close();
+                    break;
+
+                case sf::Event::MouseButtonPressed:
+                    if ( event.mouseButton.button == sf::Mouse::Left ) {
+                        //lvlEditor.addNode( sf::Mouse::getPosition() );
+                    } else if ( event.mouseButton.button == sf::Mouse::Right ) {
+                        //lvlEditor.popNode();
+                    }
+                    break;
+
+                 default:
+                    break;
             }
 		}	
 	}

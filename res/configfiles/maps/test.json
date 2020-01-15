@@ -1,0 +1,22 @@
+{
+    "Info" : 
+    {
+        "Difficulty" : "Grote gekte",
+        "Name" : "test"
+    },
+    "PathNodes" : 
+    [
+        {
+            "x" : 0,
+            "y" : 0
+        },
+        {
+            "x" : 29,
+            "y" : 0
+        },
+        {
+            "x" : 29,
+            "y" : 15
+        }
+    ]
+}

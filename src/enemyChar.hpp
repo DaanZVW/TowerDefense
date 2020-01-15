@@ -3,18 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <json/json.h>
+#include <jsoncpp/json/json.h>
 #include <vector>
+
+
 /// @brief Class for an enemy character
 /// @author Wilco Matthijssen
 class enemyChar : public sf::RectangleShape {
 
+	unsigned int health;
 	unsigned int baseDamage;
 	float speed;
-	unsigned int health;
 	sf::Texture texture;
 	std::vector<sf::Vector2f> moves{ {128,128},{192,128} ,{192,96}, {256,96},{256,64},{478,64} };
-	int moveindex = 0;
+	unsigned int moveindex = 0;
+	
 public:
 	
 

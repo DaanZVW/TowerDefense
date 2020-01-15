@@ -21,7 +21,7 @@
 // Include Nessecery files
 // something
 
-class fileHandler {
+class fileReader {
 private:
 
     // Private Variables
@@ -31,23 +31,39 @@ private:
 
 public:
 
-    // Constructor
-    fileHandler( const std::string &filename );
+    // Default read constructor
+    fileReader( const std::string &filename );
 
     // Map information getter
-    // Returns 
+    // Returns
 
-    // Reads the file given in constructor
-    // Returns a drawable pointer vector
-    std::vector<drawable*> readFile();
+    std::vector<sf::Vector2i> makeNodes();
 
-    // Updates all the changed locations
-    // filename given with the function
-    void writeFile( std::vector<drawable*> &drawableObjects, const std::string &filename );
+    // // Reads the file given in constructor
+    // // Returns a drawable pointer vector
+    // std::vector<drawable*> readFile();
 
-    // Updates all the changed locations
-    // constructor filename is used
-    void writeFile( std::vector<drawable*> &drawableObjects );
+    // // Updates all the changed locations
+    // // filename given with the function
+    // void writeFile( std::vector<drawable*> &drawableObjects, const std::string &filename );
+
+    // // Updates all the changed locations
+    // // constructor filename is used
+    // void writeFile( std::vector<drawable*> &drawableObjects );
+};
+
+class fileWriter {
+private:
+
+    // Private Variables
+    std::string filename;
+
+public:
+
+    // Default read constructor
+    fileWriter( const std::string &filename );
+
+    void makeLevelJson( const std::string &name, const std::string &difficulty, const std::vector<sf::Vector2i> &nodes );
 };
 
 #endif /*READFILE_HPP*/
