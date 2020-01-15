@@ -34,8 +34,8 @@ class tilemap {
 private:
 
     // Variables for the tilemap
-    sf::Vector2f position;
-    sf::Vector2f size;
+    sf::Vector2i position;
+    sf::Vector2i size;
 
     // Standard texture for rest tiles
     const sf::Color &color;
@@ -50,13 +50,13 @@ private:
     bool changeTile( const sf::Vector2i &position, const sf::Color &color, const bool &allowPlacement );
 
     // Make all tiles
-    void makeTilemap( const int &tmpGridSize );
+    void makeTilemap( const sf::Vector2i &gridSize );
 
 public:
 
     // Default constructor
     // NOTE: position and size is for the tilemap itself
-    tilemap( const sf::Vector2f &position, const sf::Vector2f &size, const int &tmpGridSize, const sf::Color &color );
+    tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color );
     
     // Draw all the tiles
     void draw( sf::RenderWindow &window );

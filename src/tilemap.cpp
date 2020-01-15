@@ -25,18 +25,54 @@ bool tile::getAllowPlacement(){
 }
 
 
-
 // ======================================================
 // ======================================================
 // ======================================================
 
-tilemap::tilemap( const sf::Vector2f &position, const sf::Vector2f &size, const int &tmpGridSize, const sf::Color &color ):
+
+tilemap::tilemap( 
+    const sf::Vector2i &position, 
+    const sf::Vector2i &size, 
+    const sf::Vector2i &gridSize, 
+    const sf::Color &color 
+):
     position ( position ),
     size ( size ),
     color ( color )
 {   
-    makeTilemap( tmpGridSize );
+    makeTilemap( gridSize );
 }
+
+void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
+    grid.clear();
+
+    sf::Vector2i totalSize{ size - position };
+    if (( totalSize.x / gridSize.x ) > ( totalSize.y / gridSize.y )) {
+        int tileSize = 
+    }
+
+}
+
+// void tilemap::makeTilemap( const int &tmpGridSize ) {
+//     grid.clear();
+
+//     sf::Vector2f totalSize = size - position;
+//     int maxBlockYSize = totalSize.y / ( totalSize.x / tmpGridSize );
+//     sf::Vector2f tilesize{ totalSize.x / tmpGridSize, totalSize.x / tmpGridSize };
+//     gridSize = sf::Vector2i{ tmpGridSize, maxBlockYSize };
+    
+//     for (int x = 0; x < tmpGridSize; x++) {
+//         std::vector<tile*> row;
+//         for (int y = 0; y < maxBlockYSize; y++) {
+//             row.push_back( new tile{ 
+//                 sf::Vector2f{ x * (totalSize.x / tmpGridSize), y * (totalSize.x / tmpGridSize) },
+//                 tilesize,
+//                 color
+//             });
+//         }
+//         grid.push_back( row );    
+//     }
+// }
 
 void tilemap::draw( sf::RenderWindow &window ) {
     for (auto row : grid){
@@ -90,27 +126,6 @@ sf::Vector2i tilemap::getTilePosition( sf::Vector2i tmpPosition ){
         int(tmpPosition.x / (size.x / gridSize.x)),
         int(tmpPosition.y / (gridSize.y * ((size.x - position.x) / gridSize.x) / gridSize.y))
     };
-}
-
-void tilemap::makeTilemap( const int &tmpGridSize ) {
-    grid.clear();
-
-    sf::Vector2f totalSize = size - position;
-    int maxBlockYSize = totalSize.y / ( totalSize.x / tmpGridSize );
-    sf::Vector2f tilesize{ totalSize.x / tmpGridSize, totalSize.x / tmpGridSize };
-    gridSize = sf::Vector2i{ tmpGridSize, maxBlockYSize };
-    
-    for (int x = 0; x < tmpGridSize; x++) {
-        std::vector<tile*> row;
-        for (int y = 0; y < maxBlockYSize; y++) {
-            row.push_back( new tile{ 
-                sf::Vector2f{ x * (totalSize.x / tmpGridSize), y * (totalSize.x / tmpGridSize) },
-                tilesize,
-                color
-            });
-        }
-        grid.push_back( row );    
-    }
 }
 
 void tilemap::clearTilemap() {
