@@ -47,10 +47,25 @@ void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
     grid.clear();
 
     sf::Vector2i totalSize{ size - position };
-    if (( totalSize.x / gridSize.x ) > ( totalSize.y / gridSize.y )) {
-        int tileSize = 
-    }
 
+    int XValue = totalSize.x / gridSize.x;
+    int YValue = totalSize.y / gridSize.y;
+    float tileSize = (XValue > YValue) ? YValue : XValue;
+
+    float XOffset = (totalSize.x - ( tileSize * gridSize.x )) / 2;
+    float YOffset = (totalSize.y - ( tileSize * gridSize.y )) / 2;
+    
+    for ( int x = 0; x < gridSize.x; x++) {
+        std::vector<tile*> row;
+        for ( int y = 0; y < gridSize.y; y++ ){
+            row.push_back( new tile{ 
+                sf::Vector2f{(x * tileSize) + XOffset, (y * tileSize) + YOffset },
+                sf::Vector2f{tileSize, tileSize},
+                color
+            });
+        }
+        grid.push_back( row );
+    }
 }
 
 // void tilemap::makeTilemap( const int &tmpGridSize ) {
@@ -129,5 +144,5 @@ sf::Vector2i tilemap::getTilePosition( sf::Vector2i tmpPosition ){
 }
 
 void tilemap::clearTilemap() {
-    makeTilemap( gridSize.x );
+    makeTilemap( gridSize );
 }
