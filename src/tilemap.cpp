@@ -116,7 +116,6 @@ sf::Vector2i tilemap::getTilePosition( sf::Vector2i tmpPosition ){
     }
     return index;
 }
-//return sf::Vector2i{int(tmpPosition.x/(size.x/gridSize.x)), int(tmpPosition.y/(gridSize.y*((size.x-position.x)/gridSize.x)/gridSize.y))};
 
 void tilemap::clearTilemap() {
     makeTilemap( gridSize );

@@ -28,7 +28,7 @@ void game::run() {
     };
 
     // Make fileReader for pathnodes
-    fileReader maffeHandler{ "../res/configfiles/maps/test.json" };
+    fileReader maffeHandler{ "../res/configfiles/maps/easy.json" };
 
     // Make tiles
     sf::Color standardColor = sf::Color::Green;

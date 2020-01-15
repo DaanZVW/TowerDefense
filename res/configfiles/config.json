@@ -4,7 +4,8 @@
         {
             "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
             "Version" : "Alpha 1.0",
-            "Github" : "https://github.com/DaanZVW/TowerDefense"
+            "Github" : "https://github.com/DaanZVW/TowerDefense",
+            "StandardPath" : "../res/configfiles/maps/"
         }
     ],
     "Maps" :
@@ -22,6 +23,10 @@
         {
             "Name" : "Hard",
             "Filename" : "hard.json"
+        },
+        {
+            "Name" : "Test",
+            "Filename" : "test.json"
         }
     ]
 }

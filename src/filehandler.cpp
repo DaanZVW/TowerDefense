@@ -31,7 +31,12 @@ std::vector<sf::Vector2i> fileReader::makeNodes(){
 // =================================================================================
 
 sf::Vector2i fileReader::getGridSize(){
-    return sf::Vector2i{fileInfo["Info"]["GridSize"][0].asInt(), fileInfo["Info"]["GridSize"][1].asInt()};
+    sf::Vector2i gridSize{fileInfo["Info"]["GridSize"][0].asInt(), fileInfo["Info"]["GridSize"][1].asInt()};
+    if (gridSize == sf::Vector2i{0, 0}) {
+        std::cerr << "[Error] GridSize from Path " << filename << " does not excist! Will use default size..." << std::endl;
+        return sf::Vector2i{50, 50};
+    }
+    return gridSize;
 }
 
 // =================================================================================
