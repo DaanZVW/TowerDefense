@@ -2,7 +2,8 @@
     "Info" :
     {
         "Difficulty" : "Easy",
-        "Name" : "Angry Shroom"
+        "Name" : "Angry Shroom",
+        "MapSize" : [30, 20]
     },
     "PathNodes": 
     [
