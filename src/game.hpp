@@ -28,7 +28,6 @@ class game {
 private:
 
     std::string configFilePath;
-    sf::Vector2i 
 
 public:
 
@@ -36,3 +35,5 @@ public:
 
     void run();
 };
+
+#endif /*GAME_HPP*/

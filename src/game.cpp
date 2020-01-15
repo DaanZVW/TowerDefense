@@ -30,12 +30,12 @@ void game::run() {
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
     tilemap map{
-        sf::Vector2f{0,0}, 
-        sf::Vector2f{ 
-            float( window.getSize().x * MENUSIZE ),
-            float( window.getSize().y )
+        sf::Vector2i{0,0}, 
+        sf::Vector2i{ 
+            int( window.getSize().x * MENUSIZE ),
+            int( window.getSize().y )
         }, 
-        30, 
+        sf::Vector2i{ 30, 50 }, 
         standardColor 
     };
     
@@ -82,7 +82,6 @@ void game::run() {
                         window.close();
                     } else if ( event.key.code == sf::Keyboard::Return ) {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
-                        return 0;
                     }
                     break;
                 
@@ -109,6 +108,5 @@ void game::run() {
 	std::cout << "Terminating application" << std::endl;
 
     // Close main
-	return 0;
 
 }
