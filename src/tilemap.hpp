@@ -70,6 +70,8 @@ public:
     // Clear whole tile field and reset to default color
     void clearTilemap();
 
+    // Get tile pointer from grid
+    tile* getTileFromIndex( const sf::Vector2i &tileindex );
 };
 
 #endif /*TILEMAP_HPP*/

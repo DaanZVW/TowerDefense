@@ -15,7 +15,7 @@
 #include <vector>
 
 // Include External libs
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 #include <SFML/Graphics.hpp>
 
 // Include Nessecery files

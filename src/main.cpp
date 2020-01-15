@@ -9,7 +9,7 @@
 #include <vector>
 
 // Include External libs
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 #include <SFML/Graphics.hpp>
 
 // Include External hpp's
@@ -17,17 +17,18 @@
 #include "tilemap.hpp"
 #include "enemyChar.hpp"
 #include "levelEditor.hpp"
+#include "tower.hpp"
 
 int main() {
     // Starting message
     std::cout << "Application starting ..." << std::endl;
 
     // Make SFML window
-    sf::RenderWindow window{ sf::VideoMode{1920, 1080}, "SFML window", sf::Style::Fullscreen };
+    sf::RenderWindow window{ sf::VideoMode{1680, 1050}, "SFML window", sf::Style::Fullscreen };
 
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
-    tilemap map{sf::Vector2f{0,0}, sf::Vector2f{1920, 1080}, 30, standardColor };
+    tilemap map{sf::Vector2f{0,0}, sf::Vector2f{1200, 1050}, 30, standardColor };
     
     // levelEditor lvlEditor{ map };
 
@@ -39,6 +40,8 @@ int main() {
 
     // Make enemy character
     enemyChar pietje{ 100, 10, 0.5 };
+
+    tower henk( map );
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -53,6 +56,9 @@ int main() {
 
         pietje.followPath( 1 );
         window.draw( pietje );
+
+        henk.placeTower( sf::Mouse::getPosition( window ) );
+        window.draw(henk);
 
         // Draw all excisting objects on the screen
 		window.display();

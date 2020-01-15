@@ -116,3 +116,8 @@ void tilemap::makeTilemap( const int &tmpGridSize ) {
 void tilemap::clearTilemap() {
     makeTilemap( gridSize.x );
 }
+
+
+tile* tilemap::getTileFromIndex( const sf::Vector2i &tileindex ) {
+    return grid[tileindex.x][tileindex.y];
+}
