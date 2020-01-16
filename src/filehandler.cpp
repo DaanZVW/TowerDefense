@@ -12,10 +12,9 @@
 
 fileReader::fileReader( const std::string &filename ):
     filename( filename )
-{
-    Json::Reader reader;
+{   
     std::ifstream fileReader(filename);
-    reader.parse( fileReader, fileInfo );
+    fileReader >> fileInfo;
 }
 
 // =================================================================================
