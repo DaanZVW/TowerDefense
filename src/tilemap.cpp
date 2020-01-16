@@ -60,6 +60,11 @@ void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
 
 
 void tilemap::draw( sf::RenderWindow &window ) {
+    sf::RectangleShape background{position};
+    background.setSize(size);
+    background.setFillColor(sf::Color::Blue);
+    window.draw(background);
+
     for (auto row : grid){
         for (auto tile : row) {
             window.draw( *tile );
