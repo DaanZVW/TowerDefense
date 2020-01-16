@@ -35,7 +35,7 @@ void game::run() {
     tilemap map{
         sf::Vector2i{0,0}, 
         sf::Vector2i{ 
-            int( window.getSize().x * MENUSIZE ),
+            int( window.getSize().x * TILEMAPSIZE ),
             int( window.getSize().y )
         }, 
         maffeHandler.getGridSize(), 
@@ -50,6 +50,14 @@ void game::run() {
     // Make enemy character
     enemyChar pietje{ 100, 10, 0.5 };
 
+    menu sideMenu{
+        sf::Vector2f{ window.getSize().x * TILEMAPSIZE, 0 },
+        sf::Vector2f{ 
+            window.getSize().x * (1-TILEMAPSIZE) ,
+            window.getSize().y 
+        }
+    };
+
     // Do this while the window is open
     while (window.isOpen()) {
 
@@ -60,6 +68,8 @@ void game::run() {
 
         pietje.followPath( 1 );
         window.draw( pietje );
+
+        window.draw( sideMenu );
 
         // Draw all excisting objects on the screen
 		window.display();

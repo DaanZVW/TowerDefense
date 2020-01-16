@@ -20,8 +20,10 @@
 #include "tilemap.hpp"
 #include "enemyChar.hpp"
 #include "levelEditor.hpp"
+#include "menu.hpp"
 
-#define MENUSIZE 0.75
+#define TILEMAPSIZE 0.75
+
 
 
 class game {
