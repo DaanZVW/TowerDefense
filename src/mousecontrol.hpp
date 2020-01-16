@@ -9,18 +9,19 @@ class mouseControl{
 private:
 	tilemap & map;
 	menu & menuSide;
-	bool placeTower = false;
 	tower *newTower;
 	towerGroup & towers;
 
+	bool placeTower = false;
+	bool availableSpot = false;
 
 public:
 	mouseControl( tilemap & map, menu & menuSide, towerGroup & towers);
 
 	void updateMouse( const sf::Vector2i & mousePointer );
 
-	void mouseClick( const sf::Vector2i & mousePointer );
-
+	void selectClick( const sf::Vector2i & mousePointer );
+	void deselectClick();
 };
 
 

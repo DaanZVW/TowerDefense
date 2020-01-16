@@ -26,6 +26,7 @@ public:
     bool getAllowPlacement();
     void updateColor();
 };
+
 class tilemap {
 private:
 
@@ -73,7 +74,7 @@ public:
     void clearTilemap();
 
     // Get tile pointer from grid
-    tile* getTileFromIndex( const sf::Vector2i &tileindex );
+    tile* getTileFromIndex( sf::Vector2i &tileindex );
 
     // Get tile size
     float getTileSize();

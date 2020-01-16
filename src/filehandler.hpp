@@ -44,6 +44,8 @@ public:
 
     sf::Vector2i getGridSize();
 
+    sf::Font getFont();
+
     // // Reads the file given in constructor
     // // Returns a drawable pointer vector
     // std::vector<drawable*> readFile();

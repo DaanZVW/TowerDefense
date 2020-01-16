@@ -28,7 +28,7 @@ void game::run() {
     };
 
     // Make fileReader for pathnodes
-    fileReader fileHandler{ "../res/configfiles/maps/easy.json" };
+    fileReader fileHandlerMap{ "../res/configfiles/maps/easy.json" };
 
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
@@ -38,17 +38,17 @@ void game::run() {
             int( window.getSize().x * TILEMAPSIZE ),
             int( window.getSize().y )
         }, 
-        fileHandler.getGridSize(), 
+        fileHandlerMap.getGridSize(), 
         standardColor 
     };
     
     // levelEditor lvlEditor{ map };
 
     // Make the path
-    map.makePath( fileHandler.makeNodes() , sf::Color::Yellow);
+    map.makePath( fileHandlerMap.makeNodes() , sf::Color::Yellow);
 
     // Make fileReader fot towers
-    fileReader fileHandlerTowers{ "../res/configfiles/config.json" };
+    fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
 
 
     // Make enemy character
@@ -60,18 +60,17 @@ void game::run() {
             float(window.getSize().x * (1-TILEMAPSIZE)),
             float(window.getSize().y )
         },
-        fileHandlerTowers.makeTowers(),
-        map.getTileSize()
+        fileHandlerConfig.makeTowers(),
+        map.getTileSize(),
+        fileHandlerConfig.getFont()
     };
 
     towerGroup groupTower;
 
     mouseControl mouse{ map, sideMenu, groupTower };
 
-
     // Do this while the window is open
     while (window.isOpen()) {
-
 
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
@@ -82,9 +81,9 @@ void game::run() {
         window.draw( pietje );
 
         
-sideMenu.draw( window );
+        sideMenu.draw( window );
 
-    groupTower.draw( window );
+        groupTower.draw( window );
 
 
         // Draw all excisting objects on the screen
@@ -119,9 +118,10 @@ sideMenu.draw( window );
 
                 case sf::Event::MouseButtonPressed:
                     if ( event.mouseButton.button == sf::Mouse::Left ) {
-                        mouse.mouseClick( sf::Mouse::getPosition( window ) );
+                        mouse.selectClick( sf::Mouse::getPosition( window ) );
                         // lvlEditor.addNode( sf::Mouse::getPosition( window ) );
                     } else if ( event.mouseButton.button == sf::Mouse::Right ) {
+                        mouse.deselectClick();
                         // lvlEditor.popNode();
                     }
                     break;

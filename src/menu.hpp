@@ -8,11 +8,10 @@
 class menuTextObject : public sf::Text{
 private:
 	std::string text;
-	sf::Font font;
+	const sf::Font &font;
 
 public:
-	menuTextObject(const sf::Vector2f & position, const std::string & text);
-
+	menuTextObject(const sf::Vector2f & position, const std::string & text, const sf::Font &font);
 };
 
 
@@ -23,15 +22,15 @@ private:
 	std::vector<tower*> towers;
 	int tilesize;
 
+	const sf::Font &font;
+
 public:
 
-	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float & tilesize );
+	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float & tilesize, const sf::Font &font );
 
 	void draw( sf::RenderWindow &window );
 
-	std::vector<tower*> getTowers(){
-		return towers;
-	}
+	std::vector<tower*> getTowers();
 
 };
 

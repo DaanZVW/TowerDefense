@@ -7,10 +7,10 @@ mouseControl::mouseControl( tilemap & map, menu & menuSide, towerGroup & towers)
 {}
 
 void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
-	if(placeTower == true ){
-		if( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
+	if (placeTower == true ){
+		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
 			newTower->setPosition(sf::Vector2f{float(mousePointer.x), float(mousePointer.y)});
-		}else{
+		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );
 			sf::Color color = newTower->getFillColor();
@@ -18,34 +18,65 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 			newTower->setPosition( tile->getPosition() );
 			newTower->setSize( tile->getSize() );
 
-			if( tile->getAllowPlacement() ){
+			if ( tile->getAllowPlacement() ){
 				newTower->setFillColor( newTower->mycolor );
-			}else{
+				availableSpot = true;
+			} else {
 				newTower->setFillColor( sf::Color::Red );
+				availableSpot = false;
 			}
-
-
-
-
 		}
 	}
 }
 
-void mouseControl::mouseClick( const sf::Vector2i & mousePointer ){
-	if( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
-		for( auto menuTower : menuSide.getTowers() ){
-			if(menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
-				placeTower=true;
+void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
+	// Check if mouse is pointing at something outside the tilemap
+	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
+		for ( auto menuTower : menuSide.getTowers() ){
+			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
+				
+				// Deselect if tower is selected
+				if (placeTower) {
+					deselectClick();
+				}
+
+				// Make new tower which is the same as clicked
+				placeTower = true;
 				newTower = new tower{ 
-								menuTower->name,
-								menuTower->damage,
-								menuTower->range,
-								menuTower->firerate,
-								menuTower->getFillColor()
-								};
+					menuTower->name,
+					menuTower->damage,
+					menuTower->range,
+					menuTower->firerate,
+					menuTower->getFillColor()
+				};
 				newTower->setSize(menuTower->getSize());
+
+				// Add newtower to the towers vector
 				towers.add(newTower);
 			}
 		}
-	}	
+	// When the tile is empty and a tower is held, place the tile
+	} else if ( placeTower && availableSpot ){
+		placeTower = false;
+		towers.addTmpTower();
+		sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
+		auto tile = map.getTileFromIndex( tilePosition );
+		tile->setAllowPlacement( false );
+
+	// When the tile selected is a tower, show info
+	} else if ( !placeTower && map.getTilePosition(sf::Vector2i{ mousePointer }) != sf::Vector2i{-1,-1} ) {
+		sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
+		auto tile = map.getTileFromIndex( tilePosition );
+
+		if ( towers.isTower( tile ) ) {
+			auto selectedTower = towers.getTower( tile );
+
+			std::cout << selectedTower->name << std::endl;
+		}
+	}
+}
+
+void mouseControl::deselectClick() {
+	placeTower = false;
+	towers.clearTmpTower();
 }

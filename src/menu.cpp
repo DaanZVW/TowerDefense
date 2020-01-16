@@ -1,17 +1,19 @@
 #include "menu.hpp"
 
 
-menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string & text):
-	text( text )
+menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string & text, const sf::Font &font):
+	text( text ),
+	font ( font )
 {
 	setPosition( position );
 }
 
-menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float &tilesize ):
+menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float &tilesize, const sf::Font &font ):
 	position( position ),
 	size( size ),
 	towers( towers ),
-	tilesize( tilesize )
+	tilesize( tilesize ),
+	font ( font )
 {
 	setPosition( position );
 	setSize( size );
@@ -22,11 +24,13 @@ menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector
 	}
 }
 
-
-
 void menu::draw( sf::RenderWindow &window ){
 	window.draw( *this );
 	for( auto &tower : towers ){
 		window.draw( *tower );
 	}
+}
+
+std::vector<tower*> menu::getTowers(){
+	return towers;
 }

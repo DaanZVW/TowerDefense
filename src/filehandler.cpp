@@ -57,7 +57,18 @@ sf::Vector2i fileReader::getGridSize(){
 }
 
 // =================================================================================
-// ===============================Writehandle=======================================
+
+sf::Font fileReader::getFont() {
+    sf::Font font;
+    if ( !font.loadFromFile(filename) ) {
+        std::cerr << "[Error] Font from Path " << filename << " does not excist! Will use default font..." << std::endl;
+        font.loadFromFile( "../res/fonts/Arial.ttf" );
+    }
+    return font;
+}
+
+// =================================================================================
+// ===============================Writehandler======================================
 // =================================================================================
 
 fileWriter::fileWriter( const std::string &filename ):
