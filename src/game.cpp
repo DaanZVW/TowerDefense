@@ -55,12 +55,13 @@ void game::run() {
     enemyChar pietje{ 100, 10, 0.5 };
 
     menu sideMenu{
-        sf::Vector2f{ window.getSize().x * TILEMAPSIZE, 0 },
+        sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
         sf::Vector2f{ 
-            window.getSize().x * (1-TILEMAPSIZE) ,
-            window.getSize().y 
+            float(window.getSize().x * (1-TILEMAPSIZE)),
+            float(window.getSize().y )
         },
-        fileHandlerTowers.makeTowers()
+        fileHandlerTowers.makeTowers(),
+        map.getTileSize()
     };
 
     // Do this while the window is open
@@ -74,10 +75,14 @@ void game::run() {
         pietje.followPath( 1 );
         window.draw( pietje );
 
-        window.draw( sideMenu );
+        
+sideMenu.draw( window );
+
 
         // Draw all excisting objects on the screen
 		window.display();
+
+
 
         // Sleep 5 miliseconds so the close event gets time
 		sf::sleep( sf::milliseconds( 10 ));

@@ -75,6 +75,9 @@ public:
     // Get tile pointer from grid
     tile* getTileFromIndex( const sf::Vector2i &tileindex );
 
+    // Get tile size
+    int getTileSize();
+
 };
 
 #endif /*TILEMAP_HPP*/ 

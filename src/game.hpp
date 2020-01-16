@@ -24,8 +24,6 @@
 
 #define TILEMAPSIZE 0.75
 
-
-
 class game {
 private:
 

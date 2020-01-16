@@ -32,12 +32,13 @@ tower::tower( 	const std::string & name,
 	range( range ),
 	firerate( firerate )
 {
+	std::cout << texture;
 	if(texture == "Black"){
-		color = sf::Color::Black;
+		setFillColor(sf::Color::Black);
 	}else if(texture == "Blue"){
-		color = sf::Color::Blue;
+		setFillColor(sf::Color::Blue);
 	}else if(texture == "Yellow"){
-		color = sf::Color::Yellow;
+		setFillColor(sf::Color::Yellow);
 	}
 }
 

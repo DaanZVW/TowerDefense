@@ -28,5 +28,29 @@
             "Name" : "Test",
             "Filename" : "test.json"
         }
+    ],
+    "Towers" :
+    [
+        {
+            "Name" : "Fire Blaster",
+            "Texture" : "Black",
+            "Damage" : 10,
+            "Range" : 2,
+            "Firerate" : 50
+        },
+        {
+            "Name" : "Water Blaster",
+            "Texture" : "Blue",
+            "Damage" : 2,
+            "Range" : 4,
+            "Firerate" : 120
+        },
+        {
+            "Name" : "Wood Blaster",
+            "Texture" : "Yellow",
+            "Damage" : 50,
+            "Range" : 6,
+            "Firerate" : 20
+        }
     ]
 }
