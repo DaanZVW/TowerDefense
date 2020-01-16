@@ -29,6 +29,24 @@ std::vector<sf::Vector2i> fileReader::makeNodes(){
 
 // =================================================================================
 
+std::vector< tower* > fileReader::makeTowers(){
+    std::vector< tower* > towers;
+    for ( auto towerObject : fileInfo["Towers"] ) {
+        towers.push_back( 
+            new tower{ 
+                towerObject["Name"].asString(),
+                towerObject["Damage"].asInt(),
+                towerObject["Range"].asInt(),
+                towerObject["Firerate"].asInt(),
+                towerObject["Texture"].asString()
+                } );
+    }
+    return towers;
+}
+
+// =================================================================================
+
+
 sf::Vector2i fileReader::getGridSize(){
     sf::Vector2i gridSize{fileInfo["Info"]["GridSize"][0].asInt(), fileInfo["Info"]["GridSize"][1].asInt()};
     if (gridSize == sf::Vector2i{0, 0}) {

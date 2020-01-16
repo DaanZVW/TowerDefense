@@ -28,7 +28,7 @@ void game::run() {
     };
 
     // Make fileReader for pathnodes
-    fileReader maffeHandler{ "../res/configfiles/maps/easy.json" };
+    fileReader fileHandler{ "../res/configfiles/maps/easy.json" };
 
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
@@ -38,14 +38,18 @@ void game::run() {
             int( window.getSize().x * TILEMAPSIZE ),
             int( window.getSize().y )
         }, 
-        maffeHandler.getGridSize(), 
+        fileHandler.getGridSize(), 
         standardColor 
     };
     
     // levelEditor lvlEditor{ map };
 
     // Make the path
-    map.makePath( maffeHandler.makeNodes() , sf::Color::Yellow);
+    map.makePath( fileHandler.makeNodes() , sf::Color::Yellow);
+
+    // Make fileReader fot towers
+    fileReader fileHandlerTowers{ "../res/configfiles/config.json" };
+
 
     // Make enemy character
     enemyChar pietje{ 100, 10, 0.5 };
@@ -55,7 +59,8 @@ void game::run() {
         sf::Vector2f{ 
             window.getSize().x * (1-TILEMAPSIZE) ,
             window.getSize().y 
-        }
+        },
+        fileHandlerTowers.makeTowers()
     };
 
     // Do this while the window is open

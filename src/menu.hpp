@@ -16,24 +16,16 @@ public:
 };
 
 
-class menuTowerObject : public sf::RectangleShape{
-private:
-
-public:
-	menuTowerObject(const sf::Vector2f & position, const sf::Vector2f & size );
-
-};
-
-
 class menu : public sf::RectangleShape{
 private:
 	sf::Vector2f position;
 	sf::Vector2f size;
-	std::vector<sf::Drawable*> drawables;
+	const std::vector< tower* > & towers;
 
 public:
-	menu(const sf::Vector2f & position, const sf::Vector2f & size );
+	menu(const sf::Vector2f & position, const sf::Vector2f & size, const std::vector<tower*> & towers );
 
+	void draw( sf::RenderWindow &window );
 };
 
 #endif /*MENU_HPP*/

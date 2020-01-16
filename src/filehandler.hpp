@@ -15,8 +15,9 @@
 #include <vector>
 
 // Include External libs
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 #include <SFML/Graphics.hpp>
+#include "tower.hpp"
 
 // Include Nessecery files
 // something
@@ -38,6 +39,9 @@ public:
     // Returns
 
     std::vector<sf::Vector2i> makeNodes();
+
+    std::vector< tower* > makeTowers();
+
     sf::Vector2i getGridSize();
 
     // // Reads the file given in constructor

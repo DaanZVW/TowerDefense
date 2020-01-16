@@ -3,18 +3,29 @@
 
 #include "tilemap.hpp"
 
+
+
 class tower : public sf::RectangleShape{
 private:
-
-	tilemap & map;
+	const std::string & name;
+	int damage;
+	int range;
+	int firerate;
+	sf::Color color;
 
 public:
 
-	tower( tilemap & map ):
-	map( map )
-	{}
+	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
 
-	void placeTower( const sf::Vector2i & mousePosition );
+};
+
+class towerGroup{
+private:
+	std::vector< tower* > towers;
+
+public:
+	towerGroup();
+
 
 };
 
