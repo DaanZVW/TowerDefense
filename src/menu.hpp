@@ -25,7 +25,7 @@ private:
 
 public:
 
-	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const int & tilesize );
+	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float & tilesize );
 
 	void draw( sf::RenderWindow &window );
 

@@ -76,7 +76,7 @@ public:
     tile* getTileFromIndex( const sf::Vector2i &tileindex );
 
     // Get tile size
-    int getTileSize();
+    float getTileSize();
     
     // Get map position
     sf::Vector2f getMapPosition();
