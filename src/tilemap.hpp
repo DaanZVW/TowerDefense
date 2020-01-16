@@ -77,6 +77,12 @@ public:
 
     // Get tile size
     int getTileSize();
+    
+    // Get map position
+    sf::Vector2f getMapPosition();
+
+    // Get map size
+    sf::Vector2f getMapSize();
 
 };
 

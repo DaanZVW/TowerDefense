@@ -133,3 +133,11 @@ tile* tilemap::getTileFromIndex( const sf::Vector2i &tileindex ) {
 int tilemap::getTileSize(){
     return int(tileSize);
 }
+
+sf::Vector2f tilemap::getMapPosition(){
+    return position;
+}
+
+sf::Vector2f tilemap::getMapSize(){
+    return size;
+}
