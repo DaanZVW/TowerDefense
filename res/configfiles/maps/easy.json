@@ -31,5 +31,33 @@
             "x" : 10,
             "y" : 4
         }
-    ]
+    ],
+    "Menu" :
+    {
+        "Text" :
+        [
+            {
+                "String" : "Ghalo",
+                "Position" : 
+                {
+                    "x" : 5,
+                    "y" : 10
+                }
+            },
+            {
+                "String" : "Adrie doesburg",
+                "Position" : 
+                {
+                    "x" : 0,
+                    "y" : 20
+                }
+            }
+        ],
+        "Images" :
+        [
+            {
+                
+            }
+        ]
+    }
 }

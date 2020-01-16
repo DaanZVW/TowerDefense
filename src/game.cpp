@@ -51,10 +51,10 @@ void game::run() {
     enemyChar pietje{ 100, 10, 0.5 };
 
     menu sideMenu{
-        sf::Vector2f{ window.getSize().x * TILEMAPSIZE, 0 },
+        sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
         sf::Vector2f{ 
-            window.getSize().x * (1-TILEMAPSIZE) ,
-            window.getSize().y 
+            float(window.getSize().x * (1-TILEMAPSIZE)),
+            float(window.getSize().y)
         }
     };
 
