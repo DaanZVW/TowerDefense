@@ -64,8 +64,14 @@ void game::run() {
         map.getTileSize()
     };
 
+    towerGroup groupTower;
+
+    mouseControl mouse{ map, sideMenu, groupTower };
+
+
     // Do this while the window is open
     while (window.isOpen()) {
+
 
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
@@ -78,10 +84,13 @@ void game::run() {
         
 sideMenu.draw( window );
 
+    groupTower.draw( window );
+
 
         // Draw all excisting objects on the screen
 		window.display();
 
+        mouse.updateMouse( sf::Mouse::getPosition( window ) );
 
 
         // Sleep 5 miliseconds so the close event gets time
@@ -110,6 +119,7 @@ sideMenu.draw( window );
 
                 case sf::Event::MouseButtonPressed:
                     if ( event.mouseButton.button == sf::Mouse::Left ) {
+                        mouse.mouseClick( sf::Mouse::getPosition( window ) );
                         // lvlEditor.addNode( sf::Mouse::getPosition( window ) );
                     } else if ( event.mouseButton.button == sf::Mouse::Right ) {
                         // lvlEditor.popNode();

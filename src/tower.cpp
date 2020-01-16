@@ -1,25 +1,19 @@
 #include "tower.hpp"
 
+void towerGroup::add(tower* & newTower ){
+	towers.push_back(newTower);
+}
 
 
 
-// void tower::towerGroup( const sf::Vector2i & mousePosition){
-// 	sf::Vector2i tilePosition = map.getTilePosition( mousePosition );
-// 	auto tile = map.getTileFromIndex( tilePosition );
 
-// 	setPosition( tile->getPosition() );
-// 	setSize( tile->getSize() );
+towerGroup::towerGroup(){}
 
-// 	if( tile->getAllowPlacement() ){
-// 		setFillColor( sf::Color::Blue );
-// 	}else{
-// 		setFillColor( sf::Color::Red );
-// 	}
-
-// }
-
-
-
+void towerGroup::draw( sf::RenderWindow &window ){
+	for(auto tower : towers ){
+		window.draw( *tower );
+	}
+}
 
 tower::tower( 	const std::string & name, 
 				const int & damage, 
@@ -32,7 +26,6 @@ tower::tower( 	const std::string & name,
 	range( range ),
 	firerate( firerate )
 {
-	std::cout << texture;
 	if(texture == "Black"){
 		setFillColor(sf::Color::Black);
 	}else if(texture == "Blue"){
@@ -40,5 +33,23 @@ tower::tower( 	const std::string & name,
 	}else if(texture == "Yellow"){
 		setFillColor(sf::Color::Yellow);
 	}
+	mycolor = getFillColor();
 }
+
+tower::tower( 	const std::string & name, 
+				const int & damage, 
+				const int & range, 
+				const int & firerate,
+				const sf::Color & color
+			):
+	name( name ),
+	damage( damage ),
+	range( range ),
+	firerate( firerate )
+{
+	setFillColor( color );
+	mycolor = getFillColor();
+}
+
+
 

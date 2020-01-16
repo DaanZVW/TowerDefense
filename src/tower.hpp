@@ -6,16 +6,16 @@
 
 
 class tower : public sf::RectangleShape{
-private:
+public:
 	const std::string & name;
 	int damage;
 	int range;
 	int firerate;
-	sf::Color color;
-
-public:
+	sf::Color mycolor;
 
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
+
+	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const sf::Color & color);
 
 };
 
@@ -25,6 +25,10 @@ private:
 
 public:
 	towerGroup();
+
+	void add(tower* & newTower );
+
+	void draw( sf::RenderWindow &window );
 
 
 };

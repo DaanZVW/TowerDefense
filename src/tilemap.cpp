@@ -130,6 +130,14 @@ tile* tilemap::getTileFromIndex( const sf::Vector2i &tileindex ) {
     return grid[tileindex.x][tileindex.y];
 }
 
-float tilemap::getTileSize(){
-    return tileSize;
+int tilemap::getTileSize(){
+    return int(tileSize);
+}
+
+sf::Vector2f tilemap::getMapPosition(){
+    return position;
+}
+
+sf::Vector2f tilemap::getMapSize(){
+    return size;
 }

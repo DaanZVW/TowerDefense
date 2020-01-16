@@ -20,13 +20,19 @@ class menu : public sf::RectangleShape{
 private:
 	sf::Vector2f position;
 	sf::Vector2f size;
-	std::vector< tower* > towers;
+	std::vector<tower*> towers;
 	int tilesize;
 
 public:
-	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float &tilesize );
+
+	menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const int & tilesize );
 
 	void draw( sf::RenderWindow &window );
+
+	std::vector<tower*> getTowers(){
+		return towers;
+	}
+
 };
 
 #endif /*MENU_HPP*/

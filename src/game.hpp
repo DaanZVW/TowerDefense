@@ -20,6 +20,7 @@
 #include "enemyChar.hpp"
 #include "levelEditor.hpp"
 #include "menu.hpp"
+#include "mousecontrol.hpp"
 
 #define TILEMAPSIZE 0.75
 
