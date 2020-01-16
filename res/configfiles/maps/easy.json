@@ -56,7 +56,16 @@
         "Images" :
         [
             {
-                
+                "Name" : "Fire Blaster",
+                "Texture" : "Black"
+            },
+            {
+                "Name" : "Water Blaster",
+                "Texture" : "Blue"
+            },
+            {
+                "Name" : "Wood Blaster",
+                "Texture" : "Yellow"
             }
         ]
     }

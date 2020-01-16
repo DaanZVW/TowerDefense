@@ -7,7 +7,7 @@ menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string 
 	setPosition( position );
 }
 
-menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const int & tilesize ):
+menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> towers, const float &tilesize ):
 	position( position ),
 	size( size ),
 	towers( towers ),
@@ -16,9 +16,9 @@ menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector
 	setPosition( position );
 	setSize( size );
 	setFillColor( sf::Color(128, 128, 128, 100) );
-	for( int i=0; i<towers.size(); i++){
+	for( unsigned int i=0; i<towers.size(); i++){
 		towers[i]->setPosition(sf::Vector2f{position.x+100, position.y+(i*tilesize*2)});
-		towers[i]->setSize(sf::Vector2f{tilesize,tilesize});
+		towers[i]->setSize(sf::Vector2f{ tilesize,tilesize});
 	}
 }
 

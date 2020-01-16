@@ -12,7 +12,6 @@
 #include <vector>
 
 // Include External libs
-#include <json/json.h>
 #include <SFML/Graphics.hpp>
 
 // Include External hpp's
