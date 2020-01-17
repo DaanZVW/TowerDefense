@@ -5,7 +5,7 @@
 
 class tower : public sf::RectangleShape{
 public:
-	const std::string & name;
+	const std::string name;
 	int damage;
 	int range;
 	int firerate;

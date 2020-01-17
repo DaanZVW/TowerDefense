@@ -69,8 +69,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		auto tile = map.getTileFromIndex( tilePosition );
 
 		if ( towers.isTower( tile ) ) {
-			auto selectedTower = towers.getTower( tile );
-
+			tower* selectedTower = towers.getTower( tile );
 			std::cout << selectedTower->name << std::endl;
 		}
 	}
