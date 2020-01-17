@@ -50,8 +50,10 @@ void game::run() {
  
     // MOET FUNCTIE WORDEN!
     for(unsigned int i=0; i<createdPath.size(); i++){
+        sf::Vector2f tmp;
         pathPosition.push_back(map.getPixelPosition(createdPath[i]));
-        std::cout << pathPosition[i].x << " " << pathPosition[i].y << "\n";
+        pathPosition[i].x+=(map.getTileSize()/4);
+        pathPosition[i].y+=(map.getTileSize()/4);
     }
 
     // Make the path
@@ -64,7 +66,7 @@ void game::run() {
     //JSON
     Json::Value abc;
     abc["spoderman"]["health"] = 10;
-    abc["spoderman"]["speed"] = 1;
+    abc["spoderman"]["speed"] = 0.1;
     abc["spoderman"]["damage"] = 10;
 
     // Make enemy character
@@ -103,7 +105,7 @@ void game::run() {
 
         groupTower.draw( window );
 
-
+        pietje.deleteKilled();
         // Draw all excisting objects on the screen
 		window.display();
 
@@ -126,6 +128,8 @@ void game::run() {
                     } else if ( event.key.code == sf::Keyboard::Return ) {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
+                    }else if ( event.key.code == sf::Keyboard::Space ) {
+                        pietje.spawnWave();
                     }
                     break;
                 

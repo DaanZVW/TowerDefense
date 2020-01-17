@@ -69,7 +69,7 @@ const void enemyChar::followPath(float steps) {
 	if (steps) {
 		std::cout << "steps" << std::endl;
 		++currTargetLocation;
-		health -= rand() % 10;
+		health -= rand() % 5;
 		followPath(steps/speed);
 	}
 }
@@ -125,7 +125,7 @@ enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vecto
 	enemyTemplates(enemyTemplates),
 	route( route ) 
 {
-	texture.loadFromFile("pixelArt.png");
+	texture.loadFromFile("../res/images/PixelArt.png");
 	spawnWave();
 
 }
