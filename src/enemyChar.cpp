@@ -121,7 +121,10 @@ void enemyCharGroup::move() {
 		enemy->followPath(1);
 	}
 }
-enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates): enemyTemplates(enemyTemplates) {
+enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route): 
+	enemyTemplates(enemyTemplates),
+	route( route ) 
+{
 	texture.loadFromFile("pixelArt.png");
 	spawnWave();
 

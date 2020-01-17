@@ -85,11 +85,11 @@ private:
 	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	std::shared_ptr<base> target;
-	std::vector<sf::Vector2f> route{ { 10,10 }, { 10,200 },{200,200}, {200,10} };// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
+	std::vector<sf::Vector2f> & route;// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
 	sf::Texture texture;
 	Json::Value enemyTemplates;
 public:
-	enemyCharGroup(Json::Value enemyTemplates);
+	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
 	void spawnWave();
 
 	void drawAll(sf::RenderWindow& window);

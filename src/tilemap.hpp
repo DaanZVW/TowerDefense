@@ -70,6 +70,9 @@ public:
     // Get the index of tile where point is in
     sf::Vector2i getTilePosition( sf::Vector2i tmpPosition );
 
+    sf::Vector2f getPixelPosition( sf::Vector2i tmpPosition );
+
+
     // Clear whole tile field and reset to default color
     void clearTilemap();
 

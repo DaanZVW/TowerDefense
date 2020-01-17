@@ -47,6 +47,10 @@ std::vector< tower* > fileReader::makeTowers(){
 // =================================================================================
 
 
+
+// =================================================================================
+
+
 sf::Vector2i fileReader::getGridSize(){
     sf::Vector2i gridSize{fileInfo["Info"]["GridSize"][0].asInt(), fileInfo["Info"]["GridSize"][1].asInt()};
     if (gridSize == sf::Vector2i{0, 0}) {

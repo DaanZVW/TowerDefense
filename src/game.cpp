@@ -44,15 +44,31 @@ void game::run() {
     
     // levelEditor lvlEditor{ map };
 
+    std::vector<sf::Vector2i> createdPath = fileHandlerMap.makeNodes();
+
+    std::vector<sf::Vector2f> pathPosition;
+ 
+    // MOET FUNCTIE WORDEN!
+    for(unsigned int i=0; i<createdPath.size(); i++){
+        pathPosition.push_back(map.getPixelPosition(createdPath[i]));
+        std::cout << pathPosition[i].x << " " << pathPosition[i].y << "\n";
+    }
+
     // Make the path
-    map.makePath( fileHandlerMap.makeNodes() , sf::Color::Yellow);
+    map.makePath( createdPath , sf::Color::Yellow);
 
     // Make fileReader fot towers
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
 
 
+    //JSON
+    Json::Value abc;
+    abc["spoderman"]["health"] = 10;
+    abc["spoderman"]["speed"] = 1;
+    abc["spoderman"]["damage"] = 10;
+
     // Make enemy character
-    enemyChar pietje{ 100, 10, 0.5 };
+    enemyCharGroup pietje(abc, pathPosition);
 
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
@@ -77,9 +93,11 @@ void game::run() {
 
         map.draw( window );
 
-        pietje.followPath( 1 );
-        window.draw( pietje );
+        //pietje.followPath( 1 );
+        
+        pietje.drawAll( window );
 
+        pietje.move();
         
         sideMenu.draw( window );
 
