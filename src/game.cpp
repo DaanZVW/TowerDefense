@@ -66,12 +66,12 @@ void game::run() {
     //JSON
     Json::Value abc;
     abc["spoderman"]["health"] = 10;
-    abc["spoderman"]["speed"] = 0.1;
+    abc["spoderman"]["speed"] = 1;
     abc["spoderman"]["damage"] = 10;
 
     // Make enemy character
     enemyCharGroup pietje(abc, pathPosition);
-
+	pietje.setTileSize(map.getTileSize());
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
         sf::Vector2f{ 

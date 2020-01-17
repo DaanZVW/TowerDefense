@@ -52,19 +52,45 @@ const void enemyChar::followPath(float steps) {
 	}
 	sf::Vector2f currNode =*currTargetLocation;
 	steps *= speed;
-	if (getPosition().x != currNode.x) {
-		if (getPosition().x > currNode.x) { 
-			steps *= -1; 
+	if (getPosition().x > currNode.x) {
+		move(-steps , 0);
+		if (getPosition().x < currNode.x) {
+			steps =currNode.x -getPosition().x;
+			setPosition(currNode.x, getPosition().y);
 		}
-		move(steps , 0);
-		steps = 0;
+		else {
+			steps = 0;
+		}
 	}
-	if (getPosition().y != currNode.y) {
-		if (getPosition().y > currNode.y){
-			steps *= -1;
+	if (getPosition().x < currNode.x) {
+		move(steps, 0);
+		if (getPosition().x > currNode.x) {
+			steps = getPosition().x - currNode.x;
+			setPosition(currNode.x, getPosition().y);
 		}
+		else {
+			steps = 0;
+		}
+	}
+	if (getPosition().y > currNode.y) {
+		move(0, -steps);
+		if (getPosition().y < currNode.y) {
+			steps = currNode.y - getPosition().y;
+			setPosition(getPosition().x, currNode.y);
+		}
+		else {
+			steps = 0;
+		}
+	}
+	if (getPosition().y < currNode.y) {
 		move(0, steps);
-		steps = 0;
+		if (getPosition().y > currNode.y) {
+			steps = getPosition().y - currNode.y;
+			setPosition(getPosition().x, currNode.y);
+		}
+		else {
+			steps = 0;
+		}
 	}
 	if (steps) {
 		std::cout << "steps" << std::endl;
@@ -93,8 +119,12 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
-
-	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
+	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+		enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
+		clockSpawn.restart();
+	}
+	
+	
 		
 
 };
@@ -102,8 +132,9 @@ void enemyCharGroup::spawnWave() {
 void enemyCharGroup::drawAll(sf::RenderWindow& window) {
 	for (auto& enemy : enemies) {
 		window.draw(*enemy);
+		enemy->drawHP(window);
 	}
-	drawHP(window);
+	//drawHP(window);
 }
 
 void enemyCharGroup::deleteKilled() {
@@ -117,8 +148,10 @@ const bool enemyCharGroup::isEnemyDefeated() {
 }
 
 void enemyCharGroup::move() {
+	spawnWave();
+	sf::Time elapsed= clock.restart();
 	for (auto& enemy : enemies) {
-		enemy->followPath(1);
+		enemy->followPath(elapsed.asSeconds()*tileSize);
 	}
 }
 enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route): 
@@ -141,6 +174,11 @@ void enemyCharGroup::drawHP(sf::RenderWindow& window)
 void enemyCharGroup::updateTextures()
 {
 }
+
+void enemyCharGroup::setTileSize(float size) {
+	tileSize = size;
+}
+
 
 size_t enemyCharGroup::size() {
 	return enemies.size();
