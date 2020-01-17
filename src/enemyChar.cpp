@@ -1,13 +1,12 @@
 #include "enemyChar.hpp"
 #include <stdlib.h>     /* srand, rand */
 
-enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture& texture):
+enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Texture& texture):
 	health(stats["health"].asFloat()),
 	maxHealth(stats["health"].asFloat()),
 	baseDamage(stats["baseDamage"].asInt()),
 	speed(stats["speed"].asFloat()),
-	route(route),
-	siblings(siblings)
+	route(route)
 {
 	
 	std::cout << stats["health"].asFloat() << std::endl;
@@ -21,8 +20,8 @@ enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::v
 }
 
 
-enemyChar::enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f> & route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture &texture)
-	:health(health), maxHealth(health), baseDamage(baseDamage), speed(speed), route(route), siblings(siblings)
+enemyChar::enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f> & route, sf::Texture &texture)
+	:health(health), maxHealth(health), baseDamage(baseDamage), speed(speed), route(route)
 {
 	setSize(sf::Vector2f(32, 32));
 	setPosition(sf::Vector2f{ 10,224 });
@@ -48,13 +47,11 @@ const int enemyChar::getDamage() {
 }
 const void enemyChar::followPath(float steps) {
 	if (route.end() == currTargetLocation) {
-		//dead = true;		
+		health = 0;
 		return; 
 	}
 	sf::Vector2f currNode =*currTargetLocation;
 	steps *= speed;
-
-
 	if (getPosition().x != currNode.x) {
 		if (getPosition().x > currNode.x) { 
 			steps *= -1; 
@@ -69,14 +66,12 @@ const void enemyChar::followPath(float steps) {
 		move(0, steps);
 		steps = 0;
 	}
-
 	if (steps) {
+		std::cout << "steps" << std::endl;
 		++currTargetLocation;
 		health -= rand() % 10;
 		followPath(steps/speed);
 	}
-	
-
 }
 
 void enemyChar::drawHP(sf::RenderWindow& window)
@@ -94,15 +89,12 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 		window.draw(hpBar);
 		window.draw(hp);
 	}
-	else {
-		dead = true;
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 
-	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, enemies, texture));
+	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
 		
 
 };

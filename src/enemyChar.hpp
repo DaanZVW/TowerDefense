@@ -25,7 +25,6 @@ class enemyChar : public sf::RectangleShape {
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 	bool dead{ false };
-	std::vector<std::unique_ptr<enemyChar>>& siblings;
 	sf::RectangleShape hp;
 	sf::RectangleShape hpBar;
 	sf::IntRect texturepos;
@@ -38,13 +37,13 @@ public:
 	/////
 	///// @param Json::Value	Used for getting stats
 	///// 
-	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture& texture);
+	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Texture& texture);
 
 	/// @brief Construct an enemyChar
 	///
 	/// @param health	Used for getting size of pieces
 	/// 
-	enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f>& route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture &texture);
+	enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f>& route, sf::Texture &texture);
 	///// @brief Construct an enemyChar
 	/////
 	///// @param window	Used for getting size of pieces
@@ -72,7 +71,7 @@ public:
 	const void followPath(float steps);
 
 	const bool isDead() {
-		return dead;
+		return health <= 0;
 	}
 	void drawHP(sf::RenderWindow& window);
 };
@@ -86,7 +85,7 @@ private:
 	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	std::shared_ptr<base> target;
-	std::vector<sf::Vector2f> route{ { 10,10 }, { 200,200 } };// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
+	std::vector<sf::Vector2f> route{ { 10,10 }, { 10,200 },{200,200}, {200,10} };// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
 	sf::Texture texture;
 	Json::Value enemyTemplates;
 public:
