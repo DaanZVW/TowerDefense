@@ -1,34 +1,44 @@
 #include "enemyChar.hpp"
+#include <stdlib.h>     /* srand, rand */
 
-enemyChar::enemyChar(Json::Value stats): 
-	health(stats["health"].asInt()),
+enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture& texture):
+	health(stats["health"].asFloat()),
+	maxHealth(stats["health"].asFloat()),
 	baseDamage(stats["baseDamage"].asInt()),
-	speed(stats["speed"].asFloat())
+	speed(stats["speed"].asFloat()),
+	route(route),
+	siblings(siblings)
 {
-	setSize(sf::Vector2f(stats["size"][0].asFloat(), stats["size"][1].asFloat()));
-	setPosition(sf::Vector2f(stats["position"][0].asFloat(), stats["position"][1].asFloat()));
-	texture.loadFromFile(stats["texture"].asString());
+	
+	std::cout << stats["health"].asFloat() << std::endl;
+	setSize(sf::Vector2f(32, 32));// stats["size"][0].asFloat(), stats["size"][1].asFloat()));
+	setPosition(*route.begin());
+	texturepos = sf::IntRect(20, 320, 170, 320);
+
+	setTextureRect(texturepos);
 	setTexture(&texture);
+	currTargetLocation = route.begin();
 }
 
-enemyChar::enemyChar(int health, int baseDamage, float speed) 
-	:health(health), baseDamage(baseDamage), speed(speed) 
+
+enemyChar::enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f> & route, std::vector<std::unique_ptr<enemyChar>>& siblings, sf::Texture &texture)
+	:health(health), maxHealth(health), baseDamage(baseDamage), speed(speed), route(route), siblings(siblings)
 {
 	setSize(sf::Vector2f(32, 32));
-	setPosition(sf::Vector2f{ 128,224 });
-	setFillColor( sf::Color::Red );
-	// texture.loadFromFile("mario.png");
-	// setTexture(&texture);
+	setPosition(sf::Vector2f{ 10,224 });
+	
+	setTexture(&texture);
+	currTargetLocation = route.begin()+1;
 }
 
-enemyChar::enemyChar(sf::Vector2f size, sf::Vector2f position, std::string textureFile="mario.png",int health =10, int baseDamage=10, float speed=10) 
-	:health(health), baseDamage(baseDamage), speed(speed) 
-{
-	setSize(size);
-	setPosition(position);
-	texture.loadFromFile(textureFile);
-	setTexture(&texture);
-}
+//enemyChar::enemyChar(sf::Vector2f size, sf::Vector2f position, std::vector<sf::Vector2f>& route, std::string textureFile="mario.png",int health =10, int baseDamage=10, float speed=10)
+//	:health(health), baseDamage(baseDamage), speed(speed), route(route)
+//{
+//	setSize(size);
+//	setPosition(position);
+//	texture.loadFromFile(textureFile);
+//	setTexture(&texture);
+//}
 
 const float enemyChar::getSpeed() {
 	return speed;
@@ -37,47 +47,106 @@ const int enemyChar::getDamage() {
 	return baseDamage;
 }
 const void enemyChar::followPath(float steps) {
-	if (moves.size() <= moveindex) { return; }
-	sf::Vector2f currNode=moves[moveindex];
-	steps *= speed;
-	if (getPosition().x > currNode.x) {
-		setPosition(sf::Vector2f{ getPosition().x-steps, getPosition().y });
-		steps = 0;
-		if (getPosition().x < currNode.x) {
-			steps = getPosition().x - currNode.x;
-			setPosition(sf::Vector2f{ currNode.x, getPosition().y});
-		}
+	if (route.end() == currTargetLocation) {
+		//dead = true;		
+		return; 
 	}
-	if (getPosition().x < currNode.x) {
-		setPosition(sf::Vector2f{ getPosition().x + steps, getPosition().y });
-		steps = 0;
-		if (getPosition().x > currNode.x) {
-			steps = getPosition().x - currNode.x;
-			setPosition(sf::Vector2f{ currNode.x, getPosition().y });
+	sf::Vector2f currNode =*currTargetLocation;
+	steps *= speed;
+
+
+	if (getPosition().x != currNode.x) {
+		if (getPosition().x > currNode.x) { 
+			steps *= -1; 
 		}
+		move(steps , 0);
+		steps = 0;
+	}
+	if (getPosition().y != currNode.y) {
+		if (getPosition().y > currNode.y){
+			steps *= -1;
+		}
+		move(0, steps);
+		steps = 0;
 	}
 
-	if (getPosition().y > currNode.y) {
-		setPosition(sf::Vector2f{ getPosition().x , getPosition().y- steps });
-		steps = 0;
-		if (getPosition().y < currNode.y) {
-			steps = getPosition().y - currNode.y;
-			setPosition(sf::Vector2f{ getPosition().x, currNode.y });
-		}
-	}
-	if (getPosition().y < currNode.y) {
-		setPosition(sf::Vector2f{ getPosition().x , getPosition().y+ steps });
-		steps = 0;
-		if (getPosition().y > currNode.y) {
-			steps = getPosition().y - currNode.y;
-			setPosition(sf::Vector2f{ getPosition().x, currNode.y });
-		}
-	}
-	if (getPosition() == currNode && steps) {
-		++moveindex;
+	if (steps) {
+		++currTargetLocation;
+		health -= rand() % 10;
 		followPath(steps/speed);
 	}
+	
+
+}
+
+void enemyChar::drawHP(sf::RenderWindow& window)
+{
+	if (health >= 0) {
+		 
+		hpBar.setSize(sf::Vector2f(getSize().x, getSize().y * 0.05));
+		hpBar.setPosition(getPosition());
+		hpBar.setFillColor(sf::Color::Red);
+		hpBar.setOutlineThickness(1);
+		hpBar.setOutlineColor(sf::Color::Black);
+		hp.setSize(sf::Vector2f(getSize().x * (health / maxHealth), getSize().y * 0.05));
+		hp.setPosition(getPosition());
+		hp.setFillColor(sf::Color::Green);
+		window.draw(hpBar);
+		window.draw(hp);
+	}
+	else {
+		dead = true;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+void enemyCharGroup::spawnWave() {
+
+	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, enemies, texture));
+		
+
+};
+
+void enemyCharGroup::drawAll(sf::RenderWindow& window) {
+	for (auto& enemy : enemies) {
+		window.draw(*enemy);
+	}
+	drawHP(window);
+}
+
+void enemyCharGroup::deleteKilled() {
+	enemies.erase(remove_if(enemies.begin(), enemies.end(), [](auto& obj)
+		{
+			return obj->isDead();
+		}), enemies.end());
+}
+const bool enemyCharGroup::isEnemyDefeated() {
+	return !enemies.size();
+}
+
+void enemyCharGroup::move() {
+	for (auto& enemy : enemies) {
+		enemy->followPath(1);
+	}
+}
+enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates): enemyTemplates(enemyTemplates) {
+	texture.loadFromFile("pixelArt.png");
+	spawnWave();
 
 }
 
 
+void enemyCharGroup::drawHP(sf::RenderWindow& window)
+{
+	for (auto& enemy : enemies) {
+		enemy->drawHP(window);
+	}
+}
+
+void enemyCharGroup::updateTextures()
+{
+}
+
+size_t enemyCharGroup::size() {
+	return enemies.size();
+}
