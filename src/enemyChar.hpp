@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <json/json.h>
+#include <jsoncpp/json/json.h>
 #include <vector>
 
 /* TODO 
@@ -84,7 +84,7 @@ class enemyCharGroup {
 private:
 	std::vector<std::unique_ptr<enemyChar>> enemies;
 
-	std::shared_ptr<base> target;
+	//std::shared_ptr<base> target;
 	std::vector<sf::Vector2f> & route;// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
 	sf::Texture texture;
 	Json::Value enemyTemplates;
