@@ -13,6 +13,8 @@
 
 */
 
+//class healthBar: 
+
 
 /// @brief Class for an enemy character
 /// @author Wilco Matthijssen
@@ -28,7 +30,7 @@ class enemyChar : public sf::RectangleShape {
 	sf::RectangleShape hp;
 	sf::RectangleShape hpBar;
 	sf::IntRect texturepos;
-
+	
 
 public:
 	
@@ -88,6 +90,9 @@ private:
 	std::vector<sf::Vector2f> & route;// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
 	sf::Texture texture;
 	Json::Value enemyTemplates;
+	sf::Clock clock;
+	float tileSize;
+	sf::Clock clockSpawn;
 public:
 	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
 	void spawnWave();
@@ -101,6 +106,7 @@ public:
 	
 	void drawHP(sf::RenderWindow& window);
 	void updateTextures();
+	void setTileSize(float size);
 	size_t size();
 };
 
