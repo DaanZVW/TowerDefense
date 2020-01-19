@@ -8,8 +8,6 @@ enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Te
 	speed(stats["speed"].asFloat()),
 	route(route)
 {
-	
-	std::cout << stats["health"].asFloat() << std::endl;
 	setSize(sf::Vector2f(32, 32));// stats["size"][0].asFloat(), stats["size"][1].asFloat()));
 	setPosition(*route.begin());
 	texturepos = sf::IntRect(20, 320, 170, 320);
@@ -93,7 +91,6 @@ const void enemyChar::followPath(float steps) {
 		}
 	}
 	if (steps) {
-		std::cout << "steps" << std::endl;
 		++currTargetLocation;
 		health -= rand() % 5;
 		followPath(steps/speed);

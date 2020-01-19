@@ -20,10 +20,10 @@
 /// @author Wilco Matthijssen
 class enemyChar : public sf::RectangleShape {
 
-	unsigned int baseDamage;
-	float speed;
 	float health;
 	float maxHealth;
+	unsigned int baseDamage;
+	float speed;
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 	bool dead{ false };
@@ -87,9 +87,9 @@ private:
 	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	//std::shared_ptr<base> target;
+	Json::Value enemyTemplates;
 	std::vector<sf::Vector2f> & route;// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
 	sf::Texture texture;
-	Json::Value enemyTemplates;
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
