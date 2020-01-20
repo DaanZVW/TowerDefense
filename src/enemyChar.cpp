@@ -49,13 +49,11 @@ const void enemyChar::followPath(float steps) {
 	if (textureClock.getElapsedTime().asSeconds() > 0.025) {
 		textureClock.restart();
 		if (moving) {
-			texturepos = sf::IntRect(170, 320, 300, 320);
-			setTextureRect(texturepos);
+			setTextureRect(sf::IntRect(170, 320, 300, 320));
 			moving = false;
 		}
 		else {
-			texturepos = sf::IntRect(20, 320, 170, 320);
-			setTextureRect(texturepos);
+			setTextureRect(sf::IntRect(20, 320, 170, 320));
 			moving = true;
 		}
 		
