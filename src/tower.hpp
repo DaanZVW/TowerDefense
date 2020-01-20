@@ -10,6 +10,9 @@ public:
 	int range;
 	int firerate;
 	sf::Color mycolor;
+	bool showRange = false;
+
+	void draw( sf::RenderWindow &window);
 
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const sf::Color & color);
@@ -19,9 +22,10 @@ class towerGroup{
 private:
 	std::vector< tower* > towers;
 	tower* tmpTower;
-	bool showTmpTower = false;
 
 public:
+	bool showTmpTower = false;
+
 	towerGroup();
 
 	void add( tower* &newTower );

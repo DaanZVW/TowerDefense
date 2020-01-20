@@ -37,6 +37,21 @@ tower::tower( const std::string & name,
 	mycolor = getFillColor();
 }
 
+void tower::draw(sf::RenderWindow &window){
+	// std::cout << showRange << std::endl;
+
+	if(showRange){
+		sf::CircleShape towerRange;
+		int rangeSize = getSize().x * range + getSize().x/2;
+		towerRange.setFillColor(sf::Color(160, 160,160, 100));
+		towerRange.setPosition(getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2);
+		towerRange.setOrigin(rangeSize, rangeSize);
+		towerRange.setRadius(rangeSize);
+		window.draw(towerRange);
+	}
+	window.draw( *this );
+}
+
 // ==============================================================
 // ==============================================================
 // ==============================================================
@@ -76,10 +91,11 @@ tower* towerGroup::getTower( tile* &checkTower ) {
 
 void towerGroup::draw( sf::RenderWindow &window ){
 	for(auto tower : towers ){
-		window.draw( *tower );
+		tower->draw( window );
 	}
 	if ( showTmpTower ) {
-		window.draw( *tmpTower );
+		tmpTower->showRange = true;
+		tmpTower->draw( window );
 	}
 }
 

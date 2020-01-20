@@ -59,9 +59,19 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 	} else if ( placeTower && availableSpot ){
 		placeTower = false;
 		towers.addTmpTower();
+		towers.showTmpTower = false;
+
 		sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 		auto tile = map.getTileFromIndex( tilePosition );
+
 		tile->setAllowPlacement( false );
+		if ( towers.isTower( tile ) ) {
+			tower* selectedTower = towers.getTower( tile );
+			selectedTower->showRange = false;
+		}
+
+		
+		
 
 	// When the tile selected is a tower, show info
 	} else if ( !placeTower && map.getTilePosition(sf::Vector2i{ mousePointer }) != sf::Vector2i{-1,-1} ) {
@@ -70,7 +80,11 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
-			std::cout << selectedTower->name << std::endl;
+			if ( selectedTower->showRange ) {
+				selectedTower->showRange = false;
+			}else {
+				selectedTower->showRange = true;
+			}
 		}
 	}
 }
