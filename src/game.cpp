@@ -52,8 +52,8 @@ void game::run() {
     for(unsigned int i=0; i<createdPath.size(); i++){
         sf::Vector2f tmp;
         pathPosition.push_back(map.getPixelPosition(createdPath[i]));
-        pathPosition[i].x+=(map.getTileSize()/4);
-        pathPosition[i].y+=(map.getTileSize()/4);
+        pathPosition[i].x+=(map.getTileSize()/2);
+        pathPosition[i].y+=(map.getTileSize()/2);
     }
 
     // Make the path

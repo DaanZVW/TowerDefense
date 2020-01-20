@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 #include <vector>
 
 /* TODO 
@@ -22,7 +22,7 @@ class enemyChar : public sf::RectangleShape {
 
 	float health;
 	float maxHealth;
-	unsigned int baseDamage;
+	float baseDamage;
 	float speed;
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
@@ -30,7 +30,8 @@ class enemyChar : public sf::RectangleShape {
 	sf::RectangleShape hp;
 	sf::RectangleShape hpBar;
 	sf::IntRect texturepos;
-	
+	sf::Clock textureClock;
+	bool moving{true};
 
 public:
 	
@@ -45,7 +46,7 @@ public:
 	///
 	/// @param health	Used for getting size of pieces
 	/// 
-	enemyChar(int health, int baseDamage, float speed, std::vector<sf::Vector2f>& route, sf::Texture &texture);
+	enemyChar(float health, float baseDamage, float speed, std::vector<sf::Vector2f>& route, sf::Texture &texture);
 	///// @brief Construct an enemyChar
 	/////
 	///// @param window	Used for getting size of pieces
@@ -62,7 +63,7 @@ public:
 	///
 	/// @return	int
 	///
-	const int getDamage();
+	const float getDamage();
 
 	/// @brief	Follows path for n steps 
 	///
@@ -88,25 +89,22 @@ private:
 
 	//std::shared_ptr<base> target;
 	Json::Value enemyTemplates;
-	std::vector<sf::Vector2f> & route;// = std::make_shared<std::vector<sf::Vector2f>>((10, 10));
+	std::vector<sf::Vector2f> & route;
 	sf::Texture texture;
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
+	
 public:
 	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
 	void spawnWave();
-
 	void drawAll(sf::RenderWindow& window);
-
 	void deleteKilled();
-	const bool isEnemyDefeated();
-
 	void move();
-	
 	void drawHP(sf::RenderWindow& window);
 	void updateTextures();
 	void setTileSize(float size);
+	const bool isEnemyDefeated();
 	size_t size();
 };
 
