@@ -14,6 +14,8 @@ public:
 
 	void draw( sf::RenderWindow &window);
 
+	bool inRange( const sf::Vector2f & pos );
+
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const sf::Color & color);
 };
@@ -31,6 +33,8 @@ public:
 	void add( tower* &newTower );
 	void addTmpTower();
 	void clearTmpTower();
+
+	bool towersInRange( const sf::Vector2f & pos );
 
 	bool isTower( tile* &checkTile );
 	tower* getTower( tile* &checkTower );

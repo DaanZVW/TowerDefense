@@ -52,6 +52,14 @@ void tower::draw(sf::RenderWindow &window){
 	window.draw( *this );
 }
 
+bool tower::inRange( const sf::Vector2f & pos ){
+	sf::Vector2f thisPos = getPosition();
+	int rangeSize = getSize().x * range + getSize().x/2;
+	float difx = std::abs(pos.x-thisPos.x);
+	float dify = std::abs(pos.y-thisPos.y);
+	return (rangeSize*rangeSize) > ((difx*difx) + (dify*dify));
+}
+
 // ==============================================================
 // ==============================================================
 // ==============================================================
@@ -99,5 +107,13 @@ void towerGroup::draw( sf::RenderWindow &window ){
 	}
 }
 
+bool towerGroup::towersInRange( const sf::Vector2f & pos ){
+	for( auto tower : towers ){
+		if(tower->inRange(pos)){
+			return true;
+		}
+	}
+	return false;
+}
 
 
