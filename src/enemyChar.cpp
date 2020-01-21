@@ -8,13 +8,11 @@ enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Te
 	speed(stats["speed"].asFloat()),
 	route(route)
 {
-	setSize(sf::Vector2f(32, 32));// stats["size"][0].asFloat(), stats["size"][1].asFloat()));
+	
+	setSize(sf::Vector2f(32, 32));
 	setPosition(*route.begin());
-	texturepos = sf::IntRect(20, 320, 170, 320);
 
-	setOrigin(getSize().x/ 2, getSize().y/2);
-
-	setTextureRect(texturepos);
+	setTextureRect(sf::IntRect(20, 320, 170, 320));
 	setTexture(&texture);
 	currTargetLocation = route.begin();
 }
@@ -46,7 +44,7 @@ const float enemyChar::getDamage() {
 	return baseDamage;
 }
 const void enemyChar::followPath(float steps) {
-	if (textureClock.getElapsedTime().asSeconds() > 0.025) {
+	if (textureClock.getElapsedTime().asSeconds() > 0.1) {
 		textureClock.restart();
 		if (moving) {
 			setTextureRect(sf::IntRect(170, 320, 300, 320));
@@ -111,7 +109,7 @@ const void enemyChar::followPath(float steps) {
 	if (steps) {
 		++currTargetLocation;
 		//rotate(90);
-		//health -= rand() % 5;
+		health -= rand() % 5;
 		followPath(steps/speed);
 	}
 }
@@ -135,13 +133,12 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
-	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+	if (clockSpawn.getElapsedTime().asSeconds() > 0) {
 		enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
 		clockSpawn.restart();
+		(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize*0.5, tileSize*0.5));
+		(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 	}
-	
-	
-		
 
 };
 
@@ -192,6 +189,7 @@ void enemyCharGroup::updateTextures()
 }
 
 void enemyCharGroup::setTileSize(float size) {
+	
 	tileSize = size;
 }
 
