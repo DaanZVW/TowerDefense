@@ -19,7 +19,7 @@ class menu : public sf::RectangleShape{
 private:
 	sf::Vector2f position;
 	sf::Vector2f size;
-	std::vector<tower*> towers;
+	std::vector<tower*> allTowers;
 	int tilesize;
 
 	const sf::Font &font;
