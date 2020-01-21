@@ -43,6 +43,9 @@ std::vector< tower* > fileReader::makeTowers(){
     }
     return towers;
 }
+const Json::Value & fileReader::getEnemyConfig() {
+	return fileInfo["enemyChar"];
+}
 
 // =================================================================================
 

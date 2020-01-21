@@ -30,10 +30,8 @@ class enemyChar : public sf::RectangleShape {
 	float speed;
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
-	bool dead{ false };
 	sf::RectangleShape hp;
 	sf::RectangleShape hpBar;
-	sf::IntRect texturepos;
 	sf::Clock textureClock;
 	bool moving{true};
 

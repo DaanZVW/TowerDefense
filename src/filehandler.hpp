@@ -46,6 +46,8 @@ public:
 
     std::vector< tower* > makeTowers();
 
+	const Json::Value & getEnemyConfig();
+
     sf::Vector2i getGridSize();
 
     sf::Font getFont();
