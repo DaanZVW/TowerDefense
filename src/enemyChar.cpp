@@ -1,11 +1,16 @@
 #include "enemyChar.hpp"
 #include <stdlib.h>     /* srand, rand */
 
-enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
+#ifdef  WILCO
+#define LOG(msg) std::cout<<msg<<std::endl;
+#else
+#define LOG(msg)
+#endif //  WILCO
+
+
+enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
+	baseStats(stats),
 	health(stats["health"].asFloat()),
-	maxHealth(stats["health"].asFloat()),
-	baseDamage(stats["baseDamage"].asFloat()),
-	speed(stats["speed"].asFloat()),
 	route(route),
 	textures(textures)
 {
@@ -19,32 +24,16 @@ enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::m
 }
 
 
-enemyChar::enemyChar(float health, float baseDamage, float speed, std::vector<sf::Vector2f> & route, sf::Texture &texture)
-	:health(health), maxHealth(health), baseDamage(baseDamage), speed(speed), route(route)
-{
-	setSize(sf::Vector2f(32, 32));
-	setPosition(sf::Vector2f{ 10,224 });
-	
-	setTexture(&texture);
-	currTargetLocation = route.begin()+1;
-}
-
-//enemyChar::enemyChar(sf::Vector2f size, sf::Vector2f position, std::vector<sf::Vector2f>& route, std::string textureFile="mario.png",int health =10, int baseDamage=10, float speed=10)
-//	:health(health), baseDamage(baseDamage), speed(speed), route(route)
-//{
-//	setSize(size);
-//	setPosition(position);
-//	texture.loadFromFile(textureFile);
-//	setTexture(&texture);
-//}
-
 const float enemyChar::getSpeed() {
-	return speed;
+	LOG(__FUNCTIONNAME__ << "\t" << baseStats["speed"].asFloat());
+	return baseStats["speed"].asFloat();
 }
 const float enemyChar::getDamage() {
-	return baseDamage;
+	LOG(__FUNCTIONNAME__ << "\t" << baseStats["damage"].asFloat());
+	return baseStats["damage"].asFloat();
 }
-const void enemyChar::followPath(float steps) {
+void enemyChar::followPath(float  steps) {
+	LOG(__FUNCTIONNAME__ << "\t" <<steps);
 	if (textureClock.getElapsedTime().asSeconds() > 0.11) {
 		textureClock.restart();
 		if (moving) {
@@ -62,7 +51,7 @@ const void enemyChar::followPath(float steps) {
 		return; 
 	}
 	sf::Vector2f currNode =*currTargetLocation;
-	steps *= speed;
+	steps *= baseStats["speed"].asFloat();
 	if (getPosition().x > currNode.x) {
 		setRotation(180);
 		move(-steps , 0);
@@ -109,13 +98,13 @@ const void enemyChar::followPath(float steps) {
 	}
 	if (steps) {
 		++currTargetLocation;
-		health -= rand() % 5;
-		followPath(steps/speed);
+		//health -= rand() % 5;
+		followPath(steps/ baseStats["speed"].asFloat());
 	}
 }
 
-void enemyChar::drawHP(sf::RenderWindow& window)
-{
+void enemyChar::drawHP(sf::RenderWindow& window){
+	LOG(__FUNCTIONNAME__);
 	if (health >= 0) {
 		 
 		hpBar.setSize(sf::Vector2f(getSize().x, getSize().y * 0.05));
@@ -123,7 +112,7 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 		hpBar.setFillColor(sf::Color::Red);
 		hpBar.setOutlineThickness(1);
 		hpBar.setOutlineColor(sf::Color::Black);
-		hp.setSize(sf::Vector2f(getSize().x * (health / maxHealth), getSize().y * 0.05));
+		hp.setSize(sf::Vector2f(getSize().x * (health / baseStats["health"].asFloat()), getSize().y * 0.05));
 		hp.setPosition(getGlobalBounds().left, getGlobalBounds().top);
 		hp.setFillColor(sf::Color::Green);
 		window.draw(hpBar);
@@ -133,6 +122,7 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
+	LOG(__FUNCTIONNAME__);
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
 		clockSpawn.restart();
 		for (auto& wave : waves) {
@@ -140,6 +130,8 @@ void enemyCharGroup::spawnWave() {
 				if (enemy["amount"].asInt() > 0) {
 					enemy["amount"] = enemy["amount"].asInt() -1;
 					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures));
+					(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
+					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					return;
 				}
 				
@@ -147,32 +139,11 @@ void enemyCharGroup::spawnWave() {
 		}
 
 	}
-	//
-	//	counter++;
-	//	
-	//
-	//if (counter == 1) {
-	//	
-	//	//clockSpawn.restart();
-	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize*0.5, tileSize*0.5));
-	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
-	//}
-	//if (counter == 2) {
-	//	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["yeet"], route, textures));
-	//	//clockSpawn.restart();
-	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
-	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize / 4, tileSize / 4));
-	//}
-	//if (counter == 3) {
-	//	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["dog"], route, textures));
-	//	counter = 0;
-	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
-	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize / 4, tileSize / 4));
-	//}
-	//}
+
 };
 
 void enemyCharGroup::drawAll(sf::RenderWindow& window) {
+	LOG(__FUNCTIONNAME__);
 	for (auto& enemy : enemies) {
 		window.draw(*enemy);
 		enemy->drawHP(window);
@@ -181,16 +152,19 @@ void enemyCharGroup::drawAll(sf::RenderWindow& window) {
 }
 
 void enemyCharGroup::deleteKilled() {
+	LOG(__FUNCTIONNAME__);
 	enemies.erase(remove_if(enemies.begin(), enemies.end(), [](auto& obj)
 		{
-			return obj->isDead();
+			return obj->health <= 0;
 		}), enemies.end());
 }
 const bool enemyCharGroup::isEnemyDefeated() {
+	LOG(__FUNCTIONNAME__);
 	return !enemies.size();
 }
 
 void enemyCharGroup::move() {
+	LOG(__FUNCTIONNAME__);
 	spawnWave();
 	sf::Time elapsed= clock.restart();
 	for (auto& enemy : enemies) {
@@ -201,6 +175,7 @@ enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vecto
 	enemyTemplates(enemyTemplates),
 	route( route ) 
 {
+	LOG(__FUNCTIONNAME__);
 	std::cout << enemyTemplates["spoderman"]["textureFile"].asString() << std::endl;
 	for (auto& enemy : enemyTemplates) {
 		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
@@ -210,28 +185,47 @@ enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vecto
 }
 
 
-void enemyCharGroup::drawHP(sf::RenderWindow& window)
-{
+void enemyCharGroup::drawHP(sf::RenderWindow& window){
+	LOG(__FUNCTIONNAME__);
 	for (auto& enemy : enemies) {
 		enemy->drawHP(window);
 	}
 }
 
-void enemyCharGroup::updateTextures()
-{
+void enemyCharGroup::updateTextures(){
+	LOG(__FUNCTIONNAME__);
 }
 
-void enemyCharGroup::setWaves(const Json::Value enemyWaves)
-{
+void enemyCharGroup::setWaves(const Json::Value enemyWaves){
+	LOG(__FUNCTIONNAME__);
 	waves = enemyWaves;
 }
 
 void enemyCharGroup::setTileSize(float size) {
-	
+	LOG(__FUNCTIONNAME__);
 	tileSize = size;
 }
 
 
+
 size_t enemyCharGroup::size() {
+	LOG(__FUNCTIONNAME__);
 	return enemies.size();
 }
+
+void enemyCharGroup::damageEnemy(const size_t& index, const float & damage){
+	LOG(__FUNCTIONNAME__);
+	if (enemies[index].get()->health > damage) {
+		enemies[index].get()->health -= damage;
+	}
+	else {
+		enemies.erase(enemies.begin() + index);
+	}
+}
+
+std::vector<std::unique_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
+	LOG(__FUNCTIONNAME__);
+	return enemies;
+}
+
+
