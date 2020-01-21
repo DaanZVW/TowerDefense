@@ -17,13 +17,13 @@ shotHandler::shotHandler( towerGroup & towers, enemyCharGroup & enemies ):
 {}
 
 void shotHandler::update(){
-	for(auto& enemy : enemies.enemies){
+	for(auto& enemy : enemies.getEnemies()){
 		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
 		for(auto& tower : towers.towers){
 			if(tower->inRange( tmpEnemeyPos )){
 				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 1000) {
 					enemy->enemyCharHit( tower->getDamage() );
-					bullets.push_back( new bullet{tower->getPosition(), enemy->getPosition(), 5} );
+					//bullets.push_back( new bullet{tower->getPosition(), enemy->getPosition(), 5} );
 					tower->fireclock.restart();
 				}
 			}

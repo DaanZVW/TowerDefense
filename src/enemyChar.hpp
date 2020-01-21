@@ -100,6 +100,7 @@ private:
 	std::map<std::string, sf::Texture> textures;
 	int counter = 0;
 	Json::Value waves;
+	std::vector< std::unique_ptr< enemyChar > > enemies;
 public:
 
 
