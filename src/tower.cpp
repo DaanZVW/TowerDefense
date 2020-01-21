@@ -37,6 +37,29 @@ tower::tower( const std::string & name,
 	mycolor = getFillColor();
 }
 
+void tower::draw(sf::RenderWindow &window){
+	// std::cout << showRange << std::endl;
+
+	if(showRange){
+		sf::CircleShape towerRange;
+		int rangeSize = getSize().x * range + getSize().x/2;
+		towerRange.setFillColor(sf::Color(160, 160,160, 100));
+		towerRange.setPosition(getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2);
+		towerRange.setOrigin(rangeSize, rangeSize);
+		towerRange.setRadius(rangeSize);
+		window.draw(towerRange);
+	}
+	window.draw( *this );
+}
+
+bool tower::inRange( const sf::Vector2f & pos ){
+	sf::Vector2f thisPos = getPosition();
+	int rangeSize = getSize().x * range + getSize().x/2;
+	float difx = std::abs(pos.x-thisPos.x);
+	float dify = std::abs(pos.y-thisPos.y);
+	return (rangeSize*rangeSize) > ((difx*difx) + (dify*dify));
+}
+
 // ==============================================================
 // ==============================================================
 // ==============================================================
@@ -76,12 +99,21 @@ tower* towerGroup::getTower( tile* &checkTower ) {
 
 void towerGroup::draw( sf::RenderWindow &window ){
 	for(auto tower : towers ){
-		window.draw( *tower );
+		tower->draw( window );
 	}
 	if ( showTmpTower ) {
-		window.draw( *tmpTower );
+		tmpTower->showRange = true;
+		tmpTower->draw( window );
 	}
 }
 
+bool towerGroup::towersInRange( const sf::Vector2f & pos ){
+	for( auto tower : towers ){
+		if(tower->inRange(pos)){
+			return true;
+		}
+	}
+	return false;
+}
 
 

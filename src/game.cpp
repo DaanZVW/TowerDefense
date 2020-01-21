@@ -90,6 +90,8 @@ void game::run() {
     // Do this while the window is open
     while (window.isOpen()) {
 
+        sf::Vector2i mousePos = sf::Mouse::getPosition( window );
+
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
 
@@ -109,8 +111,11 @@ void game::run() {
         // Draw all excisting objects on the screen
 		window.display();
 
-        mouse.updateMouse( sf::Mouse::getPosition( window ) );
+        mouse.updateMouse( mousePos );
 
+        if(groupTower.towersInRange( sf::Vector2f{ float(mousePos.x), float(mousePos.y)} )){
+            std::cout << "INRANGE-";
+        }
 
         // Sleep 5 miliseconds so the close event gets time
 		sf::sleep( sf::milliseconds( 10 ));
