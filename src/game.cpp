@@ -114,7 +114,7 @@ void game::run() {
         mouse.updateMouse( mousePos );
 
         if(groupTower.towersInRange( sf::Vector2f{ float(mousePos.x), float(mousePos.y)} )){
-            std::cout << "INRANGE-";
+            // std::cout << "INRANGE-";
         }
 
         // Sleep 5 miliseconds so the close event gets time

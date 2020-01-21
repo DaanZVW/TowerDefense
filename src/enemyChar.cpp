@@ -133,7 +133,7 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
-	if (clockSpawn.getElapsedTime().asSeconds() > 0) {
+	if (clockSpawn.getElapsedTime().asSeconds() > 10) {
 		enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
 		clockSpawn.restart();
 		(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize*0.5, tileSize*0.5));
