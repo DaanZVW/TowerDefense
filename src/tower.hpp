@@ -11,7 +11,6 @@ public:
 	int firerate;
 	sf::Color mycolor;
 	bool selected = false;
-	bool showRange = false;
 	sf::Clock fireclock;
 
 	void draw( sf::RenderWindow &window);
