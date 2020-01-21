@@ -81,6 +81,9 @@ public:
 		return health <= 0;
 	}
 	void drawHP(sf::RenderWindow& window);
+
+	void enemyCharHit( const int & damage );
+
 };
 class base : public sf::RectangleShape {
 private:
@@ -89,7 +92,6 @@ private:
 
 class enemyCharGroup {
 private:
-	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	//std::shared_ptr<base> target;
 	Json::Value enemyTemplates;
@@ -100,6 +102,9 @@ private:
 	sf::Clock clockSpawn;
 	
 public:
+
+	std::vector<std::unique_ptr<enemyChar>> enemies;
+
 	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
 	void spawnWave();
 	void drawAll(sf::RenderWindow& window);

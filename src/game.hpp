@@ -21,6 +21,7 @@
 #include "levelEditor.hpp"
 #include "menu.hpp"
 #include "mousecontrol.hpp"
+#include "shothandler.hpp"
 
 #define TILEMAPSIZE 0.75
 

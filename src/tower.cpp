@@ -52,6 +52,10 @@ void tower::draw(sf::RenderWindow &window){
 	window.draw( *this );
 }
 
+int tower::getDamage(){
+	return damage;
+}
+
 bool tower::inRange( const sf::Vector2f & pos ){
 	sf::Vector2f thisPos = getPosition();
 	int rangeSize = getSize().x * range + getSize().x/2;

@@ -133,6 +133,11 @@ void enemyChar::drawHP(sf::RenderWindow& window)
 	}
 }
 
+
+void enemyChar::enemyCharHit( const int & damage ){
+	health -= damage;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
