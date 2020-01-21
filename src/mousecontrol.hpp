@@ -5,6 +5,8 @@
 #include "tilemap.hpp"
 #include "tower.hpp"
 
+#include <iostream>
+
 class mouseControl{
 private:
 	tilemap & map;

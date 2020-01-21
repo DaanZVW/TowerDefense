@@ -13,8 +13,6 @@ public:
 	shotHandler( towerGroup & towers, enemyCharGroup & enemies );
 
 	void update();
-
-
 };
 
 
