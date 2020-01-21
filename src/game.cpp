@@ -23,8 +23,8 @@ void game::run() {
             sf::VideoMode::getDesktopMode().width, 
             sf::VideoMode::getDesktopMode().height
         },
-        "SFML window",
-        sf::Style::Fullscreen
+        "SFML window"
+        // ,sf::Style::Fullscreen
     };
 
     // Make fileReader for pathnodes
@@ -115,7 +115,7 @@ void game::run() {
 
         mouse.updateMouse( mousePos );
 
-        //shots.update();
+        shots.update();
 
 
         // Sleep 5 miliseconds so the close event gets time

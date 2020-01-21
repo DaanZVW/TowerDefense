@@ -17,6 +17,8 @@ public:
 
 	int getDamage();
 
+	int getFireRate();
+
 	bool inRange( const sf::Vector2f & pos );
 
 	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
