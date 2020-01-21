@@ -3,11 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#ifdef WILCO
-#include <json/json.h>
+
+#ifdef INCLUDE
+	#include <jsoncpp/json/json.h>
 #else
-#include <json/json.h>
-#endif // WILCO
+	#include <json/json.h>
+#endif // INCLUDE
+
 #include <vector>
 
 /* TODO 
