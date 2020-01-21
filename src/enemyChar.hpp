@@ -74,6 +74,9 @@ public:
 	/// @return	void
 	///
 	void drawHP(sf::RenderWindow& window);
+
+	void enemyCharHit( const int & damage );
+
 };
 
 //class base : public sf::RectangleShape {
@@ -86,7 +89,6 @@ public:
 /// @author Wilco Matthijssen
 class enemyCharGroup {
 private:
-	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	//std::shared_ptr<base> target;
 	Json::Value enemyTemplates;
@@ -99,6 +101,7 @@ private:
 	int counter = 0;
 	Json::Value waves;
 public:
+
 
 	/// @brief	draws HP bar on window 
 	///

@@ -10,9 +10,15 @@ public:
 	int range;
 	int firerate;
 	sf::Color mycolor;
+	bool selected = false;
 	bool showRange = false;
+	sf::Clock fireclock;
 
 	void draw( sf::RenderWindow &window);
+
+	int getDamage();
+
+	int getFireRate();
 
 	bool inRange( const sf::Vector2f & pos );
 
@@ -23,10 +29,11 @@ public:
 class towerGroup{
 private:
 
-	std::vector< tower* > towers;
 	tower* tmpTower;
 
 public:
+
+	std::vector< tower* > towers;
 	bool showTmpTower = false;
 
 	towerGroup();
@@ -38,7 +45,10 @@ public:
 	bool towersInRange( const sf::Vector2f & pos );
 
 	bool isTower( tile* &checkTile );
+
 	tower* getTower( tile* &checkTower );
+
+	std::vector< tower* > getTowers();
 
 	void draw( sf::RenderWindow &window );
 };

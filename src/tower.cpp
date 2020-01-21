@@ -38,9 +38,7 @@ tower::tower( const std::string & name,
 }
 
 void tower::draw(sf::RenderWindow &window){
-	// std::cout << showRange << std::endl;
-
-	if(showRange){
+	if(selected){
 		sf::CircleShape towerRange;
 		int rangeSize = getSize().x * range + getSize().x/2;
 		towerRange.setFillColor(sf::Color(160, 160,160, 100));
@@ -50,6 +48,10 @@ void tower::draw(sf::RenderWindow &window){
 		window.draw(towerRange);
 	}
 	window.draw( *this );
+}
+
+int tower::getDamage(){
+	return damage;
 }
 
 bool tower::inRange( const sf::Vector2f & pos ){
@@ -65,6 +67,10 @@ bool tower::inRange( const sf::Vector2f & pos ){
 		setFillColor( mycolor );
 		return false;
 	}
+}
+
+int tower::getFireRate(){
+	return firerate;
 }
 
 // ==============================================================
@@ -101,7 +107,7 @@ tower* towerGroup::getTower( tile* &checkTower ) {
 			return tower;
 		}
 	}
-	return towers[0];
+	return 0;
 }
 
 void towerGroup::draw( sf::RenderWindow &window ){
@@ -109,7 +115,7 @@ void towerGroup::draw( sf::RenderWindow &window ){
 		tower->draw( window );
 	}
 	if ( showTmpTower ) {
-		tmpTower->showRange = true;
+		tmpTower->selected = true;
 		tmpTower->draw( window );
 	}
 }
@@ -121,6 +127,10 @@ bool towerGroup::towersInRange( const sf::Vector2f & pos ){
 		}
 	}
 	return false;
+}
+
+std::vector< tower* > towerGroup::getTowers() {
+	return towers;
 }
 
 

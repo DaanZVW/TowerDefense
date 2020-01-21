@@ -30,12 +30,19 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 }
 
 void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
+	sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
+	auto tile = map.getTileFromIndex( tilePosition );
 	
 	// Check if mouse is pointing at something outside the tilemap
-	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
-		for ( auto menuTower : menuSide.getTowers() ){
+	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ) {
+		for ( auto &menuTower : menuSide.getTowers() ){
 			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
-				
+				if ( towers.towers.size() >= 1 ) {
+					for ( auto &tower : towers.towers ) {
+						tower->selected = false;
+					}
+				}
+
 				// Deselect if tower is selected
 				if (placeTower) {
 					deselectClick();
@@ -63,26 +70,38 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		towers.addTmpTower();
 		towers.showTmpTower = false;
 
-		sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
-		auto tile = map.getTileFromIndex( tilePosition );
+		// sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
+		// auto tile = map.getTileFromIndex( tilePosition );
 
 		tile->setAllowPlacement( false );
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
-			selectedTower->showRange = false;
+			selectedTower->selected = false;
 		}
 
-	// When the tile selected is a tower, show info
+	// When the tile selected is a tower
 	} else if ( !placeTower && map.getTilePosition(sf::Vector2i{ mousePointer }) != sf::Vector2i{-1,-1} ) {
-		sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
-		auto tile = map.getTileFromIndex( tilePosition );
+		// sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
+		// auto tile = map.getTileFromIndex( tilePosition );
+
+		if ( towers.towers.size() >= 1 ) {
+			for ( auto &tower : towers.towers ) {
+				tower->selected = false;
+			}
+		}
 
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
-			if ( selectedTower->showRange ) {
-				selectedTower->showRange = false;
+			if ( selectedTower->selected ) {
+				selectedTower->selected = false;
 			}else {
-				selectedTower->showRange = true;
+				selectedTower->selected = true;
+			}
+
+			for ( auto &tower : towers.towers ) {
+				if ( tower != selectedTower ) {
+					tower->selected = false;
+				}
 			}
 		}
 	}

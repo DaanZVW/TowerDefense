@@ -100,6 +100,7 @@ void enemyChar::followPath(float  steps) {
 		++currTargetLocation;
 		//health -= rand() % 5;
 		followPath(steps/ baseStats["speed"].asFloat());
+
 	}
 }
 
@@ -118,6 +119,11 @@ void enemyChar::drawHP(sf::RenderWindow& window){
 		window.draw(hpBar);
 		window.draw(hp);
 	}
+}
+
+
+void enemyChar::enemyCharHit( const int & damage ){
+	health -= damage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
