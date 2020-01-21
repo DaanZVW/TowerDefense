@@ -99,7 +99,7 @@
       },
       {
         "name": "dog",
-        "amount": 2
+        "amount": 20
       }
     ],
     [
@@ -109,7 +109,7 @@
       },
       {
         "name": "dog",
-        "amount":25
+        "amount": 20
       }
     ]
   ]

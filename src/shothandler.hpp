@@ -7,23 +7,31 @@
 class bullet : public sf::CircleShape{
 private:
 	const sf::Vector2f & endPos;
+	const int & tileSize;
+	sf::Vector2f direction;
+	sf::Clock clock;
 
 
 public:
-	bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, const int & size );
+	bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, const int & tileSize );
+
+	void updatePos();
 
 };
 
 class shotHandler{
 private:
+	sf::RenderWindow & window;
 	towerGroup & towers;
 	enemyCharGroup & enemies;
 	std::vector< bullet* > bullets;
 
 public:
-	shotHandler( towerGroup & towers, enemyCharGroup & enemies );
+	shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyCharGroup & enemies );
 
 	void update();
+
+
 };
 
 

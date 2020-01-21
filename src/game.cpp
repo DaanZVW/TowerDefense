@@ -87,7 +87,7 @@ void game::run() {
 
     mouseControl mouse{ map, sideMenu, groupTower };
 
-    shotHandler shots{ groupTower, pietje };
+    shotHandler shots{ window, groupTower, pietje };
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -109,13 +109,15 @@ void game::run() {
 
         groupTower.draw( window );
 
-        pietje.deleteKilled();
-        // Draw all excisting objects on the screen
-		window.display();
-
+        shots.update();
+        
         mouse.updateMouse( mousePos );
 
-        shots.update();
+        pietje.deleteKilled();
+
+
+        // Draw all excisting objects on the screen
+		window.display();
 
 
         // Sleep 5 miliseconds so the close event gets time
