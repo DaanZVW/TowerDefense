@@ -35,23 +35,23 @@
         {
             "Name" : "Fire Blaster",
             "Texture" : "Black",
-            "Damage" : 10,
+            "Damage" : 5,
             "Range" : 2,
-            "Firerate" : 50
+            "Firerate" : 60
         },
         {
             "Name" : "Water Blaster",
             "Texture" : "Blue",
             "Damage" : 2,
             "Range" : 4,
-            "Firerate" : 120
+            "Firerate" : 40
         },
         {
             "Name" : "Wood Blaster",
             "Texture" : "Yellow",
-            "Damage" : 50,
+            "Damage" : 10,
             "Range" : 6,
-            "Firerate" : 20
+            "Firerate" : 10
         }
     ],
   "enemyChar": {
@@ -78,13 +78,13 @@
     },
     "yeet": {
       "baseDamage": 10,
-      "speed": 1,
+      "speed": 4,
       "health": 10,
       "textureFile": "../res/images/background.jpg"
     },
     "dog": {
       "baseDamage": 10,
-      "speed": 1,
+      "speed": 7,
       "health": 10,
       "textureFile": "../res/images/dog.png"
     } 
