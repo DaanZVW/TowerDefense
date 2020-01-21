@@ -47,6 +47,11 @@ const Json::Value & fileReader::getEnemyConfig() {
 	return fileInfo["enemyChar"];
 }
 
+const Json::Value& fileReader::getWaves()
+{
+	return fileInfo["waves"];
+}
+
 // =================================================================================
 
 

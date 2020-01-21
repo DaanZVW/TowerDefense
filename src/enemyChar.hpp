@@ -36,6 +36,9 @@ class enemyChar : public sf::RectangleShape {
 	sf::RectangleShape hpBar;
 	sf::Clock textureClock;
 	bool moving{true};
+	std::string fileName;
+	std::map<std::string, sf::Texture> textures;
+	
 
 public:
 	
@@ -44,7 +47,7 @@ public:
 	/////
 	///// @param Json::Value	Used for getting stats
 	///// 
-	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Texture& texture);
+	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures);
 
 	/// @brief Construct an enemyChar
 	///
@@ -81,6 +84,9 @@ public:
 		return health <= 0;
 	}
 	void drawHP(sf::RenderWindow& window);
+
+	void enemyCharHit( const int & damage );
+
 };
 class base : public sf::RectangleShape {
 private:
@@ -89,7 +95,6 @@ private:
 
 class enemyCharGroup {
 private:
-	std::vector<std::unique_ptr<enemyChar>> enemies;
 
 	//std::shared_ptr<base> target;
 	Json::Value enemyTemplates;
@@ -98,8 +103,13 @@ private:
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
-	
+	std::map<std::string, sf::Texture> textures;
+	int counter = 0;
+	Json::Value waves;
 public:
+
+	std::vector<std::unique_ptr<enemyChar>> enemies;
+
 	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
 	void spawnWave();
 	void drawAll(sf::RenderWindow& window);
@@ -107,6 +117,7 @@ public:
 	void move();
 	void drawHP(sf::RenderWindow& window);
 	void updateTextures();
+	void setWaves(const Json::Value enemyWaves);
 	void setTileSize(float size);
 	const bool isEnemyDefeated();
 	size_t size();

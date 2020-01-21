@@ -48,6 +48,7 @@ public:
     std::vector< tower* > makeTowers();
 
 	const Json::Value & getEnemyConfig();
+	const Json::Value & getWaves();
 
     sf::Vector2i getGridSize();
 
