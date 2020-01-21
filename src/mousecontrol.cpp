@@ -30,6 +30,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 }
 
 void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
+	
 	// Check if mouse is pointing at something outside the tilemap
 	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
 		for ( auto menuTower : menuSide.getTowers() ){
@@ -55,6 +56,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 				towers.add(newTower);
 			}
 		}
+		
 	// When the tile is empty and a tower is held, place the tile
 	} else if ( placeTower && availableSpot ){
 		placeTower = false;
@@ -69,9 +71,6 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 			tower* selectedTower = towers.getTower( tile );
 			selectedTower->showRange = false;
 		}
-
-		
-		
 
 	// When the tile selected is a tower, show info
 	} else if ( !placeTower && map.getTilePosition(sf::Vector2i{ mousePointer }) != sf::Vector2i{-1,-1} ) {

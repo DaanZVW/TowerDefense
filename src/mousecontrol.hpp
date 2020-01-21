@@ -10,6 +10,7 @@ private:
 	tilemap & map;
 	menu & menuSide;
 	tower *newTower;
+	tower *selectedTower;
 	towerGroup & towers;
 
 	bool placeTower = false;

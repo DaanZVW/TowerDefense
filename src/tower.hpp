@@ -20,6 +20,7 @@ public:
 
 class towerGroup{
 private:
+
 	std::vector< tower* > towers;
 	tower* tmpTower;
 
