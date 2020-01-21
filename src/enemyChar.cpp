@@ -10,9 +10,9 @@
 
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
-	health(stats["health"].asFloat()),
 	route(route),
-	textures(textures)
+	textures(textures),
+	health(stats["health"].asFloat())
 {
 	
 	setSize(sf::Vector2f(32, 32));
