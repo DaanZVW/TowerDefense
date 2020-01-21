@@ -24,7 +24,7 @@ void game::run() {
             sf::VideoMode::getDesktopMode().height
         },
         "SFML window"
-        // ,sf::Style::Fullscreen
+        ,sf::Style::Fullscreen
     };
 
     // Make fileReader for pathnodes

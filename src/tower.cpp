@@ -61,7 +61,7 @@ bool tower::inRange( const sf::Vector2f & pos ){
 	float dify = std::abs(pos.y-thisPos.y);
 
 	if ((rangeSize*rangeSize) > ((difx*difx) + (dify*dify))) {
-		setFillColor( sf::Color::Red );
+		// setFillColor( sf::Color::Red );
 		return true;
 	} else {
 		setFillColor( mycolor );
@@ -129,8 +129,5 @@ bool towerGroup::towersInRange( const sf::Vector2f & pos ){
 	return false;
 }
 
-std::vector< tower* > towerGroup::getTowers() {
-	return towers;
-}
 
 
