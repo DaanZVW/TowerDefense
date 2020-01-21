@@ -25,6 +25,7 @@ public:
 
 class towerGroup{
 private:
+
 	tower* tmpTower;
 
 public:

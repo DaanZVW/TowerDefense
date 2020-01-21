@@ -3,11 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#ifdef WILCO
-#include <json/json.h>
+
+#ifdef INCLUDE
+	#include <jsoncpp/json/json.h>
 #else
-#include <json/json.h>
-#endif // WILCO
+	#include <json/json.h>
+#endif // INCLUDE
+
 #include <vector>
 
 /* TODO 
@@ -30,12 +32,13 @@ class enemyChar : public sf::RectangleShape {
 	float speed;
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
-	bool dead{ false };
 	sf::RectangleShape hp;
 	sf::RectangleShape hpBar;
-	sf::IntRect texturepos;
 	sf::Clock textureClock;
 	bool moving{true};
+	std::string fileName;
+	std::map<std::string, sf::Texture> textures;
+	
 
 public:
 	
@@ -44,7 +47,7 @@ public:
 	/////
 	///// @param Json::Value	Used for getting stats
 	///// 
-	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Texture& texture);
+	enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures);
 
 	/// @brief Construct an enemyChar
 	///
@@ -100,7 +103,9 @@ private:
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
-	
+	std::map<std::string, sf::Texture> textures;
+	int counter = 0;
+	Json::Value waves;
 public:
 
 	std::vector<std::unique_ptr<enemyChar>> enemies;
@@ -112,6 +117,7 @@ public:
 	void move();
 	void drawHP(sf::RenderWindow& window);
 	void updateTextures();
+	void setWaves(const Json::Value enemyWaves);
 	void setTileSize(float size);
 	const bool isEnemyDefeated();
 	size_t size();

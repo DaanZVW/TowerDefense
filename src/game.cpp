@@ -64,14 +64,14 @@ void game::run() {
 
 
     //JSON
-    Json::Value abc;
-    abc["spoderman"]["health"] = 10;
-    abc["spoderman"]["speed"] = 1;
-    abc["spoderman"]["damage"] = 10;
+
 
     // Make enemy character
-    enemyCharGroup pietje(abc, pathPosition);
+    enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(), pathPosition);
 	pietje.setTileSize(map.getTileSize());
+	pietje.setWaves(fileHandlerConfig.getWaves());
+
+
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
         sf::Vector2f{ 
@@ -115,7 +115,8 @@ void game::run() {
 
         mouse.updateMouse( mousePos );
 
-        shots.update();
+        //shots.update();
+
 
         // Sleep 5 miliseconds so the close event gets time
 		sf::sleep( sf::milliseconds( 10 ));

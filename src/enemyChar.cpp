@@ -1,21 +1,20 @@
 #include "enemyChar.hpp"
 #include <stdlib.h>     /* srand, rand */
 
-enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, sf::Texture& texture):
+enemyChar::enemyChar(Json::Value stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	health(stats["health"].asFloat()),
 	maxHealth(stats["health"].asFloat()),
 	baseDamage(stats["baseDamage"].asFloat()),
 	speed(stats["speed"].asFloat()),
-	route(route)
+	route(route),
+	textures(textures)
 {
-	setSize(sf::Vector2f(32, 32));// stats["size"][0].asFloat(), stats["size"][1].asFloat()));
+	
+	setSize(sf::Vector2f(32, 32));
 	setPosition(*route.begin());
-	texturepos = sf::IntRect(20, 320, 170, 320);
 
-	setOrigin(getSize().x/ 2, getSize().y/2);
-
-	setTextureRect(texturepos);
-	setTexture(&texture);
+	setTextureRect(sf::IntRect(20, 320, 170, 320));
+	setTexture(&textures[stats["textureFile"].asString()]);
 	currTargetLocation = route.begin();
 }
 
@@ -46,7 +45,7 @@ const float enemyChar::getDamage() {
 	return baseDamage;
 }
 const void enemyChar::followPath(float steps) {
-	if (textureClock.getElapsedTime().asSeconds() > 0.025) {
+	if (textureClock.getElapsedTime().asSeconds() > 0.11) {
 		textureClock.restart();
 		if (moving) {
 			setTextureRect(sf::IntRect(170, 320, 300, 320));
@@ -110,7 +109,6 @@ const void enemyChar::followPath(float steps) {
 	}
 	if (steps) {
 		++currTargetLocation;
-		//rotate(90);
 		//health -= rand() % 5;
 		followPath(steps/speed);
 	}
@@ -141,13 +139,42 @@ void enemyChar::enemyCharHit( const int & damage ){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
-		enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["spoderman"] ,route, texture));
 		clockSpawn.restart();
-	}
-	
-	
-		
+		for (auto& wave : waves) {
+			for (auto& enemy : wave) {
+				if (enemy["amount"].asInt() > 0) {
+					enemy["amount"] = enemy["amount"].asInt() -1;
+					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures));
+					return;
+				}
+				
+			}
+		}
 
+	}
+	//
+	//	counter++;
+	//	
+	//
+	//if (counter == 1) {
+	//	
+	//	//clockSpawn.restart();
+	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize*0.5, tileSize*0.5));
+	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
+	//}
+	//if (counter == 2) {
+	//	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["yeet"], route, textures));
+	//	//clockSpawn.restart();
+	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
+	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize / 4, tileSize / 4));
+	//}
+	//if (counter == 3) {
+	//	enemies.push_back(std::make_unique<enemyChar>(enemyTemplates["dog"], route, textures));
+	//	counter = 0;
+	//	(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
+	//	(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize / 4, tileSize / 4));
+	//}
+	//}
 };
 
 void enemyCharGroup::drawAll(sf::RenderWindow& window) {
@@ -179,7 +206,10 @@ enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vecto
 	enemyTemplates(enemyTemplates),
 	route( route ) 
 {
-	texture.loadFromFile("../res/images/PixelArt.png");
+	std::cout << enemyTemplates["spoderman"]["textureFile"].asString() << std::endl;
+	for (auto& enemy : enemyTemplates) {
+		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
+	}
 	spawnWave();
 
 }
@@ -196,7 +226,13 @@ void enemyCharGroup::updateTextures()
 {
 }
 
+void enemyCharGroup::setWaves(const Json::Value enemyWaves)
+{
+	waves = enemyWaves;
+}
+
 void enemyCharGroup::setTileSize(float size) {
+	
 	tileSize = size;
 }
 

@@ -53,5 +53,64 @@
             "Range" : 6,
             "Firerate" : 20
         }
+    ],
+  "enemyChar": {
+    "spoderman": {
+      "baseDamage": 10,
+      "speed": 1,
+      "health": 10,
+      "textureFile": "../res/images/PixelArt.png",
+      "spritePositions": [
+        {
+          "top": 100,
+          "left": 100,
+          "right": 100,
+          "bottom": 100
+        },
+        {
+          "top": 200,
+          "left": 200,
+          "right": 200,
+          "bottom": 200
+        }
+
+      ]
+    },
+    "yeet": {
+      "baseDamage": 10,
+      "speed": 1,
+      "health": 10,
+      "textureFile": "../res/images/background.jpg"
+    },
+    "dog": {
+      "baseDamage": 10,
+      "speed": 1,
+      "health": 10,
+      "textureFile": "../res/images/dog.png"
+    } 
+
+  },
+  
+  "waves": [
+    [
+      {
+        "amount": 2,
+        "name": "spoderman"
+      },
+      {
+        "name": "dog",
+        "amount": 2
+      }
+    ],
+    [
+      {
+        "name": "spoderman",
+        "amount": 1
+      },
+      {
+        "name": "dog",
+        "amount":25
+      }
     ]
+  ]
 }
