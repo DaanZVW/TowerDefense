@@ -51,7 +51,7 @@
             "Texture" : "Yellow",
             "Damage" : 10,
             "Range" : 10,
-            "Firerate" : 1000
+            "Firerate" : 50
         }
     ],
 
@@ -61,7 +61,7 @@
         {
             "baseDamage": 10,
             "speed": 1,
-            "health": 1000,
+            "health": 10,
             "textureFile": "../res/images/PixelArt.png",
             "spritePositions": 
             [
@@ -102,7 +102,7 @@
     [
         [
             {
-                "amount": 1000,
+                "amount": 100,
                 "name": "spoderman"
             },
             {

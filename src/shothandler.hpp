@@ -10,6 +10,7 @@ private:
 	const int & tileSize;
 	sf::Vector2f direction;
 	sf::Clock clock;
+	float a; float b;
 
 
 public:
