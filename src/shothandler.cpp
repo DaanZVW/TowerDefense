@@ -10,17 +10,50 @@ bullet::bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, cons
 	setOrigin( tileSize/8, tileSize/8 );
 	setFillColor( sf::Color::Black );
 
+	// // float dify = endPos.y - (beginPos.y+(tileSize/2));
+	// // float difx = endPos.x - (beginPos.x+(tileSize/2));
+	// // float x = dify/difx;
+	// // direction = sf::Vector2f{ -1*10, -x*10 };
+	// // // std::cout << dify << " " << difx << " " << x << "\n";
+
+	// float dify = endPos.y - (beginPos.y+(tileSize/2));
+	// float difx = endPos.x - (beginPos.x+(tileSize/2));
+
+	// float x, y;
+	// if ( !difx && dify ) {
+	// 	x = (dify < 0) ? -1 : 1;
+	// 	y = 0;
+	// } else if ( difx && !dify ) {
+	// 	x = 0;
+	// 	y = (difx < 0) ? 1 : -1;
+	// } else {
+	// 	x = dify/difx;
+	// 	y = 1;
+	// }
+
+
+
 	float dify = endPos.y - (beginPos.y+(tileSize/2));
 	float difx = endPos.x - (beginPos.x+(tileSize/2));
-	float x = dify/difx;
-	direction = sf::Vector2f{ -1*100, -x*100 };
-	std::cout << dify << " " << difx << " " << x << "\n";
 
+	int maxMove = tileSize/8;
+	float x, y;
+
+	if ( difx > dify ) {
+		x = maxMove;
+		y = (maxMove / dify) * difx; 
+	} else {
+		x = (maxMove / difx) * dify;
+		y = maxMove;
+	}
+
+	direction = sf::Vector2f{ -y, -x };
+	std::cout << dify << " " << difx << " " << x << "\n";
 }
 
 void bullet::updatePos(){
 	if(clock.getElapsedTime().asMilliseconds() > (10)){
-		setPosition(getPosition()+direction);
+		setPosition( getPosition().x + direction.x, getPosition().y + direction.y );
 		clock.restart();
 	}
 	if(endPos == getPosition()){

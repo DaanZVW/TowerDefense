@@ -129,7 +129,7 @@ void enemyChar::enemyCharHit( const int & damage ){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOG(__FUNCTIONNAME__);
-	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+	if (clockSpawn.getElapsedTime().asMilliseconds() > 200) {
 		clockSpawn.restart();
 		for (auto& wave : waves) {
 			for (auto& enemy : wave) {
