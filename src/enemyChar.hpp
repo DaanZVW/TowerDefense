@@ -147,7 +147,7 @@ private:
 	std::map<std::string, sf::Texture> textures;
 	//unsigned int counter = 0;
 	Json::Value waves;
-	std::vector< std::unique_ptr< enemyChar > > enemies;
+	std::vector< std::shared_ptr< enemyChar > > enemies;
 	Json::Value::iterator currWave;
 public:
 
@@ -253,7 +253,7 @@ public:
 	///
 	/// @return	std::vector<std::unique_ptr<enemyChar>>
 	///
-	std::vector<std::unique_ptr<enemyChar>> & getEnemies();
+	std::vector<std::shared_ptr<enemyChar>> & getEnemies();
 
 
 };

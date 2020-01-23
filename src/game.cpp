@@ -61,7 +61,7 @@ void game::run() {
 	
 
     // Make enemy character
-	enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(),
+	enemyCharGroup enemyGroupObj(fileHandlerConfig.getEnemyConfig(),
 		createdPath,
 		map.getTileSize(),
 		map.getPixelPosition(sf::Vector2i(0, 0)),
@@ -83,7 +83,7 @@ void game::run() {
 
     mouseControl mouse{ map, sideMenu, groupTower };
 
-    shotHandler shots{ window, groupTower, pietje };
+    shotHandler shots{ window, groupTower, enemyGroupObj };
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -95,9 +95,9 @@ void game::run() {
 
         map.draw( window );
         
-        pietje.drawAll( window );
+		enemyGroupObj.drawAll( window );
 
-        pietje.move(); 
+		enemyGroupObj.move();
 		
         sideMenu.draw( window );
 
@@ -105,7 +105,7 @@ void game::run() {
         
         mouse.updateMouse( mousePos );
 
-        pietje.deleteKilled();
+		enemyGroupObj.deleteKilled();
 
         shots.update();
         
@@ -130,7 +130,7 @@ void game::run() {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
                     }else if ( event.key.code == sf::Keyboard::Space ) {
-						pietje.nextWave();
+						enemyGroupObj.nextWave();
                     }
                     break;
                 
