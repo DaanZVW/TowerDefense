@@ -1,40 +1,55 @@
 #include "shothandler.hpp"
 #include <math.h>
 
-bullet::bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, const int & tileSize ):
-	endPos( endPos ),
-	tileSize( tileSize )
+bullet::bullet( tower * myTower, std::unique_ptr<enemyChar> & enemy ):
+	myTower( myTower ),
+	enemy( enemy )
 {
+	sf::Vector2f beginPos = myTower->getPosition();
+	int tileSize = myTower->getSize().x;
 	setPosition( beginPos.x+(tileSize/2), beginPos.y+(tileSize/2));
 	setRadius( tileSize/8 );
 	setOrigin( tileSize/8, tileSize/8 );
 	setFillColor( sf::Color::Black );
-
-	float difx = endPos.x - beginPos.x;
-	float dify = endPos.y - beginPos.y;
-
-	float speed = tileSize/2;
-
-	float dif = sqrt( (difx*difx) + (dify*dify) );
-	float x; float y;
-	x = difx / (dif / speed);
-	y = dify / (dif / speed);
-
-	direction = sf::Vector2f{ x, y };
-
 }
 
 void bullet::updatePos(){
-	if(clock.getElapsedTime().asMilliseconds() > (10)){
 
-		sf::Vector2f thisPos = getPosition();
-		setPosition( getPosition()+direction  );
+	if(clock.getElapsedTime().asMilliseconds() > (10)){
+		if(enemy){
+
+			sf::Vector2f difxy = {
+				enemy->getPosition().x - getPosition().x,
+				enemy->getPosition().y - getPosition().y
+			};
+
+			float speed = myTower->getSize().x/2;
+
+			float dif = sqrt( (difxy.x*difxy.x) + (difxy.y*difxy.y) );
+
+			sf::Vector2f direction{ 
+				difxy.x / (dif / speed), 
+				difxy.y / (dif / speed) 
+			};
+
+			setPosition( getPosition()+direction  );
+
+	}
+		
 		clock.restart();
+
 	}
 }
 
+void bullet::hitEnemy(){
+	enemy->enemyCharHit( myTower->getDamage() );
+}
 
-shotHandler::shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyCharGroup & enemies):
+bool bullet::intersectsEnemy(){
+	return getGlobalBounds().intersects( enemy->getGlobalBounds());
+}
+
+shotHandler::shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyCharGroup & enemies ):
 	window( window ),
 	towers( towers ),
 	enemies( enemies )
@@ -45,20 +60,23 @@ void shotHandler::update(){
 		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
 		for(auto& tower : towers.towers){
 			if(tower->inRange( tmpEnemeyPos )){
-				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 1000) {
-					enemy->enemyCharHit( tower->getDamage() );
-					bullets.push_back( new bullet(tower->getPosition(), enemy->getPosition(), tower->getSize().x) );
+				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
+					bullets.push_back( new bullet( tower, enemy ) );
 					enemy->setFillColor( sf::Color::Red );
 					tower->fireclock.restart();
-					std::cout << bullets.size() << "\n";
 				}
 			}
 		}
 	}
-	for( auto& bullet : bullets ){
-		bullet->updatePos();
-		window.draw( *bullet );
+	for( int i=0; i<bullets.size(); i++ ){
+		bullets[i]->updatePos();
+		if(bullets[i]->intersectsEnemy()){
+				bullets[i]->hitEnemy();
+				bullets.erase(bullets.begin() + i);
+		}
+		window.draw( *bullets[i] );
 
 	}
 }
+
 

@@ -37,14 +37,14 @@
             "Texture" : "Black",
             "Damage" : 5,
             "Range" : 2,
-            "Firerate" : 60
+            "Firerate" : 10
         },
         {
             "Name" : "Water Blaster",
             "Texture" : "Blue",
-            "Damage" : 2,
+            "Damage" : 1,
             "Range" : 4,
-            "Firerate" : 40
+            "Firerate" : 30
         },
         {
             "Name" : "Wood Blaster",
@@ -61,7 +61,7 @@
         {
             "baseDamage": 10,
             "speed": 1,
-            "health": 10,
+            "health": 20,
             "textureFile": "../res/images/PixelArt.png",
             "spritePositions": 
             [

@@ -1,7 +1,8 @@
 #include "enemyChar.hpp"
 #include <stdlib.h>     /* srand, rand */
-
-#ifdef  WILCO
+#include <math.h>
+#include <iostream>
+#ifdef  WILCOs
 #define LOG(msg) std::cout<<msg<<std::endl;
 #else
 #define LOG(msg)
@@ -11,18 +12,48 @@
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
 	route(route),
+	currAnimation(stats["texturepos"].begin()),
 	textures(textures),
 	health(stats["health"].asFloat())
-{
-	
-	setSize(sf::Vector2f(32, 32));
-	setPosition(*route.begin());
 
-	setTextureRect(sf::IntRect(20, 320, 170, 320));
+{
+	LOG(__FUNCTIONNAME__);
+	setPosition(*route.begin());
+	setTextureRect(sf::IntRect(0, 0, 4000, 2000));
 	setTexture(&textures[stats["textureFile"].asString()]);
 	currTargetLocation = route.begin();
 }
 
+void enemyChar::animate(const float& steps){
+	LOG(__FUNCTIONNAME__ << '\t' << steps);
+	animationCounter += steps;
+	if (animationCounter > animationInterval) {
+		if (currAnimation == baseStats["texturepos"].end()) {
+			currAnimation = baseStats["texturepos"].begin();
+		}
+		setTextureRect(sf::IntRect((*currAnimation)["top"].asInt(),
+				(*currAnimation)["left"].asInt(),
+				(*currAnimation)["bottom"].asInt(),
+				(*currAnimation)["right"].asInt()));
+				++currAnimation;
+				animationCounter = 0;
+				
+	}
+
+		
+	
+}
+
+const float enemyChar::getHealth(){
+	LOG(__FUNCTIONNAME__);
+	return health;
+}
+
+
+void enemyChar::decreaseHealth(const float& damage){
+	LOG(__FUNCTIONNAME__<<'\t'<<damage);
+	health -= damage;
+}
 
 const float enemyChar::getSpeed() {
 	LOG(__FUNCTIONNAME__ << "\t" << baseStats["speed"].asFloat());
@@ -34,24 +65,14 @@ const float enemyChar::getDamage() {
 }
 void enemyChar::followPath(float  steps) {
 	LOG(__FUNCTIONNAME__ << "\t" <<steps);
-	if (textureClock.getElapsedTime().asSeconds() > 0.11) {
-		textureClock.restart();
-		if (moving) {
-			setTextureRect(sf::IntRect(170, 320, 300, 320));
-			moving = false;
-		}
-		else {
-			setTextureRect(sf::IntRect(20, 320, 170, 320));
-			moving = true;
-		}
-		
-	}
+	
 	if (route.end() == currTargetLocation) {
 		health = 0;
 		return; 
 	}
 	sf::Vector2f currNode =*currTargetLocation;
 	steps *= baseStats["speed"].asFloat();
+	animate(steps);
 	if (getPosition().x > currNode.x) {
 		setRotation(180);
 		move(-steps , 0);
@@ -119,49 +140,85 @@ void enemyChar::drawHP(sf::RenderWindow& window){
 		window.draw(hpBar);
 		window.draw(hp);
 	}
+
 }
+
+
 
 
 void enemyChar::enemyCharHit( const int & damage ){
 	health -= damage;
 }
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOG(__FUNCTIONNAME__);
 	if (clockSpawn.getElapsedTime().asMilliseconds() > 2000) {
 		clockSpawn.restart();
-		for (auto& wave : waves) {
-			for (auto& enemy : wave) {
+		if (currWave != waves.end()){
+			for (auto& enemy : *currWave) {
 				if (enemy["amount"].asInt() > 0) {
 					enemy["amount"] = enemy["amount"].asInt() -1;
 					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures));
-					(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize * 0.5, tileSize * 0.5));
+					(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize /2, tileSize /2));
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					return;
 				}
 				
 			}
+			if (isEnemyDefeated()) {
+				nextWave();
+			}
+			
+			
+			
+
 		}
+		
 
 	}
 
 };
 
+void enemyCharGroup::nextWave() {
+	LOG(__FUNCTIONNAME__);
+	if (currWave != waves.end()) {
+		++currWave;
+	}
+	
+}
+
+void enemyCharGroup::setTileSize(const float & givenTilesize, const sf::Vector2f& offset){
+	LOG(__FUNCTIONNAME__ << '\t' << givenTilesize);
+	for (auto& pos : route) {
+		pos=(sf::Vector2f((pos.x / tileSize) * givenTilesize +offset.x, (pos.y / tileSize)*givenTilesize+offset.y));
+	}
+	tileSize = givenTilesize;
+}
+
+void enemyCharGroup::setRoute(const std::vector<sf::Vector2i>& givenRoute, const float& givenTilesize, const sf::Vector2f & offset) {
+	LOG(__FUNCTIONNAME__ << '\t' << givenTilesize);
+	route.clear();
+	tileSize = givenTilesize;
+	for (auto& pos : givenRoute) {
+		route.push_back(sf::Vector2f((pos.x * tileSize)+offset.x + (tileSize/2),( pos.y * tileSize)+offset.y + (tileSize / 2)));
+	}
+}
 void enemyCharGroup::drawAll(sf::RenderWindow& window) {
 	LOG(__FUNCTIONNAME__);
 	for (auto& enemy : enemies) {
 		window.draw(*enemy);
 		enemy->drawHP(window);
 	}
-	//drawHP(window);
 }
 
 void enemyCharGroup::deleteKilled() {
 	LOG(__FUNCTIONNAME__);
 	enemies.erase(remove_if(enemies.begin(), enemies.end(), [](auto& obj)
 		{
-			return obj->health <= 0;
+			return obj->getHealth() <= 0;
 		}), enemies.end());
 }
 const bool enemyCharGroup::isEnemyDefeated() {
@@ -179,14 +236,14 @@ void enemyCharGroup::move() {
 }
 enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route): 
 	enemyTemplates(enemyTemplates),
-	route( route ) 
+	route( route )
 {
 	LOG(__FUNCTIONNAME__);
 	std::cout << enemyTemplates["spoderman"]["textureFile"].asString() << std::endl;
 	for (auto& enemy : enemyTemplates) {
 		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
 	}
-	spawnWave();
+	
 
 }
 
@@ -205,12 +262,10 @@ void enemyCharGroup::updateTextures(){
 void enemyCharGroup::setWaves(const Json::Value enemyWaves){
 	LOG(__FUNCTIONNAME__);
 	waves = enemyWaves;
+	currWave=waves.begin();
 }
 
-void enemyCharGroup::setTileSize(float size) {
-	LOG(__FUNCTIONNAME__);
-	tileSize = size;
-}
+
 
 
 
@@ -221,8 +276,8 @@ size_t enemyCharGroup::size() {
 
 void enemyCharGroup::damageEnemy(const size_t& index, const float & damage){
 	LOG(__FUNCTIONNAME__);
-	if (enemies[index].get()->health > damage) {
-		enemies[index].get()->health -= damage;
+	if (enemies[index].get()->getHealth() > damage) {
+		enemies[index].get()->decreaseHealth(damage);
 	}
 	else {
 		enemies.erase(enemies.begin() + index);
@@ -233,5 +288,4 @@ std::vector<std::unique_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
 	LOG(__FUNCTIONNAME__);
 	return enemies;
 }
-
 

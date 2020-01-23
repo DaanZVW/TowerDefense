@@ -2,7 +2,6 @@
 #define ENEMYCHAR__HPP
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <vector>
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
@@ -29,7 +28,6 @@ class enemyChar : public sf::RectangleShape {
 	Json::Value & baseStats;
 
 	std::vector<sf::Vector2f> & route;
-	std::map<std::string, sf::Texture>  &textures;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
 	sf::RectangleShape hp;
@@ -37,9 +35,13 @@ class enemyChar : public sf::RectangleShape {
 	sf::Clock textureClock;
 
 	bool moving{true};
-
-public:
 	float health;
+
+	Json::Value::iterator currAnimation;
+	float animationInterval = 20;
+	float animationCounter = 0;
+public:
+	
 
 	/// @brief Construct an enemyChar with json
 	///
@@ -48,6 +50,25 @@ public:
 	/// @textures		textures of all enemyChar's
 	/// 
 	enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures);
+
+	/// @brief	Changes texture when interval is reached
+	///
+	/// @param	steps	increases the counter
+	///
+	void animate(const float& steps);
+
+	/// @brief	Returns health of enemyChar
+	///
+	/// @return	const float
+	///
+	const float getHealth();
+
+	/// @brief	Removes health from enemyChar
+	///
+	/// @param  
+	/// @return	void
+	///
+	void decreaseHealth(const float & damage);
 
 	/// @brief	Returns speed of enemyChar
 	///
@@ -75,6 +96,8 @@ public:
 	///
 	void drawHP(sf::RenderWindow& window);
 
+
+	
 	void enemyCharHit( const int & damage );
 
 };
@@ -101,6 +124,7 @@ private:
 	int counter = 0;
 	Json::Value waves;
 	std::vector< std::unique_ptr< enemyChar > > enemies;
+	Json::Value::iterator currWave;
 public:
 
 
@@ -111,6 +135,14 @@ public:
 	/// @return	void
 	///
 	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
+
+	/// @brief	sets route for enemyChar and converts it to pixels.
+	///
+	/// @param route route in tiles
+	/// @param tilesize size of tiles
+	/// @return	void
+	///
+	void setRoute(const std::vector<sf::Vector2i> & route, const float & tilesize, const sf::Vector2f& offset);
 
 	/// @brief	spawns new enemies based on time passed
 	///
@@ -157,12 +189,18 @@ public:
 	///
 	void setWaves(const Json::Value enemyWaves);
 	
+	/// @brief	makes next wave availlable to spawn
+	///
+	/// @return	void
+	///
+	void nextWave();
+
 	/// @brief	sets the tile size to scale enemy size from
 	///
 	/// @param  size	size of tile 
 	/// @return	void
 	///
-	void setTileSize(float size);
+	void setTileSize(const float& givenTilesize, const sf::Vector2f& offset);
 	
 	/// @brief	Returns true is all enemies are dead
 	///
@@ -192,6 +230,25 @@ public:
 	/// @return	std::vector<std::unique_ptr<enemyChar>>
 	///
 	std::vector<std::unique_ptr<enemyChar>> & getEnemies();
-};
 
+
+
+
+
+
+// random
+float stuff(sf::Vector2f one, sf::Vector2f two) {
+	//range
+	float result = pow(abs(one.x - two.x),2 )+ pow(abs(one.y - two.y),2);
+	return sqrt(result);
+}
+
+float otherStuff(sf::Vector2f one, sf::Vector2f two) {
+	//angle
+	float dot =  one.y * two.y;   
+	float det =  one.x * two.x;
+	return atan2(dot, det) * 180 / 3.14159265359;
+}
+
+};
 #endif // ENEMYCHAR__HPP

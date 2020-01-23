@@ -1,4 +1,4 @@
-// ======================================
+﻿// ======================================
 // = Author: Daan Zimmerman van Woesik  =
 // = Insitute: HU                       =
 // = Date: 12/12/2019                   =
@@ -49,12 +49,15 @@ void game::run() {
     std::vector<sf::Vector2f> pathPosition;
  
     // MOET FUNCTIE WORDEN!
-    for(unsigned int i=0; i<createdPath.size(); i++){
+  /*  for(unsigned int i=0; i<createdPath.size(); i++){
         sf::Vector2f tmp;
         pathPosition.push_back(map.getPixelPosition(createdPath[i]));
         pathPosition[i].x+=(map.getTileSize()/2);
         pathPosition[i].y+=(map.getTileSize()/2);
-    }
+    }*/
+
+	
+
 
     // Make the path
     map.makePath( createdPath , sf::Color::Yellow);
@@ -63,15 +66,16 @@ void game::run() {
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
 
 
-    //JSON
-
+	
 
     // Make enemy character
     enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(), pathPosition);
-	pietje.setTileSize(map.getTileSize());
+	pietje.setRoute(createdPath, 384444, map.getPixelPosition(sf::Vector2i(0,0)));
+	pietje.setTileSize(map.getTileSize(), map.getPixelPosition(sf::Vector2i(0, 0)));
 	pietje.setWaves(fileHandlerConfig.getWaves());
 
-
+	std::cout << pietje.otherStuff(sf::Vector2f(0, 10), sf::Vector2f(10, 10)) << std::endl;
+	
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
         sf::Vector2f{ 
@@ -113,12 +117,12 @@ void game::run() {
         
         pietje.drawAll( window );
 
-        pietje.move();
-        
+        pietje.move(); 
+		
         sideMenu.draw( window );
 
         groupTower.draw( window );
-
+	
         shots.update();
         
         mouse.updateMouse( mousePos );
@@ -147,7 +151,7 @@ void game::run() {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
                     }else if ( event.key.code == sf::Keyboard::Space ) {
-                        pietje.spawnWave();
+						pietje.nextWave();
                     }
                     break;
                 
