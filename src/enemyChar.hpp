@@ -236,19 +236,19 @@ public:
 
 
 
-// random
-float stuff(sf::Vector2f one, sf::Vector2f two) {
-	//range
-	float result = pow(abs(one.x - two.x),2 )+ pow(abs(one.y - two.y),2);
-	return sqrt(result);
-}
+// // random
+// float stuff(sf::Vector2f one, sf::Vector2f two) {
+// 	//range
+// 	float result = pow(abs(one.x - two.x),2 )+ pow(abs(one.y - two.y),2);
+// 	return sqrt(result);
+// }
 
-float otherStuff(sf::Vector2f one, sf::Vector2f two) {
-	//angle
-	float dot =  one.y * two.y;   
-	float det =  one.x * two.x;
-	return atan2(dot, det) * 180 / 3.14159265359;
-}
+// float otherStuff(sf::Vector2f one, sf::Vector2f two) {
+// 	//angle
+// 	float dot =  one.y * two.y;   	
+// 	float det =  one.x * two.x;
+// 	return atan2(dot, det) * 180 / 3.14159265359;
+// }
 
 };
 #endif // ENEMYCHAR__HPP

@@ -73,8 +73,6 @@ void game::run() {
 	pietje.setRoute(createdPath, 384444, map.getPixelPosition(sf::Vector2i(0,0)));
 	pietje.setTileSize(map.getTileSize(), map.getPixelPosition(sf::Vector2i(0, 0)));
 	pietje.setWaves(fileHandlerConfig.getWaves());
-
-	std::cout << pietje.otherStuff(sf::Vector2f(0, 10), sf::Vector2f(10, 10)) << std::endl;
 	
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
@@ -83,16 +81,6 @@ void game::run() {
             float(window.getSize().y )
         },
         fileHandlerConfig.makeTowers(),
-        map.getTileSize(),
-        fileHandlerConfig.getFont()
-    };
-
-    menu infoTowerMenu {
-        sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
-        sf::Vector2f{ 
-            float(window.getSize().x * (1-TILEMAPSIZE)),
-            float(window.getSize().y )
-        },
         map.getTileSize(),
         fileHandlerConfig.getFont()
     };

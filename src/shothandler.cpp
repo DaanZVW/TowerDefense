@@ -68,7 +68,7 @@ void shotHandler::update(){
 			}
 		}
 	}
-	for( int i=0; i<bullets.size(); i++ ){
+	for( unsigned int i=0; i<bullets.size(); i++ ){
 		bullets[i]->updatePos();
 		if(bullets[i]->intersectsEnemy()){
 				bullets[i]->hitEnemy();

@@ -12,9 +12,8 @@
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
 	route(route),
-	currAnimation(stats["texturepos"].begin()),
-	textures(textures),
-	health(stats["health"].asFloat())
+	health(stats["health"].asFloat()),
+	currAnimation(stats["texturepos"].begin())
 
 {
 	LOG(__FUNCTIONNAME__);
