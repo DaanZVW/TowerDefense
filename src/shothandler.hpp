@@ -6,16 +6,22 @@
 
 class bullet : public sf::CircleShape{
 private:
-	const sf::Vector2f & endPos;
-	const int & tileSize;
-	sf::Vector2f direction;
+	tower * myTower;
+	std::unique_ptr<enemyChar> & enemy;
 	sf::Clock clock;
 
 
 public:
-	bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, const int & tileSize );
+
+	
+
+	bullet( tower * myTower, std::unique_ptr<enemyChar> & enemy );
 
 	void updatePos();
+
+	void hitEnemy();
+
+	bool intersectsEnemy();
 
 };
 

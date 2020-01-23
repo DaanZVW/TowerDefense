@@ -10,6 +10,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 	if (placeTower == true ){
 		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
 			newTower->setPosition(sf::Vector2f{float(mousePointer.x), float(mousePointer.y)});
+			newTower->setFillColor( newTower->mycolor );
 		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );

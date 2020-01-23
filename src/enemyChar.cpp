@@ -11,9 +11,11 @@
 
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
-	health(stats["health"].asFloat()),
 	route(route),
-	currAnimation(stats["texturepos"].begin())
+	currAnimation(stats["texturepos"].begin()),
+	textures(textures),
+	health(stats["health"].asFloat())
+
 {
 	LOG(__FUNCTIONNAME__);
 	setPosition(*route.begin());
@@ -153,7 +155,7 @@ void enemyChar::enemyCharHit( const int & damage ){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOG(__FUNCTIONNAME__);
-	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+	if (clockSpawn.getElapsedTime().asMilliseconds() > 2000) {
 		clockSpawn.restart();
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
