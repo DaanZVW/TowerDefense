@@ -10,16 +10,41 @@
 	#include <json/json.h>
 	#define __FUNCTIONNAME__ __FUNCTION__
 #endif // INCLUDE
+#include<iostream>
 
 
+class healthBar {
+private:
+	float percentage;
+	sf::RectangleShape back;
+	sf::RectangleShape front;
+public:
+	healthBar(float maxHealth=0, float currentHealth = 0) :
+		percentage(  currentHealth / maxHealth)
+	{
+		back.setOutlineColor(sf::Color::Black);
+		back.setOutlineThickness(1);
+		back.setFillColor(sf::Color::Red);
+		front.setFillColor(sf::Color::Green);
+	}
+	void setSize(const sf::Vector2f& size) {
+		back.setSize(sf::Vector2f(size.x - 2, size.y - 2));
+		front.setSize(sf::Vector2f((size.x - 2) * percentage, size.y - 2));
+	}
+	void setPosition(const sf::Vector2f& position) {
+		back.setPosition(position.x + 1, position.y + 1);
+		front.setPosition(position.x + 1, position.y + 1);
+	}
+	void setPercentage(const float& currentHealth, const float& maxHealth) {
+		percentage = currentHealth / maxHealth;
+		front.setSize(sf::Vector2f((back.getSize().x) * percentage, back.getSize().y));
+	}
+	void draw(sf::RenderWindow& window) {
+		window.draw(back);
+		window.draw(front);
+	}
+};
 
-/* TODO 
--comments fixen
-
-
-*/
-
-//class healthBar: 
 
 
 /// @brief Class for an enemy character
@@ -30,8 +55,7 @@ class enemyChar : public sf::RectangleShape {
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
-	sf::RectangleShape hp;
-	sf::RectangleShape hpBar;
+	healthBar hpBar;
 	sf::Clock textureClock;
 
 	bool moving{true};
@@ -49,7 +73,7 @@ public:
 	/// @param route	route for enemy to walk
 	/// @textures		textures of all enemyChar's
 	/// 
-	enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures);
+	enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size);
 
 	/// @brief	Changes texture when interval is reached
 	///
@@ -236,19 +260,6 @@ public:
 
 
 
-// random
-float stuff(sf::Vector2f one, sf::Vector2f two) {
-	//range
-	float result = pow(abs(one.x - two.x),2 )+ pow(abs(one.y - two.y),2);
-	return sqrt(result);
-}
-
-float otherStuff(sf::Vector2f one, sf::Vector2f two) {
-	//angle
-	float dot =  one.y * two.y;   
-	float det =  one.x * two.x;
-	return atan2(dot, det) * 180 / 3.14159265359;
-}
 
 };
 #endif // ENEMYCHAR__HPP

@@ -2,14 +2,14 @@
 #include <stdlib.h>     /* srand, rand */
 #include <math.h>
 #include <iostream>
-#ifdef  WILCO
+#ifdef  WILCOs
 #define LOG(msg) std::cout<<msg<<std::endl;
 #else
 #define LOG(msg)
 #endif //  WILCO
 
 
-enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
+enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size):
 	baseStats(stats),
 	health(stats["health"].asFloat()),
 	route(route),
@@ -17,6 +17,8 @@ enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std:
 {
 	LOG(__FUNCTIONNAME__);
 	setPosition(*route.begin());
+	setSize(size);
+	hpBar.setSize(sf::Vector2f(getLocalBounds().height , getLocalBounds().width* 0.1));
 	setTexture(&textures[stats["textureFile"].asString()]);
 	currTargetLocation = route.begin();
 }
@@ -128,17 +130,10 @@ void enemyChar::followPath(float  steps) {
 void enemyChar::drawHP(sf::RenderWindow& window){
 	LOG(__FUNCTIONNAME__);
 	if (health >= 0) {
-		 
-		hpBar.setSize(sf::Vector2f(getSize().x, getSize().y * 0.05));
-		hpBar.setPosition(getGlobalBounds().left, getGlobalBounds().top);
-		hpBar.setFillColor(sf::Color::Red);
-		hpBar.setOutlineThickness(1);
-		hpBar.setOutlineColor(sf::Color::Black);
-		hp.setSize(sf::Vector2f(getSize().x * (health / baseStats["health"].asFloat()), getSize().y * 0.05));
-		hp.setPosition(getGlobalBounds().left, getGlobalBounds().top);
-		hp.setFillColor(sf::Color::Green);
-		window.draw(hpBar);
-		window.draw(hp);
+	
+		hpBar.setPosition(sf::Vector2f(getGlobalBounds().left, getGlobalBounds().top));
+		hpBar.setPercentage(health, baseStats["health"].asFloat());
+		hpBar.draw(window);
 	}
 
 }
@@ -161,8 +156,8 @@ void enemyCharGroup::spawnWave() {
 			for (auto& enemy : *currWave) {
 				if (enemy["amount"].asInt() > 0) {
 					enemy["amount"] = enemy["amount"].asInt() -1;
-					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures));
-					(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize /2, tileSize /2));
+					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
+				
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					return;
 				}
