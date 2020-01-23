@@ -115,13 +115,13 @@ private:
 
 	//std::shared_ptr<base> target;
 	Json::Value enemyTemplates;
-	std::vector<sf::Vector2f> & route;
+	std::vector<sf::Vector2f>  route;
 	sf::Texture texture;
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
 	std::map<std::string, sf::Texture> textures;
-	int counter = 0;
+	//unsigned int counter = 0;
 	Json::Value waves;
 	std::vector< std::unique_ptr< enemyChar > > enemies;
 	Json::Value::iterator currWave;
@@ -134,7 +134,7 @@ public:
 	/// @param route	route that enemies will walk
 	/// @return	void
 	///
-	enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route);
+	enemyCharGroup(Json::Value enemyTemplates, const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f & offset, Json::Value waves);
 
 	/// @brief	sets route for enemyChar and converts it to pixels.
 	///

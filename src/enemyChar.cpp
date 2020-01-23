@@ -2,7 +2,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <math.h>
 #include <iostream>
-#ifdef  WILCOs
+#ifdef  WILCO
 #define LOG(msg) std::cout<<msg<<std::endl;
 #else
 #define LOG(msg)
@@ -11,14 +11,12 @@
 
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
-	route(route),
 	health(stats["health"].asFloat()),
+	route(route),
 	currAnimation(stats["texturepos"].begin())
-
 {
 	LOG(__FUNCTIONNAME__);
 	setPosition(*route.begin());
-	setTextureRect(sf::IntRect(0, 0, 4000, 2000));
 	setTexture(&textures[stats["textureFile"].asString()]);
 	currTargetLocation = route.begin();
 }
@@ -28,6 +26,9 @@ void enemyChar::animate(const float& steps){
 	animationCounter += steps;
 	if (animationCounter > animationInterval) {
 		if (currAnimation == baseStats["texturepos"].end()) {
+			if (baseStats["texturepos"].end() == baseStats["texturepos"].begin()) {
+				return;
+			}
 			currAnimation = baseStats["texturepos"].begin();
 		}
 		setTextureRect(sf::IntRect((*currAnimation)["top"].asInt(),
@@ -154,7 +155,7 @@ void enemyChar::enemyCharHit( const int & damage ){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOG(__FUNCTIONNAME__);
-	if (clockSpawn.getElapsedTime().asMilliseconds() > 2000) {
+	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
 		clockSpawn.restart();
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
@@ -233,12 +234,12 @@ void enemyCharGroup::move() {
 		enemy->followPath(elapsed.asSeconds()*tileSize);
 	}
 }
-enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, std::vector<sf::Vector2f> & route): 
-	enemyTemplates(enemyTemplates),
-	route( route )
+enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f& offset, Json::Value waves):
+	enemyTemplates(enemyTemplates)
 {
 	LOG(__FUNCTIONNAME__);
-	std::cout << enemyTemplates["spoderman"]["textureFile"].asString() << std::endl;
+	setRoute(route, tilesize, offset);
+	setWaves(waves);
 	for (auto& enemy : enemyTemplates) {
 		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
 	}
