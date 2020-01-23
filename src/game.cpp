@@ -79,16 +79,6 @@ void game::run() {
         fileHandlerConfig.getFont()
     };
 
-    menu infoTowerMenu {
-        sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
-        sf::Vector2f{ 
-            float(window.getSize().x * (1-TILEMAPSIZE)),
-            float(window.getSize().y )
-        },
-        map.getTileSize(),
-        fileHandlerConfig.getFont()
-    };
-
     towerGroup groupTower;
 
     mouseControl mouse{ map, sideMenu, groupTower };
@@ -112,14 +102,13 @@ void game::run() {
         sideMenu.draw( window );
 
         groupTower.draw( window );
-	
-        shots.update();
         
         mouse.updateMouse( mousePos );
 
         pietje.deleteKilled();
 
-
+        shots.update();
+        
         // Draw all excisting objects on the screen
 		window.display();
 

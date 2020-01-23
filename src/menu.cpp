@@ -23,20 +23,6 @@ menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector
 	}
 }
 
-menu::menu( const sf::Vector2f & position, const sf::Vector2f & size, const float & tilesize, const sf::Font &font ):
-	position ( position ),
-	size ( size ),
-	tilesize ( tilesize ),
-	font ( font )
-{	
-	int offset = 3;
-	setPosition( position.x + offset, position.y + offset );
-	setSize( sf::Vector2f{position.x + offset * 2, position.y + offset * 2} );
-	setFillColor( sf::Color::Black );
-	setOutlineThickness( 1 );
-	setOutlineColor( sf::Color::White );
-}
-
 void menu::draw( sf::RenderWindow &window ){
 	window.draw( *this );
 	for( auto &tower : allTowers ){

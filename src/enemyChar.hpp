@@ -256,10 +256,5 @@ public:
 	std::vector<std::unique_ptr<enemyChar>> & getEnemies();
 
 
-
-
-
-
-
 };
 #endif // ENEMYCHAR__HPP
