@@ -109,13 +109,13 @@ void game::run() {
 
         groupTower.draw( window );
 
-        shots.update();
         
         mouse.updateMouse( mousePos );
 
         pietje.deleteKilled();
 
-
+        shots.update();
+        
         // Draw all excisting objects on the screen
 		window.display();
 
