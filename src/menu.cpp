@@ -1,6 +1,5 @@
 #include "menu.hpp"
 
-
 menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string & text, const sf::Font &font):
 	text( text ),
 	font ( font )
@@ -22,6 +21,20 @@ menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector
 		allTowers[i]->setPosition(sf::Vector2f{position.x+100, position.y+(i*tilesize*2)});
 		allTowers[i]->setSize(sf::Vector2f{ tilesize,tilesize});
 	}
+}
+
+menu::menu( const sf::Vector2f & position, const sf::Vector2f & size, const float & tilesize, const sf::Font &font ):
+	position ( position ),
+	size ( size ),
+	tilesize ( tilesize ),
+	font ( font )
+{	
+	int offset = 3;
+	setPosition( position.x + offset, position.y + offset );
+	setSize( sf::Vector2f{position.x + offset * 2, position.y + offset * 2} );
+	setFillColor( sf::Color::Black );
+	setOutlineThickness( 1 );
+	setOutlineColor( sf::Color::White );
 }
 
 void menu::draw( sf::RenderWindow &window ){

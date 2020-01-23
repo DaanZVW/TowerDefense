@@ -3,7 +3,6 @@
 
 bullet::bullet( const sf::Vector2f & beginPos, const sf::Vector2f & endPos, const int & tileSize ):
 	endPos( endPos ),
-	direction( endPos ),
 	tileSize( tileSize )
 {
 	setPosition( beginPos.x+(tileSize/2), beginPos.y+(tileSize/2));

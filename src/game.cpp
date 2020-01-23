@@ -23,7 +23,7 @@ void game::run() {
             sf::VideoMode::getDesktopMode().width, 
             sf::VideoMode::getDesktopMode().height
         },
-        "SFML window"
+        "Space Defense"
         ,sf::Style::Fullscreen
     };
 
@@ -79,6 +79,16 @@ void game::run() {
             float(window.getSize().y )
         },
         fileHandlerConfig.makeTowers(),
+        map.getTileSize(),
+        fileHandlerConfig.getFont()
+    };
+
+    menu infoTowerMenu {
+        sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
+        sf::Vector2f{ 
+            float(window.getSize().x * (1-TILEMAPSIZE)),
+            float(window.getSize().y )
+        },
         map.getTileSize(),
         fileHandlerConfig.getFont()
     };

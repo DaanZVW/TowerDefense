@@ -8,9 +8,9 @@ class bullet : public sf::CircleShape{
 private:
 	const sf::Vector2f & endPos;
 	const int & tileSize;
-	sf::Vector2f direction;
+	
 	sf::Clock clock;
-	float a; float b;
+	sf::Vector2f direction;
 
 
 public:
