@@ -49,9 +49,9 @@
         {
             "Name" : "Wood Blaster",
             "Texture" : "Yellow",
-            "Damage" : 2,
-            "Range" : 10,
-            "Firerate" : 20
+            "Damage" : 10,
+            "Range" : 7,
+            "Firerate" : 30
         }
     ],
 
@@ -93,7 +93,7 @@
         {
           "baseDamage": 10,
           "speed": 3,
-          "health": 10,
+          "health": 25,
           "textureFile": "../res/images/dog.png"
         } 
     },
@@ -102,18 +102,18 @@
     [
         [
             {
-                "amount": 100,
+                "amount": 10,
                 "name": "spoderman"
             },
             {
                 "name": "dog",
-                "amount": 0
+                "amount": 5
             }
         ],
         [
             {
                 "name": "spoderman",
-                "amount": 1
+                "amount": 0
             },
             {
                 "name": "dog",

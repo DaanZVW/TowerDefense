@@ -1,4 +1,4 @@
-// ======================================
+﻿// ======================================
 // = Author: Daan Zimmerman van Woesik  =
 // = Insitute: HU                       =
 // = Date: 12/12/2019                   =
@@ -23,13 +23,13 @@ void game::run() {
             sf::VideoMode::getDesktopMode().width, 
             sf::VideoMode::getDesktopMode().height
         },
-        "SFML window"
+        "Space Defense"
         ,sf::Style::Fullscreen
     };
-
+	
     // Make fileReader for pathnodes
     fileReader fileHandlerMap{ "../res/configfiles/maps/easy.json" };
-
+	
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
     tilemap map{
@@ -45,32 +45,28 @@ void game::run() {
     // levelEditor lvlEditor{ map };
 
     std::vector<sf::Vector2i> createdPath = fileHandlerMap.makeNodes();
-
+	
     std::vector<sf::Vector2f> pathPosition;
- 
-    // MOET FUNCTIE WORDEN!
-    for(unsigned int i=0; i<createdPath.size(); i++){
-        sf::Vector2f tmp;
-        pathPosition.push_back(map.getPixelPosition(createdPath[i]));
-        pathPosition[i].x+=(map.getTileSize()/2);
-        pathPosition[i].y+=(map.getTileSize()/2);
-    }
+
+
 
     // Make the path
     map.makePath( createdPath , sf::Color::Yellow);
 
     // Make fileReader fot towers
+	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
-
-
-    //JSON
-
+	
+	
+	
 
     // Make enemy character
-    enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(), pathPosition);
-	pietje.setTileSize(map.getTileSize());
-	pietje.setWaves(fileHandlerConfig.getWaves());
-
+	enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(),
+		createdPath,
+		map.getTileSize(),
+		map.getPixelPosition(sf::Vector2i(0, 0)),
+		fileHandlerConfig.getWaves()
+	);
 
     menu sideMenu{
         sf::Vector2f{ float(window.getSize().x * TILEMAPSIZE), 0 },
@@ -98,17 +94,14 @@ void game::run() {
 		window.clear( sf::Color::Black );
 
         map.draw( window );
-
-        //pietje.followPath( 1 );
         
         pietje.drawAll( window );
 
-        pietje.move();
-        
+        pietje.move(); 
+		
         sideMenu.draw( window );
 
         groupTower.draw( window );
-
         
         mouse.updateMouse( mousePos );
 
@@ -137,7 +130,7 @@ void game::run() {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
                     }else if ( event.key.code == sf::Keyboard::Space ) {
-                        pietje.spawnWave();
+						pietje.nextWave();
                     }
                     break;
                 

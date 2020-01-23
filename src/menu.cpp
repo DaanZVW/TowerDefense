@@ -1,6 +1,5 @@
 #include "menu.hpp"
 
-
 menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string & text, const sf::Font &font):
 	text( text ),
 	font ( font )
