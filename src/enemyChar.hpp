@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
+
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 	#define __FUNCTIONNAME__ __func__
@@ -52,6 +54,7 @@ public:
 class enemyChar : public sf::RectangleShape {
 	Json::Value & baseStats;
 
+	float health;
 	std::vector<sf::Vector2f> & route;
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
@@ -59,7 +62,6 @@ class enemyChar : public sf::RectangleShape {
 	sf::Clock textureClock;
 
 	bool moving{true};
-	float health;
 
 	Json::Value::iterator currAnimation;
 	float animationInterval = 20;
