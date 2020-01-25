@@ -1,11 +1,11 @@
 {
     "Info" :   
     {
-            "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
-            "Version" : "Alpha 1.0",
-            "Github" : "https://github.com/DaanZVW/TowerDefense",
-            "StandardPath" : "../res/configfiles/maps/",
-            "TextFont" : "../res/fonts/Arial.ttf"
+        "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
+        "Version" : "Alpha 1.0",
+        "Github" : "https://github.com/DaanZVW/TowerDefense",
+        "StandardPath" : "../res/configfiles/maps/",
+        "TextFont" : "../res/fonts/Arial.ttf"
     },
     
     "Maps" :

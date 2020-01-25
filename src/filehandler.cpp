@@ -70,11 +70,11 @@ sf::Vector2i fileReader::getGridSize(){
 
 // =================================================================================
 
-sf::Font fileReader::getFont() {
-    sf::Font font;
-    if ( !font.loadFromFile( fileInfo["Info"]["TextFont"].asString() ) ) {
-        std::cerr << "[Error] Font from Path " << filename << " does not excist! Will use default font..." << std::endl;
-        font.loadFromFile( "../res/fonts/Arial.ttf" );
+sf::Font* fileReader::getFont() {
+    sf::Font *font = new sf::Font;
+    if ( !font->loadFromFile( fileInfo["Info"]["TextFont"].asString() ) ) {
+        std::cerr << "[Error] Font from Path " << filename << " does not exist! Will use default font..." << std::endl;
+        font->loadFromFile( "../res/fonts/Arial.ttf" );
     }
     return font;
 }

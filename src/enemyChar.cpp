@@ -11,8 +11,8 @@
 
 enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
 	baseStats(stats),
-	health(stats["health"].asFloat()),
 	route(route),
+	health(stats["health"].asFloat()),
 	currAnimation(stats["texturepos"].begin())
 {
 	LOG(__FUNCTIONNAME__);
@@ -21,7 +21,7 @@ enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std:
 	currTargetLocation = route.begin();
 }
 
-void enemyChar::animate(const float& steps){
+void enemyChar::animate(const float& steps) {
 	LOG(__FUNCTIONNAME__ << '\t' << steps);
 	animationCounter += steps;
 	if (animationCounter > animationInterval) {

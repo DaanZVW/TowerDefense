@@ -18,7 +18,7 @@
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
-	#include <json/json.h>
+	#include <jsoncpp/json/json.h>
 #endif // INCLUDE
 
 #include <SFML/Graphics.hpp>
@@ -52,7 +52,7 @@ public:
 
     sf::Vector2i getGridSize();
 
-    sf::Font getFont();
+    sf::Font* getFont();
 
     // // Reads the file given in constructor
     // // Returns a drawable pointer vector

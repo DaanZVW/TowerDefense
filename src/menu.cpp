@@ -1,18 +1,89 @@
 #include "menu.hpp"
 
-menuTextObject::menuTextObject(const sf::Vector2f & position, const std::string & text, const sf::Font &font):
-	text( text ),
-	font ( font )
-{
+menuTextObject::menuTextObject(
+	const sf::Vector2f &position, 
+	const std::string &text,
+	const sf::Font *font, 
+	int charSize = 30, 
+	sf::Color color = sf::Color::White, 
+	sf::Text::Style style = sf::Text::Bold
+) {
+	setFont( *font );
 	setPosition( position );
+	setString( text );
+	setCharacterSize( charSize );
+	setFillColor( color );
+	setStyle( style );
 }
 
-menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector<tower*> allTowers, const float &tilesize, const sf::Font &font ):
+// ==============================================================================
+// ==============================================================================
+// ==============================================================================
+
+towerInfoMenu::towerInfoMenu(
+	sf::Vector2f position,  
+	const sf::Font *font,
+	int amount,
+	sf::Color color = sf::Color::White, 
+	sf::Text::Style style = sf::Text::Bold
+):
+	position ( position ),
+	font ( font ),
+	amount ( amount ),
+	color ( color ),
+	style ( style )
+{
+	for ( int i = 0; i < amount; i++ ) {
+		std::cout << i << std::endl;
+		textObjects.push_back( 
+			new menuTextObject{
+				position + sf::Vector2f{ 
+					float( sf::VideoMode::getDesktopMode().width  * TIO_OFFSET_X ), 
+					float( sf::VideoMode::getDesktopMode().height * TIO_OFFSET_Y + 
+						i * sf::VideoMode::getDesktopMode().height * TIO_TEXT_DEVIDER ) 
+				},
+				"ERROR",
+				font,
+				int( sf::VideoMode::getDesktopMode().width * TIO_CHARSIZE_DEVIDER ),
+				color,
+				style
+			}
+		);
+	}
+}
+
+void towerInfoMenu::draw( sf::RenderWindow &window ) {
+	for ( auto object : textObjects ) {
+		window.draw( *object );
+	}
+}
+
+void towerInfoMenu::updateStrings( const std::vector<std::string> &textInTextObjects ) {
+	for ( unsigned int i = 0; i < textObjects.size(); i++ ) {
+		textObjects[i]->setString( textInTextObjects[i] );
+	}
+}
+
+
+
+// ==============================================================================
+// ==============================================================================
+// ==============================================================================
+
+
+menu::menu(
+	const sf::Vector2f & position, 
+	const sf::Vector2f & size, 
+	std::vector<tower*> allTowers, 
+	const float &tilesize, 
+	const sf::Font *font 
+):
 	position( position ),
 	size( size ),
 	allTowers( allTowers ),
 	tilesize( tilesize ),
-	font ( font )
+	font ( font ),
+	infoMenu{ position, font, 4 }
 {
 	setPosition( position );
 	setSize( size );
@@ -25,11 +96,43 @@ menu::menu(const sf::Vector2f & position, const sf::Vector2f & size, std::vector
 
 void menu::draw( sf::RenderWindow &window ){
 	window.draw( *this );
-	for( auto &tower : allTowers ){
-		window.draw( *tower );
+
+	switch ( (selectedTower == nullptr) ) {
+		case true:
+		{
+			for( auto tower : allTowers ){
+				window.draw( *tower );
+			}
+			break;
+		}
+		
+		case false:
+		{	
+			std::vector<std::string> textInTextObjects {
+				"Name : " + selectedTower->name,
+				"Range : " + std::to_string(selectedTower->range),
+				"Damage : " + std::to_string(selectedTower->damage),
+				"Firerate : " + std::to_string(selectedTower->firerate),
+			};
+
+			std::cout << "help" << std::endl;
+			infoMenu.updateStrings( textInTextObjects );
+			std::cout << "help2" << std::endl;
+			infoMenu.draw( window );
+
+			break;
+		}
 	}
 }
 
 std::vector<tower*> menu::getTowers(){
 	return allTowers;
+}
+
+void menu::setSelectedTower( tower* towerPointer ) {
+	selectedTower = towerPointer;
+}
+
+tower* menu::getSeletedTower(){
+	return selectedTower;
 }

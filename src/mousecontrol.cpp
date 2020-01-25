@@ -32,7 +32,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 
 void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 	// Check if mouse is pointing at something outside the tilemap
-	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ) {
+	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} && menuSide.getSeletedTower() == nullptr ) {
 		for ( auto &menuTower : menuSide.getTowers() ){
 			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
 
@@ -77,6 +77,8 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
 			selectedTower->selected = false;
+
+			menuSide.setSelectedTower( nullptr );
 		}
 
 	// When the tile selected is a tower
@@ -86,6 +88,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
+			menuSide.setSelectedTower( selectedTower );
 
 			for ( auto &tower : towers.towers ) {
 
@@ -96,6 +99,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 				// Set selected false when tower at mousepointer
 				} else if ( selectedTower->selected ) {
 					selectedTower->selected = false;
+					menuSide.setSelectedTower( nullptr );
 
 				// Set selected true
 				} else {
@@ -105,6 +109,9 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		
 		// Set selected false for all towers when mousepointer not a tower
 		} else {
+			std::cout << "thing" << std::endl;
+			menuSide.setSelectedTower( nullptr );
+
 			if ( towers.towers.size() >= 1 ) {
 				for ( auto &tower : towers.towers ) {
 					tower->selected = false;

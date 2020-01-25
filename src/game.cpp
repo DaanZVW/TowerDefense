@@ -56,10 +56,9 @@ void game::run() {
     // Make fileReader fot towers
 	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
+    sf::Font *font = fileHandlerConfig.getFont();
 	
 	
-	
-
     // Make enemy character
 	enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(),
 		createdPath,
@@ -76,7 +75,7 @@ void game::run() {
         },
         fileHandlerConfig.makeTowers(),
         map.getTileSize(),
-        fileHandlerConfig.getFont()
+        font
     };
 
     towerGroup groupTower;

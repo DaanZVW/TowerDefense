@@ -56,27 +56,27 @@ shotHandler::shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyC
 {}
 
 void shotHandler::update(){
-	for(auto& enemy : enemies.getEnemies()){
-		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
-		for(auto& tower : towers.towers){
-			if(tower->inRange( tmpEnemeyPos )){
-				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
-					bullets.push_back( new bullet( tower, enemy ) );
-					enemy->setFillColor( sf::Color::Red );
-					tower->fireclock.restart();
-				}
-			}
-		}
-	}
-	for( unsigned int i=0; i<bullets.size(); i++ ){
-		bullets[i]->updatePos();
-		if(bullets[i]->intersectsEnemy()){
-				bullets[i]->hitEnemy();
-				bullets.erase(bullets.begin() + i);
-		}
-		window.draw( *bullets[i] );
+	// for(auto& enemy : enemies.getEnemies()){
+	// 	sf::Vector2f tmpEnemeyPos = enemy->getPosition();
+	// 	for(auto& tower : towers.towers){
+	// 		if(tower->inRange( tmpEnemeyPos )){
+	// 			if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
+	// 				bullets.push_back( new bullet( tower, enemy ) );
+	// 				enemy->setFillColor( sf::Color::Red );
+	// 				tower->fireclock.restart();
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// for( unsigned int i=0; i<bullets.size(); i++ ){
+	// 	bullets[i]->updatePos();
+	// 	if(bullets[i]->intersectsEnemy()){
+	// 			bullets[i]->hitEnemy();
+	// 			bullets.erase(bullets.begin() + i);
+	// 	}
+	// 	window.draw( *bullets[i] );
 
-	}
+	// }
 }
 
 
