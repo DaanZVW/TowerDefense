@@ -3,7 +3,9 @@
 #include "healthBar.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
+
 #include "base.hpp"
+
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
@@ -14,9 +16,11 @@
 /// @brief Class for an enemy character
 /// @author Wilco Matthijssen
 class enemyChar : public sf::RectangleShape {
+
 	Json::Value& baseStats;
 	healthBar hpBar;
 	float health;
+
 	Json::Value::iterator currAnimation;
 	float animationInterval;
 	float animationCounter = 0;
