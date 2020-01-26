@@ -25,21 +25,16 @@ void bullet::updatePos(){
 
 			float dif = sqrt( (difxy.x*difxy.x) + (difxy.y*difxy.y) );
 
-			sf::Vector2f direction{ 
-				difxy.x / (dif / speed), 
-				difxy.y / (dif / speed) 
-			};
-
-			setPosition( getPosition()+direction  );
+			move(difxy.x / (dif / speed), difxy.y / (dif / speed));
 		}	
 		clock.restart();
 	}
 }
 
-void bullet::hitEnemy(){
-	if (auto tmpEnemyPtr = enemy.lock()) {
-		tmpEnemyPtr->enemyCharHit(myTower->getDamage());
-	}
+int bullet::getDamage(){
+	
+	return myTower->getDamage();
+
 }
 
 bool bullet::intersectsEnemy(){
@@ -75,7 +70,9 @@ void shotHandler::update(){
 			bullets[i]->updatePos();
 			window.draw(*bullets[i]);
 			if (bullets[i]->intersectsEnemy()) {
-				bullets[i]->hitEnemy();
+				//bullets[i]->hitEnemy();
+				
+				enemyGroupObj.damageEnemy(bullets[i].get()->getTarget(), bullets[i].get()->getDamage());
 				bullets.erase(bullets.begin() + i);
 			}
 		}

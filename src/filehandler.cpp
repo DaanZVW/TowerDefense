@@ -44,12 +44,23 @@ std::vector< tower* > fileReader::makeTowers(){
     return towers;
 }
 const Json::Value & fileReader::getEnemyConfig() {
+	for (auto& enemy : fileInfo["enemyChar"]) {
+		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
+	}
 	return fileInfo["enemyChar"];
 }
 
-const Json::Value& fileReader::getWaves()
-{
+const Json::Value& fileReader::getWaves(){
 	return fileInfo["waves"];
+}
+
+const Json::Value& fileReader::getBaseConfig(){
+	textures[fileInfo["base"]["textureFile"].asString()].loadFromFile(fileInfo["base"]["textureFile"].asString());
+	return fileInfo["base"];
+}
+
+std::map<std::string, sf::Texture>& fileReader::getTextures(){
+	return textures;
 }
 
 // =================================================================================

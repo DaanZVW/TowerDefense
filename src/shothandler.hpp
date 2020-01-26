@@ -19,11 +19,10 @@ public:
 
 	void updatePos();
 
-	void hitEnemy();
+	int getDamage();
 
 	bool intersectsEnemy();
 	std::weak_ptr<enemyChar>& getTarget() { return enemy; }
-
 };
 
 class shotHandler{

@@ -1,71 +1,27 @@
 #ifndef ENEMYCHAR__HPP
 #define ENEMYCHAR__HPP
-
+#include "healthBar.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "base.hpp"
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
-	#define __FUNCTIONNAME__ __func__
 #else
 	#include <json/json.h>
-	#define __FUNCTIONNAME__ __FUNCTION__
 #endif // INCLUDE
 #include<iostream>
-
-
-class healthBar {
-private:
-	float percentage;
-	sf::RectangleShape back;
-	sf::RectangleShape front;
-public:
-	healthBar(float maxHealth=0, float currentHealth = 0) :
-		percentage(  currentHealth / maxHealth)
-	{
-		back.setOutlineColor(sf::Color::Black);
-		back.setOutlineThickness(1);
-		back.setFillColor(sf::Color::Red);
-		front.setFillColor(sf::Color::Green);
-	}
-	void setSize(const sf::Vector2f& size) {
-		back.setSize(sf::Vector2f(size.x - 2, size.y - 2));
-		front.setSize(sf::Vector2f((size.x - 2) * percentage, size.y - 2));
-	}
-	void setPosition(const sf::Vector2f& position) {
-		back.setPosition(position.x + 1, position.y + 1);
-		front.setPosition(position.x + 1, position.y + 1);
-	}
-	void setPercentage(const float& currentHealth, const float& maxHealth) {
-		percentage = currentHealth / maxHealth;
-		front.setSize(sf::Vector2f((back.getSize().x) * percentage, back.getSize().y));
-	}
-	void draw(sf::RenderWindow& window) {
-		window.draw(back);
-		window.draw(front);
-	}
-};
-
-
 
 /// @brief Class for an enemy character
 /// @author Wilco Matthijssen
 class enemyChar : public sf::RectangleShape {
-	Json::Value & baseStats;
-
-	std::vector<sf::Vector2f> & route;
-	std::vector<sf::Vector2f>::iterator currTargetLocation;
-
+	Json::Value& baseStats;
 	healthBar hpBar;
-	sf::Clock textureClock;
-
-	bool moving{true};
 	float health;
-
 	Json::Value::iterator currAnimation;
-	float animationInterval = 20;
+	float animationInterval;
 	float animationCounter = 0;
 public:
-	
+	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
 	/// @brief Construct an enemyChar with json
 	///
@@ -73,13 +29,14 @@ public:
 	/// @param route	route for enemy to walk
 	/// @textures		textures of all enemyChar's
 	/// 
-	enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size);
+	enemyChar(Json::Value& stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture>& textures, const sf::Vector2f& size);
 
 	/// @brief	Changes texture when interval is reached
 	///
 	/// @param	steps	increases the counter
+	/// @return void
 	///
-	void animate(const float& steps);
+	void animate(const float steps);
 
 	/// @brief	Returns health of enemyChar
 	///
@@ -87,18 +44,19 @@ public:
 	///
 	const float getHealth();
 
-	/// @brief	Removes health from enemyChar
-	///
-	/// @param  
-	/// @return	void
-	///
-	void decreaseHealth(const float & damage);
-
 	/// @brief	Returns speed of enemyChar
 	///
 	/// @return	const float
 	///
 	const float getSpeed();
+
+	/// @brief	Removes health from enemyChar
+	///
+	/// @param  
+	/// @return	void
+	///
+	void decreaseHealth(const float& damage);
+
 
 	/// @brief	Returns damage of enemyChar
 	///
@@ -106,12 +64,45 @@ public:
 	///
 	const float getDamage();
 
+	/// @brief	Follows path for n steps to the left and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	void
+	///
+	const float moveLeftToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps to the right and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	void
+	///
+	const float moveRightToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps up and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	void
+	///
+	const float moveUpToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps down and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	void
+	///
+	const float moveDownToTarget(float steps, const float target);
+
+
 	/// @brief	Follows path for n steps 
 	///
 	/// @param  steps
 	/// @return	void
 	///
-	void followPath(float steps);
+	void followPath(float& steps);
 
 	/// @brief	draws HP bar on window 
 	///
@@ -120,16 +111,12 @@ public:
 	///
 	void drawHP(sf::RenderWindow& window);
 
-
-	
-	void enemyCharHit( const int & damage );
-
+	/// @brief	Returns reward for killing enemyChar
+	///
+	/// @return	unsigned int
+	///
+	unsigned int getReward();
 };
-
-//class base : public sf::RectangleShape {
-//private:
-//	int health;
-//};
 
 
 /// @brief Class for an enemy character
@@ -144,21 +131,18 @@ private:
 	sf::Clock clock;
 	float tileSize;
 	sf::Clock clockSpawn;
-	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Texture> &textures;
 	//unsigned int counter = 0;
 	Json::Value waves;
 	std::vector< std::shared_ptr< enemyChar > > enemies;
 	Json::Value::iterator currWave;
-public:
-
-
-	/// @brief	draws HP bar on window 
+	unsigned int &money;
+	base& target;
+	/// @brief	spawns new enemies based on time passed
 	///
-	/// @param enemyTemplates Json::Value of enemies config
-	/// @param route	route that enemies will walk
 	/// @return	void
 	///
-	enemyCharGroup(Json::Value enemyTemplates, const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f & offset, Json::Value waves);
+	void spawnWave();
 
 	/// @brief	sets route for enemyChar and converts it to pixels.
 	///
@@ -166,46 +150,10 @@ public:
 	/// @param tilesize size of tiles
 	/// @return	void
 	///
-	void setRoute(const std::vector<sf::Vector2i> & route, const float & tilesize, const sf::Vector2f& offset);
+	void setRoute(const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f& offset);
 
-	/// @brief	spawns new enemies based on time passed
-	///
-	/// @return	void
-	///
-	void spawnWave();
 
-	/// @brief	draws all enemies on window
-	///
-	/// @param  window 
-	/// @return	void
-	///
-	void drawAll(sf::RenderWindow& window);
-	
-	/// @brief	deletes all enemies where health is 0 or lower.
-	///
-	/// @return	void
-	///
-	void deleteKilled();
-	
-	/// @brief	moves all enemies based on speed and time passed
-	///
-	/// @return	void
-	///
-	void move();
-	
-	/// @brief	draws HP bar on window for all enemies 
-	///
-	/// @param  window 
-	/// @return	void
-	///
-	void drawHP(sf::RenderWindow& window);
-	
-	/// @brief	updates textures of enemies WIP
-	///
-	/// @return	void
-	///
-	void updateTextures();
-	
+
 	/// @brief	sets the waves of enemies the class will spawn
 	///
 	/// @param  enemyWaves waves of enemies 
@@ -232,13 +180,44 @@ public:
 	/// @return	void
 	///
 	const bool isEnemyDefeated();
-	
-	/// @brief	returns amount of enemies
+
+	/// @brief	Moves enemy for n steps and return false if enemy reached end 
+	///
+	/// @param  enemy shared_ptr to enemy
+	/// @param	steps how many steps does the enemy need to move
+	/// @return	bool
+	///
+	const bool move(std::shared_ptr<enemyChar>& enemy, float steps);
+public:
+
+	/// @brief	draws HP bar on window 
+	///
+	/// @param enemyTemplates Json::Value of enemies config
+	/// @param route	route that enemies will walk
+	/// @return	void
+	///
+	enemyCharGroup(Json::Value enemyTemplates, 
+		const std::vector<sf::Vector2i>& route, 
+		const float& tilesize, 
+		const sf::Vector2f& offset, 
+		Json::Value waves, 
+		size_t & money,
+		base & target,
+		std::map<std::string, sf::Texture>& textures);
+
+	/// @brief	draws all enemies on window
 	///
 	/// @param  window 
-	/// @return	size_t
+	/// @return	void
 	///
-	size_t size();
+	void draw(sf::RenderWindow& window);
+
+	/// @brief	moves all enemies based on speed and time passed
+	///
+	/// @return	void
+	///
+	void update();
+
 
 	/// @brief	applies damage on enemy and kills it if less hp than damage
 	///
@@ -246,15 +225,12 @@ public:
 	/// @param	damage	damage for enemy to take
 	/// @return	void
 	///
-	void damageEnemy(const size_t& index, const float & damage);
-
+	void damageEnemy(std::weak_ptr<enemyChar> & target, const float & damage);
 
 	/// @brief	returns all enemies by reference
 	///
 	/// @return	std::vector<std::unique_ptr<enemyChar>>
 	///
 	std::vector<std::shared_ptr<enemyChar>> & getEnemies();
-
-
 };
 #endif // ENEMYCHAR__HPP

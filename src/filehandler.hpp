@@ -35,6 +35,7 @@ private:
 
     Json::Value fileInfo;
 
+	std::map<std::string, sf::Texture> textures;
 public:
 
     // Default read constructor
@@ -49,6 +50,8 @@ public:
 
 	const Json::Value & getEnemyConfig();
 	const Json::Value & getWaves();
+	const Json::Value & getBaseConfig();
+	std::map<std::string, sf::Texture>  & getTextures();
 
     sf::Vector2i getGridSize();
 

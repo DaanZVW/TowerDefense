@@ -1,122 +1,145 @@
 {
-    "Info" :   
-    {
-            "Developers" : "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
-            "Version" : "Alpha 1.0",
-            "Github" : "https://github.com/DaanZVW/TowerDefense",
-            "StandardPath" : "../res/configfiles/maps/",
-            "TextFont" : "../res/fonts/Arial.ttf"
+    "Info": {
+        "Developers": "Wilco Matthijsen, Nic Jenneboer, Bas van der Geer & Daan Zimmerman van Woesik",
+        "Version": "Alpha 1.0",
+        "Github": "https://github.com/DaanZVW/TowerDefense",
+        "StandardPath": "../res/configfiles/maps/",
+        "TextFont": "../res/fonts/Arial.ttf"
     },
-    
-    "Maps" :
-    [
+    "Maps": [
         {
-            "Name" : "Easy",
-            "Filename" : "easy.json"
-        },
-
-        {
-            "Name" : "Medium",
-            "Filename" : "medium.json"
-        },
-
-        {
-            "Name" : "Hard",
-            "Filename" : "hard.json"
+            "Name": "Easy",
+            "Filename": "easy.json"
         },
         {
-            "Name" : "Test",
-            "Filename" : "test.json"
+            "Name": "Medium",
+            "Filename": "medium.json"
+        },
+        {
+            "Name": "Hard",
+            "Filename": "hard.json"
+        },
+        {
+            "Name": "Test",
+            "Filename": "test.json"
         }
     ],
-
-    "Towers" :
-    [
+    "Towers": [
         {
-            "Name" : "Fire Blaster",
-            "Texture" : "Black",
-            "Damage" : 5,
-            "Range" : 2,
-            "Firerate" : 10
+            "Name": "Fire Blaster",
+            "Texture": "Black",
+            "Damage": 10,
+            "Range": 20,
+            "Firerate": 50
         },
         {
-            "Name" : "Water Blaster",
-            "Texture" : "Blue",
-            "Damage" : 1,
-            "Range" : 4,
-            "Firerate" : 30
+            "Name": "Water Blaster",
+            "Texture": "Blue",
+            "Damage": 2,
+            "Range": 40,
+            "Firerate": 120
         },
         {
-            "Name" : "Wood Blaster",
-            "Texture" : "Yellow",
-            "Damage" : 10,
-            "Range" : 7,
-            "Firerate" : 30
+            "Name": "Wood Blaster",
+            "Texture": "Yellow",
+            "Damage": 50,
+            "Range": 60,
+            "Firerate": 200
         }
     ],
-
-    "enemyChar": 
-    {
-        "spoderman": 
-        {
-            "baseDamage": 10,
+    "enemyChar": {
+        "enemy1": {
+            "damage": 10,
             "speed": 1,
-            "health": 20,
+            "health": 10,
+            "reward": 1000,
+            "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/PixelArt.png",
-            "spritePositions": 
-            [
+            "texturedddFile": "../res/images/wovo_idle.png",
+            "texturepos": [
                 {
-                    "top": 100,
-                    "left": 100,
-                    "right": 100,
-                    "bottom": 100
+                    "top": 0,
+                    "left": 0,
+                    "right": 300,
+                    "bottom": 300
                 },
                 {
-                  "top": 200,
-                  "left": 200,
-                  "right": 200,
-                  "bottom": 200
+                    "top": 300,
+                    "left": 300,
+                    "right": 300,
+                    "bottom": 300
                 }
-
             ]
         },
-
-        "yeet": 
-        {
-          "baseDamage": 10,
-          "speed": 4,
-          "health": 10,
-          "textureFile": "../res/images/background.jpg"
+        "enemy2": {
+            "damage": 10,
+            "speed": 4,
+            "health": 100,
+            "reward": 10,
+            "textureFile": "../res/images/background.jpg",
+            "texturepos": [
+                {
+                    "top": 0,
+                    "left": 0,
+                    "right": 1000,
+                    "bottom": 1000
+                },
+                {
+                    "top": 0,
+                    "left": 0,
+                    "right": 1000,
+                    "bottom": 1000
+                }
+            ]
         },
-
-        "dog": 
-        {
-          "baseDamage": 10,
-          "speed": 3,
-          "health": 25,
-          "textureFile": "../res/images/dog.png"
-        } 
+        "enemy3": {
+            "damage": 10,
+            "speed": 1,
+            "health": 1000000,
+            "textureFile": "../res/images/dog.png",
+            "reward": 0,
+            "texturepos": [
+                {
+                    "top": 0,
+                    "left": 0,
+                    "right": 1000,
+                    "bottom": 1000
+                },
+                {
+                    "top": 0,
+                    "left": 0,
+                    "right": 1000,
+                    "bottom": 1000
+                }
+            ]
+        }
     },
-  
-    "waves": 
-    [
+    "base": {
+        "health": 100,
+        "textureFile": "../res/images/wovo_idle.png"
+    },
+    "waves": [
         [
             {
-                "amount": 10,
-                "name": "spoderman"
+                "amount": 100,
+                "name": "enemy1"
             },
             {
-                "name": "dog",
-                "amount": 5
+                "name": "enemy2",
+                "amount": 10
             }
         ],
         [
             {
-                "name": "spoderman",
+                "amount": 0,
+                "name": "enemy1"
+            },
+            {
+                "name": "enemy2,
                 "amount": 0
             },
             {
-                "name": "dog",
+                "name": "enemy3",
                 "amount": 0
             }
         ]
