@@ -7,33 +7,30 @@
 class bullet : public sf::CircleShape{
 private:
 	tower * myTower;
-	std::unique_ptr<enemyChar> & enemy;
+	std::weak_ptr<enemyChar>  enemy;
 	sf::Clock clock;
 
 
 public:
-
-	
-
-	bullet( tower * myTower, std::unique_ptr<enemyChar> & enemy );
+	bullet( tower * myTower, std::weak_ptr<enemyChar>  enemy );
 
 	void updatePos();
 
-	void hitEnemy();
+	int getDamage();
 
 	bool intersectsEnemy();
-
+	std::weak_ptr<enemyChar>& getTarget() { return enemy; }
 };
 
 class shotHandler{
 private:
 	sf::RenderWindow & window;
 	towerGroup & towers;
-	enemyCharGroup & enemies;
-	std::vector< bullet* > bullets;
+	enemyCharGroup & enemyGroupObj;
+	std::vector < std::unique_ptr<bullet> > bullets;
 
 public:
-	shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyCharGroup & enemies );
+	shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyCharGroup & enemyGroupObj );
 
 	void update();
 

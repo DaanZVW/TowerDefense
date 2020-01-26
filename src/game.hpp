@@ -22,6 +22,8 @@
 #include "menu.hpp"
 #include "mousecontrol.hpp"
 #include "shothandler.hpp"
+#include "base.hpp"
+#include "healthBar.hpp"
 
 #define TILEMAPSIZE 0.75
 

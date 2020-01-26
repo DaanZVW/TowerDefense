@@ -115,9 +115,7 @@ void menu::draw( sf::RenderWindow &window ){
 				"Firerate : " + std::to_string(selectedTower->firerate),
 			};
 
-			std::cout << "help" << std::endl;
 			infoMenu.updateStrings( textInTextObjects );
-			std::cout << "help2" << std::endl;
 			infoMenu.draw( window );
 
 			break;

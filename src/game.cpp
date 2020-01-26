@@ -26,7 +26,13 @@ void game::run() {
         "Space Defense"
         ,sf::Style::Fullscreen
     };
+
+	gameState state = gameState::PLAYING;
+	unsigned int money = 0;
 	
+
+
+	window.setFramerateLimit(100);
     // Make fileReader for pathnodes
     fileReader fileHandlerMap{ "../res/configfiles/maps/easy.json" };
 	
@@ -57,14 +63,26 @@ void game::run() {
 	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
     sf::Font *font = fileHandlerConfig.getFont();
+    
+	sf::Texture baseText;
+	baseText.loadFromFile("../res/images/wovo_idle.png");
+	base baseObj(sf::Vector2f(map.getTileSize(), map.getTileSize()),
+			map.getPixelPosition(*(createdPath.end() - 1)),
+			fileHandlerConfig.getTextures()[fileHandlerConfig.getBaseConfig()["textureFile"].asString()],
+			fileHandlerConfig.getBaseConfig()["health"].asFloat(),
+			state
+			);
 	
 	
     // Make enemy character
-	enemyCharGroup pietje(fileHandlerConfig.getEnemyConfig(),
+	enemyCharGroup enemyGroupObj(fileHandlerConfig.getEnemyConfig(),
 		createdPath,
 		map.getTileSize(),
 		map.getPixelPosition(sf::Vector2i(0, 0)),
-		fileHandlerConfig.getWaves()
+		fileHandlerConfig.getWaves(),
+		money,
+		baseObj,
+		fileHandlerConfig.getTextures()
 	);
 
     menu sideMenu{
@@ -82,7 +100,7 @@ void game::run() {
 
     mouseControl mouse{ map, sideMenu, groupTower };
 
-    shotHandler shots{ window, groupTower, pietje };
+    shotHandler shots{ window, groupTower, enemyGroupObj };
 
     // Do this while the window is open
     while (window.isOpen()) {
@@ -92,31 +110,35 @@ void game::run() {
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
 
-        map.draw( window );
-        
-        pietje.drawAll( window );
+		enemyGroupObj.update();
 
-        pietje.move(); 
+		mouse.updateMouse( mousePos );
 		
+        map.draw( window );
+
         sideMenu.draw( window );
 
+		enemyGroupObj.draw( window );
+
+		baseObj.draw( window );
+
+		shots.update();
+		
         groupTower.draw( window );
-	
-        shots.update();
-        
-        mouse.updateMouse( mousePos );
-
-        pietje.deleteKilled();
-
 
         // Draw all excisting objects on the screen
 		window.display();
 
 
         // Sleep 5 miliseconds so the close event gets time
-		sf::sleep( sf::milliseconds( 10 ));
+		//sf::sleep( sf::milliseconds( 10 ));
 
-        // SFML events
+        
+		if (state == gameState::GAMEOVER) {
+			window.close();
+		}
+
+		// SFML events
         sf::Event event;		
 	    while( window.pollEvent(event) ){
             switch( event.type ) {
@@ -130,7 +152,7 @@ void game::run() {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
                     }else if ( event.key.code == sf::Keyboard::Space ) {
-						pietje.nextWave();
+						
                     }
                     break;
                 

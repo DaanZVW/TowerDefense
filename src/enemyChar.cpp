@@ -2,27 +2,30 @@
 #include <stdlib.h>     /* srand, rand */
 #include <math.h>
 #include <iostream>
-#ifdef  WILCO
-#define LOG(msg) std::cout<<msg<<std::endl;
-#else
-#define LOG(msg)
-#endif //  WILCO
+#include "macro.hpp"
 
 
-enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures):
+
+//==========================================================================
+
+enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size):
 	baseStats(stats),
-	route(route),
+	hpBar(stats["health"].asFloat()),
 	health(stats["health"].asFloat()),
-	currAnimation(stats["texturepos"].begin())
+	currAnimation(stats["texturepos"].begin()),
+	animationInterval(size.x/4),
+	animationCounter(size.x/4)
 {
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	setPosition(*route.begin());
+	setSize(size);
+	hpBar.setSize(sf::Vector2f(getLocalBounds().height , getLocalBounds().width* 0.1));
 	setTexture(&textures[stats["textureFile"].asString()]);
 	currTargetLocation = route.begin();
 }
 
-void enemyChar::animate(const float& steps) {
-	LOG(__FUNCTIONNAME__ << '\t' << steps);
+void enemyChar::animate(const float steps){
+	LOGFUNCNAME(<< steps);
 	animationCounter += steps;
 	if (animationCounter > animationInterval) {
 		if (currAnimation == baseStats["texturepos"].end()) {
@@ -45,145 +48,128 @@ void enemyChar::animate(const float& steps) {
 }
 
 const float enemyChar::getHealth(){
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	return health;
+}
+
+const float enemyChar::getSpeed()
+{
+	return baseStats["speed"].asFloat();
 }
 
 
 void enemyChar::decreaseHealth(const float& damage){
-	LOG(__FUNCTIONNAME__<<'\t'<<damage);
+	LOGFUNCNAME(<<damage);
 	health -= damage;
 }
 
-const float enemyChar::getSpeed() {
-	LOG(__FUNCTIONNAME__ << "\t" << baseStats["speed"].asFloat());
-	return baseStats["speed"].asFloat();
-}
 const float enemyChar::getDamage() {
-	LOG(__FUNCTIONNAME__ << "\t" << baseStats["damage"].asFloat());
+	LOGFUNCNAME(<< baseStats["damage"].asFloat());
 	return baseStats["damage"].asFloat();
 }
-void enemyChar::followPath(float  steps) {
-	LOG(__FUNCTIONNAME__ << "\t" <<steps);
-	
-	if (route.end() == currTargetLocation) {
-		health = 0;
-		return; 
+
+const float enemyChar::moveLeftToTarget(float steps, const float target) {
+	setRotation(180);
+	move(-steps, 0);
+	if (getPosition().x < target) {
+		setPosition(target, getPosition().y);
+		return target - getPosition().x;
 	}
-	sf::Vector2f currNode =*currTargetLocation;
-	steps *= baseStats["speed"].asFloat();
-	animate(steps);
+	return 0;
+}
+
+const float enemyChar::moveRightToTarget(float steps, const float target) {
+	setRotation(0);
+	move(steps, 0);
+	if (getPosition().x > target) {
+		setPosition(target, getPosition().y);
+		return target - getPosition().x;
+	}
+	return 0;
+}
+
+const float enemyChar::moveUpToTarget(float steps, const float target) {
+	setRotation(270);
+	move(0, -steps);
+	if (getPosition().y < target) {
+		setPosition(getPosition().x, target);
+		return target - getPosition().y;
+	}
+	return 0;
+}
+
+const float enemyChar::moveDownToTarget(float steps, const float target) {
+	setRotation(90);
+	move(0, steps);
+	if (getPosition().y > target) {
+		setPosition(getPosition().x, target);
+		return target - getPosition().y;
+	}
+	return 0;
+}
+
+void enemyChar::followPath(float& steps) {
+	sf::Vector2f currNode = *currTargetLocation;
 	if (getPosition().x > currNode.x) {
-		setRotation(180);
-		move(-steps , 0);
-		if (getPosition().x < currNode.x) {
-			steps =currNode.x -getPosition().x;
-			setPosition(currNode.x, getPosition().y);
-		}
-		else {
-			steps = 0;
-		}
+		steps = moveLeftToTarget(steps, currNode.x);
 	}
 	if (getPosition().x < currNode.x) {
-		setRotation(0);
-		move(steps, 0);
-		if (getPosition().x > currNode.x) {
-			steps = getPosition().x - currNode.x;
-			setPosition(currNode.x, getPosition().y);
-		}
-		else {
-			steps = 0;
-		}
+		steps = moveRightToTarget(steps, currNode.x);
 	}
 	if (getPosition().y > currNode.y) {
-		setRotation(270);
-		move(0, -steps);
-		if (getPosition().y < currNode.y) {
-			steps = currNode.y - getPosition().y;
-			setPosition(getPosition().x, currNode.y);
-		}
-		else {
-			steps = 0;
-		}
+		steps = moveUpToTarget(steps, currNode.y);
 	}
 	if (getPosition().y < currNode.y) {
-		setRotation(90);
-		move(0, steps);
-		if (getPosition().y > currNode.y) {
-			steps = getPosition().y - currNode.y;
-			setPosition(getPosition().x, currNode.y);
-		}
-		else {
-			steps = 0;
-		}
-	}
-	if (steps) {
-		++currTargetLocation;
-		//health -= rand() % 5;
-		followPath(steps/ baseStats["speed"].asFloat());
-
+		steps = moveDownToTarget(steps, currNode.y);
 	}
 }
+
 
 void enemyChar::drawHP(sf::RenderWindow& window){
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	if (health >= 0) {
-		 
-		hpBar.setSize(sf::Vector2f(getSize().x, getSize().y * 0.05));
-		hpBar.setPosition(getGlobalBounds().left, getGlobalBounds().top);
-		hpBar.setFillColor(sf::Color::Red);
-		hpBar.setOutlineThickness(1);
-		hpBar.setOutlineColor(sf::Color::Black);
-		hp.setSize(sf::Vector2f(getSize().x * (health / baseStats["health"].asFloat()), getSize().y * 0.05));
-		hp.setPosition(getGlobalBounds().left, getGlobalBounds().top);
-		hp.setFillColor(sf::Color::Green);
-		window.draw(hpBar);
-		window.draw(hp);
+		hpBar.setPosition(sf::Vector2f(getGlobalBounds().left, getGlobalBounds().top));
+		hpBar.setPercentage(health);
+		hpBar.draw(window);
 	}
 
 }
 
-
-
-
-void enemyChar::enemyCharHit( const int & damage ){
-	health -= damage;
+unsigned int enemyChar::getReward() {
+	return baseStats["reward"].asUInt();
 }
 
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
 		clockSpawn.restart();
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
 				if (enemy["amount"].asInt() > 0) {
 					enemy["amount"] = enemy["amount"].asInt() -1;
-					enemies.push_back(std::make_unique<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures));
-					(*(enemies.end() - 1)).get()->setSize(sf::Vector2f(tileSize /2, tileSize /2));
+					enemies.push_back(std::make_shared<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					return;
 				}
-				
 			}
 			if (isEnemyDefeated()) {
 				nextWave();
 			}
-			
-			
-			
-
 		}
-		
-
 	}
-
 };
 
+void enemyCharGroup::setWaves(const Json::Value enemyWaves){
+	LOGFUNCNAME();
+	waves = enemyWaves;
+	currWave = waves.begin();
+}
+
 void enemyCharGroup::nextWave() {
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	if (currWave != waves.end()) {
 		++currWave;
 	}
@@ -191,7 +177,7 @@ void enemyCharGroup::nextWave() {
 }
 
 void enemyCharGroup::setTileSize(const float & givenTilesize, const sf::Vector2f& offset){
-	LOG(__FUNCTIONNAME__ << '\t' << givenTilesize);
+	LOGFUNCNAME(<< givenTilesize);
 	for (auto& pos : route) {
 		pos=(sf::Vector2f((pos.x / tileSize) * givenTilesize +offset.x, (pos.y / tileSize)*givenTilesize+offset.y));
 	}
@@ -199,93 +185,101 @@ void enemyCharGroup::setTileSize(const float & givenTilesize, const sf::Vector2f
 }
 
 void enemyCharGroup::setRoute(const std::vector<sf::Vector2i>& givenRoute, const float& givenTilesize, const sf::Vector2f & offset) {
-	LOG(__FUNCTIONNAME__ << '\t' << givenTilesize);
+	LOGFUNCNAME(<< givenTilesize);
 	route.clear();
 	tileSize = givenTilesize;
 	for (auto& pos : givenRoute) {
 		route.push_back(sf::Vector2f((pos.x * tileSize)+offset.x + (tileSize/2),( pos.y * tileSize)+offset.y + (tileSize / 2)));
 	}
 }
-void enemyCharGroup::drawAll(sf::RenderWindow& window) {
-	LOG(__FUNCTIONNAME__);
+void enemyCharGroup::draw(sf::RenderWindow& window) {
+	LOGFUNCNAME();
 	for (auto& enemy : enemies) {
 		window.draw(*enemy);
 		enemy->drawHP(window);
 	}
 }
 
-void enemyCharGroup::deleteKilled() {
-	LOG(__FUNCTIONNAME__);
-	enemies.erase(remove_if(enemies.begin(), enemies.end(), [](auto& obj)
-		{
-			return obj->getHealth() <= 0;
-		}), enemies.end());
-}
 const bool enemyCharGroup::isEnemyDefeated() {
-	LOG(__FUNCTIONNAME__);
-	return !enemies.size();
+	LOGFUNCNAME();
+	return enemies.begin() == enemies.end();
 }
 
-void enemyCharGroup::move() {
-	LOG(__FUNCTIONNAME__);
+void enemyCharGroup::update() {
+	LOGFUNCNAME();
+	float steps= clock.restart().asSeconds() * tileSize;
 	spawnWave();
-	sf::Time elapsed= clock.restart();
-	for (auto& enemy : enemies) {
-		enemy->followPath(elapsed.asSeconds()*tileSize);
-	}
+	
+	enemies.erase(remove_if(enemies.begin(), enemies.end(), [&](auto & obj)
+		{
+			if (!enemyCharGroup::move(obj, steps)) {
+				target.decreaseHealth(obj->getDamage());
+				return true;
+			}
+			return false;
+		}
+	), enemies.end());
 }
-enemyCharGroup::enemyCharGroup(Json::Value enemyTemplates, const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f& offset, Json::Value waves):
-	enemyTemplates(enemyTemplates)
+enemyCharGroup::enemyCharGroup (
+	Json::Value enemyTemplates, 
+	const std::vector<sf::Vector2i>& route, 
+	const float& tilesize, 
+	const sf::Vector2f& offset, 
+	Json::Value waves, 
+	unsigned int & money,
+	base &target,
+	std::map<std::string, sf::Texture>& textures
+):
+	enemyTemplates(enemyTemplates),
+	textures(textures),
+	money(money),
+	target(target)
 {
-	LOG(__FUNCTIONNAME__);
+	LOGFUNCNAME();
 	setRoute(route, tilesize, offset);
 	setWaves(waves);
-	for (auto& enemy : enemyTemplates) {
-		textures[enemy["textureFile"].asString()].loadFromFile(enemy["textureFile"].asString());
-	}
-	
-
 }
 
-
-void enemyCharGroup::drawHP(sf::RenderWindow& window){
-	LOG(__FUNCTIONNAME__);
-	for (auto& enemy : enemies) {
-		enemy->drawHP(window);
-	}
-}
-
-void enemyCharGroup::updateTextures(){
-	LOG(__FUNCTIONNAME__);
-}
-
-void enemyCharGroup::setWaves(const Json::Value enemyWaves){
-	LOG(__FUNCTIONNAME__);
-	waves = enemyWaves;
-	currWave=waves.begin();
-}
-
-
-
-
-
-size_t enemyCharGroup::size() {
-	LOG(__FUNCTIONNAME__);
-	return enemies.size();
-}
-
-void enemyCharGroup::damageEnemy(const size_t& index, const float & damage){
-	LOG(__FUNCTIONNAME__);
-	if (enemies[index].get()->getHealth() > damage) {
-		enemies[index].get()->decreaseHealth(damage);
-	}
-	else {
-		enemies.erase(enemies.begin() + index);
+void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float & damage){
+	LOGFUNCNAME();
+	if (auto t = target.lock()) {
+		if (damage >= t->getHealth()) {
+			money += t->getReward();
+			for (size_t i = 0; i < enemies.size(); ++i) {
+				if (enemies[i] == t) {
+					enemies.erase(enemies.begin() +i);
+					break;
+				}
+			}
+		}
+		else {
+			t->decreaseHealth(damage);
+		}
 	}
 }
 
-std::vector<std::unique_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
-	LOG(__FUNCTIONNAME__);
+std::vector<std::shared_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
+	LOGFUNCNAME();
 	return enemies;
+}
+
+
+const bool enemyCharGroup::move(std::shared_ptr<enemyChar> & enemy, float steps) {
+	LOGFUNCNAME(<<steps);
+	
+	steps *= enemy->getSpeed();
+	enemy->animate(steps);
+	while (steps) {
+		if (enemy->currTargetLocation == route.end()) {
+			return false;
+		}
+		enemy->followPath( steps );
+
+		if (enemy->getPosition() == *(enemy->currTargetLocation)) {
+			++enemy->currTargetLocation;
+		}
+		
+	}
+	return true;	
 }
 
