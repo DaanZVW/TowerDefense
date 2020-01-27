@@ -13,6 +13,7 @@ base::base(const sf::Vector2f& size, const sf::Vector2f& position, sf::Texture& 
 	setTexture(&texture);
 	hpBar.setSize(sf::Vector2f(size.x, size.y * 0.1));
 	hpBar.setPosition(position);
+	damagemusic.openFromFile("../res/sound/bhit_helmet-1.wav");
 }
 void base::decreaseHealth(const unsigned int& damage) {
 	LOGFUNCNAME(<<damage);
@@ -20,6 +21,8 @@ void base::decreaseHealth(const unsigned int& damage) {
 		state = gameState::GAMEOVER;
 	}
 	else {
+		damagemusic.stop();
+		damagemusic.play();
 		health -= damage;
 		hpBar.setPercentage(health);
 	}

@@ -34,10 +34,10 @@ void enemyChar::animate(const float steps){
 			}
 			currAnimation = baseStats["texturepos"].begin();
 		}
-		setTextureRect(sf::IntRect((*currAnimation)["top"].asInt(),
-				(*currAnimation)["left"].asInt(),
-				(*currAnimation)["bottom"].asInt(),
-				(*currAnimation)["right"].asInt()));
+		setTextureRect(sf::IntRect((*currAnimation)["positionX"].asInt(),
+				(*currAnimation)["positionY"].asInt(),
+				(*currAnimation)["sizeX"].asInt(),
+				(*currAnimation)["sizeY"].asInt()));
 				++currAnimation;
 				animationCounter = 0;
 				
@@ -69,7 +69,7 @@ const float enemyChar::getDamage() {
 }
 
 const float enemyChar::moveLeftToTarget(float steps, const float target) {
-	setRotation(180);
+	setRotation(270);
 	move(-steps, 0);
 	if (getPosition().x < target) {
 		setPosition(target, getPosition().y);
@@ -79,7 +79,7 @@ const float enemyChar::moveLeftToTarget(float steps, const float target) {
 }
 
 const float enemyChar::moveRightToTarget(float steps, const float target) {
-	setRotation(0);
+	setRotation(90);
 	move(steps, 0);
 	if (getPosition().x > target) {
 		setPosition(target, getPosition().y);
@@ -89,7 +89,7 @@ const float enemyChar::moveRightToTarget(float steps, const float target) {
 }
 
 const float enemyChar::moveUpToTarget(float steps, const float target) {
-	setRotation(270);
+	setRotation(0);
 	move(0, -steps);
 	if (getPosition().y < target) {
 		setPosition(getPosition().x, target);
@@ -99,7 +99,7 @@ const float enemyChar::moveUpToTarget(float steps, const float target) {
 }
 
 const float enemyChar::moveDownToTarget(float steps, const float target) {
-	setRotation(90);
+	setRotation(180);
 	move(0, steps);
 	if (getPosition().y > target) {
 		setPosition(getPosition().x, target);
@@ -238,6 +238,9 @@ enemyCharGroup::enemyCharGroup (
 	LOGFUNCNAME();
 	setRoute(route, tilesize, offset);
 	setWaves(waves);
+
+	damagemusic.openFromFile("../res/sound/headshot2.wav");
+	deathmusic.openFromFile("../res/sound/Spider_death.ogg");
 }
 
 void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float & damage){
@@ -245,6 +248,8 @@ void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float &
 	if (auto t = target.lock()) {
 		if (damage >= t->getHealth()) {
 			money += t->getReward();
+			deathmusic.stop();
+			deathmusic.play();
 			for (size_t i = 0; i < enemies.size(); ++i) {
 				if (enemies[i] == t) {
 					enemies.erase(enemies.begin() +i);
@@ -253,6 +258,8 @@ void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float &
 			}
 		}
 		else {
+			damagemusic.stop();
+			damagemusic.play();
 			t->decreaseHealth(damage);
 		}
 	}

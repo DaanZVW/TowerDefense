@@ -2,7 +2,7 @@
 #define BASE_HPP
 #include <SFML/Graphics.hpp>
 #include "healthBar.hpp"
-
+#include <SFML/Audio.hpp>
 /// @brief gameStates
 /// @author Wilco Matthijssen
 enum class  gameState { GAMEOVER, PLAYING };
@@ -15,6 +15,7 @@ private:
 	unsigned int health;
 	gameState& state;
 	healthBar hpBar;
+	sf::Music damagemusic;
 public:
 	/// @brief	sets size of healthbar
 	///

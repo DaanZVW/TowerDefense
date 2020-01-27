@@ -2,6 +2,7 @@
 #define ENEMYCHAR__HPP
 #include "healthBar.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <memory>
 
@@ -143,6 +144,8 @@ private:
 	Json::Value::iterator currWave;
 	unsigned int &money;
 	base& target;
+	sf::Music deathmusic;
+	sf::Music damagemusic;
 	/// @brief	spawns new enemies based on time passed
 	///
 	/// @return	void
