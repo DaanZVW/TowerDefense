@@ -93,7 +93,7 @@ void game::run() {
         fileHandlerConfig.makeTowers(),
         map.getTileSize(),
         font,
-        fileHandlerConfig.getMenuTextures(),
+        fileHandlerConfig.getMenuTextures( std::pair<int, int>{4,5} ),
         fileHandlerConfig.getMenuTextures(),
         money
     };

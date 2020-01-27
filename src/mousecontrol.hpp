@@ -1,11 +1,13 @@
 #ifndef MOUSE_CONTROL_HPP
 #define MOUSE_CONTROL_HPP
 
+// Include std::Libs
+#include <iostream>
+
+// Include external files
 #include "menu.hpp"
 #include "tilemap.hpp"
 #include "tower.hpp"
-
-#include <iostream>
 
 class mouseControl{
 private:

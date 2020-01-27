@@ -13,6 +13,7 @@ public:
 	unsigned int cost;
 	bool selected = false;
 	sf::Clock fireclock;
+	unsigned int upgrade = 1;
 
 	void draw( sf::RenderWindow &window);
 

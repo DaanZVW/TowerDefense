@@ -14,7 +14,7 @@
 // Include External libs
 #include <SFML/Graphics.hpp>
 
-// Include External hpp's
+// Include External files
 #include "filehandler.hpp"
 #include "tilemap.hpp"
 #include "enemyChar.hpp"

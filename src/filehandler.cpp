@@ -94,7 +94,7 @@ sf::Font* fileReader::getFont() {
 
 // =================================================================================
 
-std::vector< sf::RectangleShape* > fileReader::getMenuTextures() {
+std::vector< sf::RectangleShape* > fileReader::getMenuTextures( std::pair<int, int> switchIndex ) {
     std::vector< sf::RectangleShape* > pictures;
 
     for ( auto picturePath : fileInfo["Menu"] ) {
@@ -105,6 +105,12 @@ std::vector< sf::RectangleShape* > fileReader::getMenuTextures() {
         rect->setTexture( texture );
         
         pictures.push_back( rect );
+    }
+
+    if (switchIndex.first != switchIndex.second) {
+        sf::RectangleShape *tmp = pictures[switchIndex.first];
+        pictures[switchIndex.first] = pictures[switchIndex.second];
+        pictures[switchIndex.second] = tmp;
     }
 
     return pictures;

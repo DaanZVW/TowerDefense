@@ -17,6 +17,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 			newTower->setFillColor( newTower->mycolor );
 			newTower->setFillColor( newTower->mycolor );
 			availableSpot = true;
+
 		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );
@@ -33,10 +34,18 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 				availableSpot = false;
 			}
 		}
+
 	} else {
 		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
 			for ( auto &menuTower : menuSide.getTowers() ){
 				if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
+					// Stop further action if the player has insufficient money
+					if ( menuTower->cost > menuSide.getMoney() ) {
+						menuSide.insufficientMoney = true;
+					} else {
+						menuSide.insufficientMoney = false;
+					}
+
 					std::vector<std::string> textInTextObjects {
 						menuTower->name,
 						std::to_string(menuTower->damage),
@@ -66,7 +75,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 				
 				// Stop further action if the player has insufficient money
 				if ( menuTower->cost > menuSide.getMoney() ) {
-					std::cout << "Helaas je hebt niet genoeg gespaard." << std::endl;
+					menuSide.insufficientMoney = true;
 					return;
 				}
 

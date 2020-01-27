@@ -183,6 +183,9 @@
             "Path" : "../res/images/cost.png"
         },
         {
+            "Path" : "../res/images/upgrade.png"
+        },
+        {
             "Path" : "../res/images/time.png"
         }
     ]

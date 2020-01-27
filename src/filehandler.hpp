@@ -18,7 +18,7 @@
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
-	#include <json/json.h>
+	#include <jsoncpp/json/json.h>
 #endif // INCLUDE
 
 #include <SFML/Graphics.hpp>
@@ -58,7 +58,7 @@ public:
 
     sf::Font* getFont();
 
-    std::vector< sf::RectangleShape* > getMenuTextures();
+    std::vector< sf::RectangleShape* > getMenuTextures( std::pair<int, int> switchIndex = {0,0} );
 
     uint32_t getMoney();
 
