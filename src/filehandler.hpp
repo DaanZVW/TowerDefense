@@ -18,13 +18,8 @@
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
-<<<<<<< HEAD
 	#include <jsoncpp/json/json.h>
-#endif // INCLUDE
-=======
-	#include <json/json.h>
 #endif
->>>>>>> 9099875e098f0708ed983df0ae4affa62ed522d2
 
 // Include Nessecery files
 #include <SFML/Graphics.hpp>

@@ -10,18 +10,14 @@ public:
 	unsigned int range;
 	unsigned int firerate;
 	sf::Color mycolor;
-	unsigned int cost;
-	bool selected = false;
-	sf::Clock fireclock;
+	unsigned int value;
+
 	unsigned int upgrade = 1;
-
-	void draw( sf::RenderWindow &window);
-
-	int getDamage();
-
-	int getFireRate();
-
-	bool inRange( const sf::Vector2f & pos );
+	unsigned int totalValue;
+	
+	bool selected = false;
+	
+	sf::Clock fireclock;
 
 	tower( 
 		const std::string & name, 
@@ -29,7 +25,7 @@ public:
 		const unsigned int & range, 
 		const unsigned int & firerate, 
 		const std::string & texture,
-		const unsigned int cost
+		const unsigned int &value
 	);
 
 	tower( 
@@ -38,8 +34,13 @@ public:
 		const unsigned int & range, 
 		const unsigned int & firerate, 
 		const sf::Color & color,
-		const unsigned int cost
+		const unsigned int &value
 	);
+
+	void draw( sf::RenderWindow &window);
+	int getDamage();
+	int getFireRate();
+	bool inRange( const sf::Vector2f & pos );
 };
 
 class towerGroup{
@@ -63,8 +64,6 @@ public:
 	bool isTower( tile* &checkTile );
 
 	tower* getTower( tile* &checkTower );
-
-	std::vector< tower* > getTowers();
 
 	void draw( sf::RenderWindow &window );
 };

@@ -141,6 +141,11 @@ public:
 	///
 	void setMoney( const uint32_t &newValue );
 
+	/// @brief	Get all the buttons on the menu
+	///
+	/// @return A vector with all the buttons
+	///
+	std::vector<button*> getButtons();
 };
 
 #endif /*MENU_HPP*/

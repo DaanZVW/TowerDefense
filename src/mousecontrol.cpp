@@ -1,6 +1,7 @@
 #include "mousecontrol.hpp"
 
-mouseControl::mouseControl( tilemap & map, menu & menuSide, towerGroup & towers):
+mouseControl::mouseControl( tilemap & map, menu & menuSide, towerGroup & towers
+):
 	map( map ),
 	menuSide( menuSide ),
 	towers( towers )
@@ -40,7 +41,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 			for ( auto &menuTower : menuSide.getTowers() ){
 				if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
 					// Stop further action if the player has insufficient money
-					if ( menuTower->cost > menuSide.getMoney() ) {
+					if ( menuTower->value > menuSide.getMoney() ) {
 						menuSide.insufficientMoney = true;
 					} else {
 						menuSide.insufficientMoney = false;
@@ -51,7 +52,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 						std::to_string(menuTower->damage),
 						std::to_string(menuTower->range),
 						std::to_string(menuTower->firerate),
-						std::to_string(menuTower->cost)
+						std::to_string(menuTower->value)
 					};
 
 					towerInfoMenu infoTower = menuSide.getMoveableMenu();
@@ -74,7 +75,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
 				
 				// Stop further action if the player has insufficient money
-				if ( menuTower->cost > menuSide.getMoney() ) {
+				if ( menuTower->value > menuSide.getMoney() ) {
 					menuSide.insufficientMoney = true;
 					return;
 				}
@@ -102,7 +103,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					menuTower->range,
 					menuTower->firerate,
 					menuTower->getFillColor(),
-					menuTower->cost
+					menuTower->value
 				};
 				newTower->setSize(menuTower->getSize());
 
@@ -128,7 +129,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
 			selectedTower->selected = false;
-			menuSide.setMoney( menuSide.getMoney() - selectedTower->cost );
+			menuSide.setMoney( menuSide.getMoney() - selectedTower->value );
 
 			menuSide.setSelectedTower( nullptr );
 		}
@@ -166,6 +167,43 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 			if ( towers.towers.size() >= 1 ) {
 				for ( auto &tower : towers.towers ) {
 					tower->selected = false;
+				}
+			}
+		}
+
+	// When outside tilemap and there is an selected tower
+	} else if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} && menuSide.getSeletedTower() != nullptr ) {
+		
+		std::vector<button*> buttons = menuSide.getButtons();
+		for ( auto button : buttons ) {
+			if (button->pointInButton( mousePointer )) {
+
+				// If button says Delete then
+				if ( button->getString() == "Delete" ) {
+
+					// Remove the tower which is selected and give back 80% of its value
+					tower *selectedTower = menuSide.getSeletedTower();
+					for ( unsigned int i = 0; i < towers.towers.size(); i++ ) {
+						if ( towers.towers[i] == selectedTower ) {
+							menuSide.setMoney( menuSide.getMoney() + selectedTower->value * GIVE_BACK_MULTIPLIER );
+							towers.towers.erase( towers.towers.begin() + i );
+							menuSide.setSelectedTower( nullptr );
+							break;
+						}
+					}
+
+				} else if ( button->getString() == "Upgrade" ) {
+
+					// Upgrade all the stats for the tower and remove its value times multiplier from money
+					tower *selectedTower = menuSide.getSeletedTower();
+
+					if ( selectedTower->value * PAY_MULTIPLIER < menuSide.getMoney() ) {
+						selectedTower->damage	+= DAMAGE_ADDITION;
+						selectedTower->range	+= RANGE_ADDITION;
+						selectedTower->value	*= PAY_MULTIPLIER;
+						selectedTower->upgrade	+= 1;
+						menuSide.setMoney( menuSide.getMoney() - selectedTower->value );
+					}
 				}
 			}
 		}

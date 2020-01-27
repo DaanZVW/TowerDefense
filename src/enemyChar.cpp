@@ -1,10 +1,4 @@
 #include "enemyChar.hpp"
-#include <stdlib.h>     /* srand, rand */
-#include <math.h>
-#include <iostream>
-#include "macro.hpp"
-
-
 
 //==========================================================================
 
@@ -42,31 +36,37 @@ void enemyChar::animate(const float steps){
 				animationCounter = 0;
 				
 	}
-
-		
-	
 }
+
+//==========================================================================
 
 const float enemyChar::getHealth(){
 	LOGFUNCNAME();
 	return health;
 }
 
+//==========================================================================
+
 const float enemyChar::getSpeed()
 {
 	return baseStats["speed"].asFloat();
 }
 
+//==========================================================================
 
 void enemyChar::decreaseHealth(const float& damage){
 	LOGFUNCNAME(<<damage);
 	health -= damage;
 }
 
+//==========================================================================
+
 const float enemyChar::getDamage() {
 	LOGFUNCNAME(<< baseStats["damage"].asFloat());
 	return baseStats["damage"].asFloat();
 }
+
+//==========================================================================
 
 const float enemyChar::moveLeftToTarget(float steps, const float target) {
 	setRotation(270);
@@ -78,6 +78,8 @@ const float enemyChar::moveLeftToTarget(float steps, const float target) {
 	return 0;
 }
 
+//==========================================================================
+
 const float enemyChar::moveRightToTarget(float steps, const float target) {
 	setRotation(90);
 	move(steps, 0);
@@ -87,6 +89,8 @@ const float enemyChar::moveRightToTarget(float steps, const float target) {
 	}
 	return 0;
 }
+
+//==========================================================================
 
 const float enemyChar::moveUpToTarget(float steps, const float target) {
 	setRotation(0);
@@ -98,6 +102,8 @@ const float enemyChar::moveUpToTarget(float steps, const float target) {
 	return 0;
 }
 
+//==========================================================================
+
 const float enemyChar::moveDownToTarget(float steps, const float target) {
 	setRotation(180);
 	move(0, steps);
@@ -107,6 +113,8 @@ const float enemyChar::moveDownToTarget(float steps, const float target) {
 	}
 	return 0;
 }
+
+//==========================================================================
 
 void enemyChar::followPath(float& steps) {
 	sf::Vector2f currNode = *currTargetLocation;
@@ -124,6 +132,7 @@ void enemyChar::followPath(float& steps) {
 	}
 }
 
+//==========================================================================
 
 void enemyChar::drawHP(sf::RenderWindow& window){
 	LOGFUNCNAME();
@@ -135,13 +144,16 @@ void enemyChar::drawHP(sf::RenderWindow& window){
 
 }
 
+//==========================================================================
+
 unsigned int enemyChar::getReward() {
 	return baseStats["reward"].asUInt();
 }
 
+//==========================================================================
+//==========================================================================
+//==========================================================================
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOGFUNCNAME();
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
@@ -162,11 +174,15 @@ void enemyCharGroup::spawnWave() {
 	}
 };
 
+//==========================================================================
+
 void enemyCharGroup::setWaves(const Json::Value enemyWaves){
 	LOGFUNCNAME();
 	waves = enemyWaves;
 	currWave = waves.begin();
 }
+
+//==========================================================================
 
 void enemyCharGroup::nextWave() {
 	LOGFUNCNAME();
@@ -176,6 +192,8 @@ void enemyCharGroup::nextWave() {
 	
 }
 
+//==========================================================================
+
 void enemyCharGroup::setTileSize(const float & givenTilesize, const sf::Vector2f& offset){
 	LOGFUNCNAME(<< givenTilesize);
 	for (auto& pos : route) {
@@ -183,6 +201,8 @@ void enemyCharGroup::setTileSize(const float & givenTilesize, const sf::Vector2f
 	}
 	tileSize = givenTilesize;
 }
+
+//==========================================================================
 
 void enemyCharGroup::setRoute(const std::vector<sf::Vector2i>& givenRoute, const float& givenTilesize, const sf::Vector2f & offset) {
 	LOGFUNCNAME(<< givenTilesize);
@@ -192,6 +212,9 @@ void enemyCharGroup::setRoute(const std::vector<sf::Vector2i>& givenRoute, const
 		route.push_back(sf::Vector2f((pos.x * tileSize)+offset.x + (tileSize/2),( pos.y * tileSize)+offset.y + (tileSize / 2)));
 	}
 }
+
+//==========================================================================
+
 void enemyCharGroup::draw(sf::RenderWindow& window) {
 	LOGFUNCNAME();
 	for (auto& enemy : enemies) {
@@ -200,10 +223,14 @@ void enemyCharGroup::draw(sf::RenderWindow& window) {
 	}
 }
 
+//==========================================================================
+
 const bool enemyCharGroup::isEnemyDefeated() {
 	LOGFUNCNAME();
 	return enemies.begin() == enemies.end();
 }
+
+//==========================================================================
 
 void enemyCharGroup::update() {
 	LOGFUNCNAME();
@@ -220,6 +247,9 @@ void enemyCharGroup::update() {
 		}
 	), enemies.end());
 }
+
+//==========================================================================
+
 enemyCharGroup::enemyCharGroup (
 	Json::Value enemyTemplates, 
 	const std::vector<sf::Vector2i>& route, 
@@ -243,6 +273,8 @@ enemyCharGroup::enemyCharGroup (
 	deathmusic.openFromFile("../res/sound/Spider_death.ogg");
 }
 
+//==========================================================================
+
 void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float & damage){
 	LOGFUNCNAME();
 	if (auto t = target.lock()) {
@@ -265,11 +297,14 @@ void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float &
 	}
 }
 
+//==========================================================================
+
 std::vector<std::shared_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
 	LOGFUNCNAME();
 	return enemies;
 }
 
+//==========================================================================
 
 const bool enemyCharGroup::move(std::shared_ptr<enemyChar> & enemy, float steps) {
 	LOGFUNCNAME(<<steps);

@@ -234,3 +234,9 @@ uint32_t menu::getMoney() {
 void menu::setMoney( const uint32_t &newValue ) {
 	money = newValue;
 }
+
+// ==============================================================================
+
+std::vector<button*> menu::getButtons() {
+	return buttons;
+}

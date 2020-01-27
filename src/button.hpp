@@ -41,6 +41,7 @@ public:
 
     void draw( sf::RenderWindow &window );
     bool pointInButton( const sf::Vector2i &tPosition );
+    std::string getString();
 };
 
 #endif /*BUTTON_HPP*/

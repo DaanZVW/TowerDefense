@@ -6,13 +6,13 @@ tower::tower(
 	const unsigned int & range, 
 	const unsigned int & firerate, 
 	const std::string & texture, 
-	const unsigned int cost = 0
+	const unsigned int &value = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
 	firerate( firerate ),
-	cost( cost )
+	value( value )
 {
 	if(texture == "Black"){
 		setFillColor(sf::Color::Black);
@@ -30,13 +30,13 @@ tower::tower(
 	const unsigned int & range, 
 	const unsigned int & firerate, 
 	const sf::Color & color,
-	const unsigned int cost = 0
+	const unsigned int &value = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
 	firerate( firerate ),
-	cost( cost )
+	value( value )
 {
 	setFillColor( color );
 	mycolor = getFillColor();
@@ -128,11 +128,10 @@ void towerGroup::draw( sf::RenderWindow &window ){
 bool towerGroup::towersInRange( const sf::Vector2f & pos ){
 	for( auto tower : towers ){
 		if(tower->inRange(pos)){
-			// return true;
+			return true;
 		}
 	}
 	return false;
 }
-
 
 

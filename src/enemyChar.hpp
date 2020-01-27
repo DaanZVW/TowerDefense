@@ -1,19 +1,27 @@
 #ifndef ENEMYCHAR__HPP
 #define ENEMYCHAR__HPP
-#include "healthBar.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+
+// Include std::libs
+#include <math.h>
+#include <iostream>
+#include <stdlib.h>     /* srand, rand */
 #include <vector>
 #include <memory>
 
-#include "base.hpp"
-
+// Include external libs
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
 	#include <jsoncpp/json/json.h>
 #endif // INCLUDE
-#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
+// Include external files
+#include "healthBar.hpp"
+#include "macro.hpp"
+#include "base.hpp"
+
 
 /// @brief Class for an enemy character
 /// @author Wilco Matthijssen

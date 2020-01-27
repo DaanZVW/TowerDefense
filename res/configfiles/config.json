@@ -47,7 +47,7 @@
         {
             "Name": "Wood Blaster",
             "Texture": "Yellow",
-            "Damage": 5,
+            "Damage": 10,
             "Range": 6,
             "Firerate": 10,
             "Cost" : 50
@@ -242,21 +242,21 @@
 
     "waves": 
     [
-      [
-        {
-          "amount": 2,
-          "name": "enemy1"
-        },
-        {
-          "name": "enemy2",
-          "amount": 2
-        },
+        [
+            {
+                "amount": 5,
+                "name": "enemy1"
+            },
+            {
+                "name": "enemy2",
+                "amount": 5
+            },
 
-        {
-          "name": "enemy3",
-          "amount": 2
-        }
-      ],
+            {
+                "name": "enemy3",
+                "amount": 3
+            }
+        ],
         [
             {
                 "name": "enemy1",

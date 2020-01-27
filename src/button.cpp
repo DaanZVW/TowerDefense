@@ -42,3 +42,7 @@ void button::draw( sf::RenderWindow &window ) {
 bool button::pointInButton( const sf::Vector2i &tPosition ) {
     return getGlobalBounds().contains( sf::Vector2f{tPosition} );
 }
+
+std::string button::getString() {
+    return textObject.getString();
+}

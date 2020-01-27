@@ -5,9 +5,18 @@
 #include <iostream>
 
 // Include external files
+#include "button.hpp"
 #include "menu.hpp"
 #include "tilemap.hpp"
 #include "tower.hpp"
+
+// Defines for money multipliers
+#define GIVE_BACK_MULTIPLIER	0.80
+#define PAY_MULTIPLIER			1.25
+
+// Defines for upgrade stats
+#define DAMAGE_ADDITION			2
+#define RANGE_ADDITION			1
 
 class mouseControl{
 private:
