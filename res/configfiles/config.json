@@ -63,92 +63,200 @@
             "health": 30,
             "reward": 20,
             "attic": "../res/images/4k.jpeg",
-            "textureFile": "../res/images/PixelArt.png",
+            "textureFile": "../res/images/spaceinvader.png",
             "texturedddFile": "../res/images/wovo_idle.png",
-            "texturepos": 
-            [
-                {
-                    "top": 0,
-                    "left": 0,
-                    "right": 300,
-                    "bottom": 300
-                },
-                {
-                    "top": 300,
-                    "left": 300,
-                    "right": 300,
-                    "bottom": 300
-                }
-            ]
+          "texturepos": [
+            {
+              "positionX": 0,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 32,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 64,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 96,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 128,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 160,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 192,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            },
+            {
+              "positionX": 224,
+              "positionY": 0,
+              "sizeX": 32,
+              "sizeY": 32
+            }
+          ]
         },
 
-        "enemy2": 
-        {
-            "damage": 10,
-            "speed": 4,
-            "health": 10,
-            "reward": 10,
-            "textureFile": "../res/images/background.jpg",
-            "texturepos": 
-            [
-                {
-                    "top": 0,
-                    "left": 0,
-                    "right": 1000,
-                    "bottom": 1000
-                },
-                {
-                    "top": 0,
-                    "left": 0,
-                    "right": 1000,
-                    "bottom": 1000
-                }
-            ]
-        },
+      "enemy2": {
+        "damage": 10,
+        "speed": 1,
+        "health": 10,
+        "reward": 10,
+        "textureFile": "../res/images/spaceInvader2.png",
+        "texturepos": [
+          {
+            "positionX": 0,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 32,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 64,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 96,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 128,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 160,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 192,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 224,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          }
+        ]
+      },
 
-        "enemy3": 
-        {
-            "damage": 10,
-            "speed": 1,
-            "health": 100,
-            "textureFile": "../res/images/dog.png",
-            "reward": 0,
-            "texturepos": 
-            [
-                {
-                    "top": 0,
-                    "left": 0,
-                    "right": 1000,
-                    "bottom": 1000
-                },
-                {
-                    "top": 0,
-                    "left": 0,
-                    "right": 1000,
-                    "bottom": 1000
-                }
-            ]
-        }
+      "enemy3": {
+        "damage": 10,
+        "speed": 1,
+        "health": 100,
+        "textureFile": "../res/images/spaceInvader3.png",
+        "reward": 0,
+        "texturepos": [
+          {
+            "positionX": 0,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 32,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 64,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 96,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 128,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 160,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 192,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          },
+          {
+            "positionX": 224,
+            "positionY": 0,
+            "sizeX": 32,
+            "sizeY": 32
+          }
+        ]
+      }
     },
 
     "base": 
     {
         "health": 100,
-        "textureFile": "../res/images/wovo_idle.png"
+        "textureFile": "../res/images/spaceInvaderKing.png"
     },
 
     "waves": 
     [
-        [
-            {
-                "amount": 5,
-                "name": "enemy1"
-            },
-            {
-                "name": "enemy2",
-                "amount": 10
-            }
-        ],
+      [
+        {
+          "amount": 2,
+          "name": "enemy1"
+        },
+        {
+          "name": "enemy2",
+          "amount": 2
+        },
+
+        {
+          "name": "enemy3",
+          "amount": 2
+        }
+      ],
         [
             {
                 "name": "enemy1",
