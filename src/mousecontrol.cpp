@@ -64,7 +64,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		for ( auto &menuTower : menuSide.getTowers() ){
 			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
 				
-				// 
+				// Stop further action if the player has insufficient money
 				if ( menuTower->cost > menuSide.getMoney() ) {
 					std::cout << "Helaas je hebt niet genoeg gespaard." << std::endl;
 					return;
