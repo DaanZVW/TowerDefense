@@ -1,16 +1,18 @@
 #include "tower.hpp"
 
-
-tower::tower( const std::string & name, 
-			  const int & damage, 
-			  const int & range, 
-			  const int & firerate,
-			  const std::string & texture
+tower::tower( 
+	const std::string & name, 
+	const unsigned int & damage, 
+	const unsigned int & range, 
+	const unsigned int & firerate, 
+	const std::string & texture, 
+	const unsigned int cost = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
-	firerate( firerate )
+	firerate( firerate ),
+	cost( cost )
 {
 	if(texture == "Black"){
 		setFillColor(sf::Color::Black);
@@ -22,16 +24,19 @@ tower::tower( const std::string & name,
 	mycolor = getFillColor();
 }
 
-tower::tower( const std::string & name, 
-			  const int & damage, 
-			  const int & range, 
-			  const int & firerate,
-			  const sf::Color & color
+tower::tower(
+	const std::string & name, 
+	const unsigned int & damage, 
+	const unsigned int & range, 
+	const unsigned int & firerate, 
+	const sf::Color & color,
+	const unsigned int cost = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
-	firerate( firerate )
+	firerate( firerate ),
+	cost( cost )
 {
 	setFillColor( color );
 	mycolor = getFillColor();

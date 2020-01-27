@@ -3,7 +3,8 @@
     {
         "Difficulty" : "Easy",
         "Name" : "Angry Shroom",
-        "GridSize" : [15, 15]
+        "GridSize" : [15, 15],
+        "BeginMoney" : 100
     },
     "PathNodes": 
     [

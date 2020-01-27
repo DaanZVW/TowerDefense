@@ -28,13 +28,12 @@ void game::run() {
     };
 
 	gameState state = gameState::PLAYING;
-	unsigned int money = 0;
-	
-
 
 	window.setFramerateLimit(100);
     // Make fileReader for pathnodes
     fileReader fileHandlerMap{ "../res/configfiles/maps/easy.json" };
+
+	uint32_t money = fileHandlerMap.getMoney();
 	
     // Make tiles
     sf::Color standardColor = sf::Color::Green;
@@ -93,7 +92,10 @@ void game::run() {
         },
         fileHandlerConfig.makeTowers(),
         map.getTileSize(),
-        font
+        font,
+        fileHandlerConfig.getMenuTextures(),
+        fileHandlerConfig.getMenuTextures(),
+        money
     };
 
     towerGroup groupTower;
@@ -109,30 +111,36 @@ void game::run() {
 
         // Clear the window with all excisting objects
 		window.clear( sf::Color::Black );
-
-		enemyGroupObj.update();
-
-		mouse.updateMouse( mousePos );
-		
+        
+        // draw tilemap
         map.draw( window );
 
-        sideMenu.draw( window );
-
+        // update all enemys position
+		enemyGroupObj.update();
+        
+        // draw all enemys
 		enemyGroupObj.draw( window );
 
+        // update mouse
+		mouse.updateMouse( mousePos );
+		
+        // draw the base
 		baseObj.draw( window );
 
-		shots.update();
-		
+        // draw the towers
         groupTower.draw( window );
+
+        // draw the bullets
+		shots.update();
+
+        // draw the Menu
+        sideMenu.draw( window );
 
         // Draw all excisting objects on the screen
 		window.display();
 
-
         // Sleep 5 miliseconds so the close event gets time
-		//sf::sleep( sf::milliseconds( 10 ));
-
+		// sf::sleep( sf::milliseconds( 10 ));
         
 		if (state == gameState::GAMEOVER) {
 			window.close();

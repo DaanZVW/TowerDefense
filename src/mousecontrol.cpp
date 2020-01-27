@@ -7,10 +7,16 @@ mouseControl::mouseControl( tilemap & map, menu & menuSide, towerGroup & towers)
 {}
 
 void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
+	// Track the mouse and place it at the mousepointer
 	if (placeTower == true ){
 		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
-			newTower->setPosition(sf::Vector2f{float(mousePointer.x), float(mousePointer.y)});
+			newTower->setPosition(sf::Vector2f{
+				float(mousePointer.x - map.getTileSize()/2), 
+				float(mousePointer.y - map.getTileSize()/2)
+			});
 			newTower->setFillColor( newTower->mycolor );
+			newTower->setFillColor( newTower->mycolor );
+			availableSpot = true;
 		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );
@@ -27,6 +33,28 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 				availableSpot = false;
 			}
 		}
+	} else {
+		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
+			for ( auto &menuTower : menuSide.getTowers() ){
+				if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
+					std::vector<std::string> textInTextObjects {
+						menuTower->name,
+						std::to_string(menuTower->damage),
+						std::to_string(menuTower->range),
+						std::to_string(menuTower->firerate),
+						std::to_string(menuTower->cost)
+					};
+
+					towerInfoMenu infoTower = menuSide.getMoveableMenu();
+					infoTower.updateStrings( textInTextObjects );
+
+					menuSide.showInfoTowerMenu = true;
+
+					return;
+				}
+			}
+			menuSide.showInfoTowerMenu = false;
+		}
 	}
 }
 
@@ -35,6 +63,12 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 	if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} && menuSide.getSeletedTower() == nullptr ) {
 		for ( auto &menuTower : menuSide.getTowers() ){
 			if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
+				
+				// 
+				if ( menuTower->cost > menuSide.getMoney() ) {
+					std::cout << "Helaas je hebt niet genoeg gespaard." << std::endl;
+					return;
+				}
 
 				// Deselect all towers for towerinfo
 				if ( towers.towers.size() >= 1 ) {
@@ -42,6 +76,9 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 						tower->selected = false;
 					}
 				}
+
+				// Deselect tower info
+				menuSide.showInfoTowerMenu = false;
 
 				// Deselect if tower is selected
 				if (placeTower) {
@@ -55,17 +92,22 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					menuTower->damage,
 					menuTower->range,
 					menuTower->firerate,
-					menuTower->getFillColor()
+					menuTower->getFillColor(),
+					menuTower->cost
 				};
 				newTower->setSize(menuTower->getSize());
 
 				// Add newtower to the towers vector
 				towers.add(newTower);
+
+				// Stop the for loop
+				break;
 			}
 		}
 		
-	// When the tile is empty and a tower is held, place the tile
+	// When the tile is empty and a tower is held, place the tower
 	} else if ( placeTower && availableSpot ){
+
 		placeTower = false;
 		towers.addTmpTower();
 		towers.showTmpTower = false;
@@ -77,6 +119,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		if ( towers.isTower( tile ) ) {
 			tower* selectedTower = towers.getTower( tile );
 			selectedTower->selected = false;
+			menuSide.setMoney( menuSide.getMoney() - selectedTower->cost );
 
 			menuSide.setSelectedTower( nullptr );
 		}
@@ -109,7 +152,6 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 		
 		// Set selected false for all towers when mousepointer not a tower
 		} else {
-			std::cout << "thing" << std::endl;
 			menuSide.setSelectedTower( nullptr );
 
 			if ( towers.towers.size() >= 1 ) {

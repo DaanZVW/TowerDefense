@@ -57,7 +57,6 @@ void shotHandler::update(){
 			if(tower->inRange( tmpEnemeyPos )){
 				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
 					bullets.push_back(std::make_unique< bullet >( tower, enemy ) );
-					enemy->setFillColor( sf::Color::Red );
 					tower->fireclock.restart();
 				}
 			}

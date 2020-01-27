@@ -31,23 +31,26 @@
         {
             "Name": "Fire Blaster",
             "Texture": "Black",
-            "Damage": 10,
+            "Damage": 5,
             "Range": 2,
-            "Firerate": 30
+            "Firerate": 20,
+            "Cost" : 25
         },
         {
             "Name": "Water Blaster",
             "Texture": "Blue",
             "Damage": 2,
             "Range": 4,
-            "Firerate": 50
+            "Firerate": 30,
+            "Cost" : 35
         },
         {
             "Name": "Wood Blaster",
             "Texture": "Yellow",
-            "Damage": 15,
+            "Damage": 5,
             "Range": 6,
-            "Firerate": 20
+            "Firerate": 10,
+            "Cost" : 50
         }
     ],
 
@@ -57,8 +60,8 @@
         {
             "damage": 10,
             "speed": 1,
-            "health": 10,
-            "reward": 1000,
+            "health": 30,
+            "reward": 20,
             "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/PixelArt.png",
             "texturedddFile": "../res/images/wovo_idle.png",
@@ -83,7 +86,7 @@
         {
             "damage": 10,
             "speed": 4,
-            "health": 100,
+            "health": 10,
             "reward": 10,
             "textureFile": "../res/images/background.jpg",
             "texturepos": 
@@ -107,7 +110,7 @@
         {
             "damage": 10,
             "speed": 1,
-            "health": 1000000,
+            "health": 100,
             "textureFile": "../res/images/dog.png",
             "reward": 0,
             "texturepos": 
@@ -138,7 +141,7 @@
     [
         [
             {
-                "amount": 100,
+                "amount": 5,
                 "name": "enemy1"
             },
             {
@@ -148,8 +151,8 @@
         ],
         [
             {
-                "amount": 0,
-                "name": "enemy1"
+                "name": "enemy1",
+                "amount": 0
             },
             {
                 "name": "enemy2",
@@ -160,5 +163,27 @@
                 "amount": 0
             }
         ]
+    ],
+
+    "Menu" :
+    [   
+        {
+            "Path" : "../res/images/Tower.png"
+        },
+        {
+            "Path" : "../res/images/damage.png"
+        },
+        {
+            "Path" : "../res/images/range.png"
+        },
+        {
+            "Path" : "../res/images/firerate.png"
+        },
+        {
+            "Path" : "../res/images/cost.png"
+        },
+        {
+            "Path" : "../res/images/time.png"
+        }
     ]
 }

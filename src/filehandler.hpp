@@ -51,11 +51,16 @@ public:
 	const Json::Value & getEnemyConfig();
 	const Json::Value & getWaves();
 	const Json::Value & getBaseConfig();
+
 	std::map<std::string, sf::Texture>  & getTextures();
 
     sf::Vector2i getGridSize();
 
     sf::Font* getFont();
+
+    std::vector< sf::RectangleShape* > getMenuTextures();
+
+    uint32_t getMoney();
 
     // // Reads the file given in constructor
     // // Returns a drawable pointer vector

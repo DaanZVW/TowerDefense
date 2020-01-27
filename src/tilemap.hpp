@@ -13,14 +13,23 @@
 // Include external libs
 #include <SFML/Graphics.hpp>
 
+/// @brief Class for a tile in the tilemap
+/// @author Daan Zimmerman van Woesik, Bas van der Geer, Nic Jenneboer
 class tile : public sf::RectangleShape{
 private:
 
     bool allowplacement;
     
 public:
-    // Default constructor
+    
+    /// @brief Construct an tile with given parameters
+	///
+	/// @param position	Used for placing the tile on given pixel location
+	/// @param size     Used for giving the tile a size
+	/// @param color    Given texture will be used for itself
+    /// 
     tile( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Color &color );
+    
     // Getter and setter for AllowPlacement variable
     void setAllowPlacement( const bool &value );
     bool getAllowPlacement();

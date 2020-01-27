@@ -6,10 +6,11 @@
 class tower : public sf::RectangleShape{
 public:
 	const std::string name;
-	int damage;
-	int range;
-	int firerate;
+	unsigned int damage;
+	unsigned int range;
+	unsigned int firerate;
 	sf::Color mycolor;
+	unsigned int cost;
 	bool selected = false;
 	sf::Clock fireclock;
 
@@ -21,8 +22,23 @@ public:
 
 	bool inRange( const sf::Vector2f & pos );
 
-	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const std::string & texture );
-	tower( const std::string & name, const int & damage, const int & range, const int & firerate, const sf::Color & color);
+	tower( 
+		const std::string & name, 
+		const unsigned int & damage, 
+		const unsigned int & range, 
+		const unsigned int & firerate, 
+		const std::string & texture,
+		const unsigned int cost
+	);
+
+	tower( 
+		const std::string & name, 
+		const unsigned int & damage, 
+		const unsigned int & range, 
+		const unsigned int & firerate, 
+		const sf::Color & color,
+		const unsigned int cost
+	);
 };
 
 class towerGroup{
