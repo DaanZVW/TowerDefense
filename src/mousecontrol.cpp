@@ -16,9 +16,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 				float(mousePointer.y - map.getTileSize()/2)
 			});
 			newTower->setFillColor( newTower->mycolor );
-			newTower->setFillColor( newTower->mycolor );
 			availableSpot = true;
-
 		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );
