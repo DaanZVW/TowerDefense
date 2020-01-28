@@ -47,11 +47,12 @@ menu::menu(
 	// Make top info pictures index
 	std::vector<int> indexPositions{
 		4,
-		6
+		6,
+		7
 	};
 
 	// Make top info
-	for ( unsigned int i = 0; i < 2; i++ ) {
+	for ( unsigned int i = 0; i < indexPositions.size(); i++ ) {
 		// Make text object
 		topInfoText.push_back( new menuTextObject{
 			position + sf::Vector2f {
@@ -88,7 +89,7 @@ menu::menu(
 	};
 	for ( unsigned int i = 0; i < 2; i++ ) {
 		button *buttonObj = new button{ 
-			position + sf::Vector2f{ float(size.x * MTI_OFFSET_X + i * size.x/2), float(size.y/1.45) }, 
+			position + sf::Vector2f{ float(size.x * MTI_OFFSET_X + i * size.x/2), float(size.y/1.13) }, 
 			sf::Vector2f{ 200, 100 }, 
 			textInButtons[i].first, 
 			font, 
@@ -119,7 +120,8 @@ void menu::draw( sf::RenderWindow &window ){
 	// Make a vector for the top information
 	std::vector<std::string> TextForTopText {
 		std::to_string( money ),
-		std::to_string( timePlayed )
+		std::to_string( timePlayed ),
+		std::to_string( currentWave )
 	};
 
 	// Set the text for the topInfo and draw the picture and text

@@ -303,6 +303,9 @@
         },
         {
             "Path" : "../res/images/time.png"
+        },
+        {
+            "Path" : "../res/images/wave.png"
         }
     ]
 }

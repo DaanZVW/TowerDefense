@@ -15,37 +15,6 @@
 #include "button.hpp"
 #include "filehandler.hpp"
 
-// Menu top info offsets (MTI)
-#define MTI_OFFSET_X			0.05
-#define MTI_OFFSET_Y			0.01
-#define MTI_CHAR_DEVIDER		0.05
-#define MTI_TEXT_SPACING		0.08
-#define MTI_SPLIT_LINE_Y		0.17
-
-// Tower buy menu offsets (TBM)
-#define TBM_OFFSET_X			0.05
-#define TBM_TEXT_SPACING		0.1
-
-// Tower info menu offsets (TIM)
-#define TIM_OFFSET_X			0.3
-#define TIM_TEXT_SPACING		0.2
-#define PICTURE_SIZE_DEVIDER	6
-#define TIM_CHARSIZE_DEVIDER	0.1
-
-// Tower Info Offsets (TIO)
-#define TIO_OFFSET_X			0.15
-#define TIO_OFFSET_Y 			0.2
-#define TIO_TEXT_SPACING		0.05
-#define TIO_CHARSIZE_DEVIDER 	0.035
-
-// Defines for money multipliers
-#define GIVE_BACK_MULTIPLIER	0.80
-#define PAY_MULTIPLIER			1.1
-
-// Defines for upgrade stats
-#define DAMAGE_MULTIPLIER		1.1
-#define RANGE_MULTIPLIER		1.05
-
 // ===============================================================
 
 /// @brief Class between the menu and an collection of text objects
@@ -75,6 +44,7 @@ private:
 
 	sf::Clock clock;
 	uint16_t timePlayed = 0;
+	uint8_t currentWave = 1;
 
 public:
 
