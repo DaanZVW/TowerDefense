@@ -51,6 +51,8 @@ towerInfoMenu::towerInfoMenu(
 }
 
 // ==============================================================================
+// ==============================================================================
+// ==============================================================================
 
 towerInfoMenu::towerInfoMenu(
 	sf::Vector2f position,
@@ -104,6 +106,59 @@ towerInfoMenu::towerInfoMenu(
 }
 
 // ==============================================================================
+// ==============================================================================
+// ==============================================================================
+
+towerInfoMenu::towerInfoMenu(
+	sf::Vector2f position,
+	sf::Vector2f menuSize, 
+	const sf::Font *font,
+	unsigned int amount,
+	sf::RectangleShape* picture,
+	const float &tileSize,
+	sf::Color color, 
+	sf::Text::Style style
+):
+	position ( position ),
+	menuSize ( menuSize ),
+	font ( font ),
+	amount ( amount ),
+	tileSize ( tileSize ),
+	color ( color ),
+	style ( style )
+{	
+	setPosition( position );
+	setSize( menuSize );
+	setFillColor( sf::Color( 165, 165, 165, 225 ) );
+	setOutlineThickness( 2 );
+	setOutlineColor( sf::Color::Black );
+
+	picture->setPosition(
+		position + sf::Vector2f {
+			float( menuSize.x * TBM_OFFSET_X ),
+			float( menuSize.y * TIO_OFFSET_Y )
+		}	
+	);
+	picture->setSize( sf::Vector2f{ tileSize, tileSize } );
+
+	textObjects.push_back( 
+		new menuTextObject{
+			position + sf::Vector2f{ 
+				float( (menuSize.x * TIO_OFFSET_X) * 2 ), 
+				float( (menuSize.y * TIO_OFFSET_Y) * 1.05 ) 
+			},
+			"ERROR",
+			font,
+			int( menuSize.y * CI_CHAR_DEVIDER ),
+			color,
+			style
+		}
+	);
+}
+
+// ==============================================================================
+// ==============================================================================
+// ==============================================================================
 
 void towerInfoMenu::draw( sf::RenderWindow &window ) {
 	for ( auto object : textObjects ) {
@@ -114,10 +169,15 @@ void towerInfoMenu::draw( sf::RenderWindow &window ) {
 // ==============================================================================
 
 void towerInfoMenu::updateStrings( const std::vector<std::string> &textInTextObjects ) {
-	// std::cout << textInTextObjects.size() << " " << textObjects.size() << std::endl;
 	for ( unsigned int i = 0; i < textObjects.size(); i++ ) {
-		textObjects[i]->setString( textInTextObjects[i] );
+		updateString( textInTextObjects[i], i );
 	}
+}
+
+// ==============================================================================
+
+void towerInfoMenu::updateString( const std::string &text, const int &index ) {
+	textObjects[index]->setString( text );
 }
 
 // ==============================================================================

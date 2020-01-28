@@ -28,11 +28,14 @@ private:
 	const sf::Font *font;
 	std::vector< sf::RectangleShape* > iconsTowerMenu;
 	std::vector< sf::RectangleShape* > iconsInfoTower;
+	sf::RectangleShape* iconCostShow;
 	uint32_t &money;
 	
 	towerInfoMenu towerMenu;
 	towerInfoMenu infoMenu;
 	towerInfoMenu infoTower;
+
+	towerInfoMenu costShow;
 
 	std::vector< button* > buttons;
 	
@@ -44,13 +47,15 @@ private:
 
 	sf::Clock clock;
 	uint16_t timePlayed = 0;
-	uint8_t currentWave = 1;
 
 public:
 
+	uint8_t currentWave = 1;
+	
 	bool showInfoTowerMenu = false;
 	bool insufficientMoney = true;
 	bool showUpgrades = false;
+	bool showDelete = false;
 
 	/// @brief 					Construct the collection of textObjects with tower objects
 	/// 
@@ -71,6 +76,7 @@ public:
 		const sf::Font *font,
 		std::vector< sf::RectangleShape* > iconsTowerMenu,
 		std::vector< sf::RectangleShape* > iconsInfoTower,
+		sf::RectangleShape* iconCostShow,
 		uint32_t &money
 	);
 

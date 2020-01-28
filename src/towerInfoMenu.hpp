@@ -8,6 +8,10 @@
 #include "menuTextObject.hpp"
 #include "tower.hpp"
 
+// Cost info offset (CI)
+#define CI_OFFSET_Y				0.77
+#define CI_CHAR_DEVIDER			0.4
+
 // Menu top info offsets (MTI)
 #define MTI_OFFSET_X			0.05
 #define MTI_OFFSET_Y			0.01
@@ -101,6 +105,28 @@ public:
 		sf::Color color = sf::Color::White, 
 	    sf::Text::Style style = sf::Text::Bold
 	);
+
+	/// @brief Construct the collection of a pair of an textobject and picture
+	/// 
+	/// @param position 	Position where the objects can be made
+	/// @param menuSize		Size where the objects can be made
+	/// @param font			Font whats gonna be used, Note that its a pointer
+	/// @param amount		How many text objects are gonna be in the collection
+	/// @param picture		Vector with tower RectangleShape pointers with different textures already set
+	/// @param tileSize		How big a tile is
+	/// @param color		Color that is gonna be used, default value sf::Color::White
+	/// @param style		Style which is gonna be used, default value sf::Style::Bold	
+	///
+	towerInfoMenu(
+		sf::Vector2f position,
+		sf::Vector2f menuSize, 
+		const sf::Font *font,
+		unsigned int amount,
+		sf::RectangleShape* picture,
+		const float &tileSize,
+		sf::Color color = sf::Color::White, 
+	    sf::Text::Style style = sf::Text::Bold
+	);
 	
 	/// @brief 		Draws all the different text objects in the collection
 	/// @details	The object itself is not drawns
@@ -116,6 +142,13 @@ public:
 	/// @return Void
 	///
 	void updateStrings( const std::vector<std::string> &textInTextObjects );
+
+	/// @brief 		Give all the text objects a new string
+	///
+	/// @param textInTextObjects	Vector with strings which is gonna be put on every text object according to the index
+	/// @return Void
+	///
+	void updateString( const std::string &text, const int &index = 0 );
 
 	/// @brief 		Give the index text objects in the collection the given color
 	///

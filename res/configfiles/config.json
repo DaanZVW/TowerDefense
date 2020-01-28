@@ -61,7 +61,7 @@
             "damage": 10,
             "speed": 1,
             "health": 30,
-            "reward": 20,
+            "reward": 10,
             "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/spaceinvader.png",
             "texturedddFile": "../res/images/wovo_idle.png",
@@ -121,7 +121,7 @@
         "damage": 10,
         "speed": 2,
         "health": 10,
-        "reward": 10,
+        "reward": 5,
         "textureFile": "../res/images/spaceInvader2.png",
         "texturepos": [
           {
@@ -179,8 +179,8 @@
         "damage": 10,
         "speed": 1,
         "health": 100,
+        "reward": 20,
         "textureFile": "../res/images/spaceInvader3.png",
-        "reward": 30,
         "texturepos": [
           {
             "positionX": 0,
@@ -299,7 +299,6 @@
                 "name": "enemy2",
                 "amount": 20
             },
-
             {
                 "name": "enemy3",
                 "amount": 3

@@ -13,6 +13,7 @@ menu::menu(
 	const sf::Font *font,
 	std::vector< sf::RectangleShape* > iconsTowerMenu,
 	std::vector< sf::RectangleShape* > iconsInfoTower,
+	sf::RectangleShape* iconCostShow,
 	uint32_t &money
 ):
 	position( position ),
@@ -22,11 +23,20 @@ menu::menu(
 	font ( font ),
 	iconsTowerMenu ( iconsTowerMenu ),
 	iconsInfoTower ( iconsInfoTower ),
+	iconCostShow ( iconCostShow ),
 	money ( money ),
 
 	towerMenu{ position, size, font, (unsigned int)allTowers.size(), allTowers, tilesize },
 	infoMenu{ position, size, font, 5, iconsTowerMenu, tilesize },
-	infoTower{ position, sf::Vector2f{size.x/2, size.y/5}, font, 5, iconsInfoTower, tilesize, sf::Color::Black }
+	infoTower{ position, sf::Vector2f{size.x/2, size.y/5}, font, 5, iconsInfoTower, tilesize, sf::Color::Black },
+	costShow{ 
+		position + sf::Vector2f{0, float(size.y * CI_OFFSET_Y)},
+		sf::Vector2f{size.x, size.y/10},
+		font,
+		1,
+		iconCostShow,
+		tilesize
+	}
 {	
 	// Set menu texture
 	setPosition( position );
@@ -181,6 +191,7 @@ void menu::draw( sf::RenderWindow &window ){
 			buttonObj->draw( window );
 		}
 		
+		// If showUpgrades then menu shows stats
 		if ( showUpgrades ) {
 			// Make the vector with strings for the objects	
 			std::vector<std::string> textInTextObjects {
@@ -193,7 +204,31 @@ void menu::draw( sf::RenderWindow &window ){
 
 			// Update all the strings according to the vector
 			infoMenu.updateStrings( textInTextObjects );
+
+			// Show amount of payment required to the string
+			costShow.updateString( std::string{"-" + std::to_string(int(selectedTower->value * PAY_MULTIPLIER)) });
+
+			if ( selectedTower->value > money ) {
+				costShow.updateColor( 0, sf::Color::Red );
+			} else {
+				costShow.updateColor( 0, costShow.getOriginalColor() );
+			}
+			
+			// Draw the picture and text object
+			costShow.draw( window );
+			window.draw( *iconCostShow );
 		
+		// If showDelete then show the delete menu
+		} else if ( showDelete ) {
+
+			// Show amount of payment returned to the string
+			costShow.updateString( std::string{"+" + std::to_string(int(selectedTower->value * GIVE_BACK_MULTIPLIER)) });
+			
+			// Draw the picture and text object
+			costShow.draw( window );
+			window.draw( *iconCostShow );
+		
+		// Shows the default menu
 		} else {
 			// Make the vector with strings for the objects	
 			std::vector<std::string> textInTextObjects {

@@ -104,6 +104,7 @@ void game::run() {
         font,
         fileHandlerConfig.getMenuTextures( std::pair<int, int>{4,5} ),
         fileHandlerConfig.getMenuTextures(),
+        fileHandlerConfig.getMenuTextures( std::pair<int, int>{4,5} )[5],
         money
     };
 

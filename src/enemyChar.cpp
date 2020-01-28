@@ -156,6 +156,7 @@ unsigned int enemyChar::getReward() {
 
 void enemyCharGroup::spawnWave() {
 	LOGFUNCNAME();
+	
 	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
 		clockSpawn.restart();
 		if (currWave != waves.end()){

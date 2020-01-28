@@ -69,10 +69,14 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 					if ( button->getString() == "Upgrade" ) {
 						menuSide.showUpgrades = true;
 						return;
+					} else if ( button->getString() == "Delete" ) {
+						menuSide.showDelete = true;
+						return;
 					}
 				}
 			}
 			menuSide.showUpgrades = false;
+			menuSide.showDelete = false;
 		}
 	}
 }

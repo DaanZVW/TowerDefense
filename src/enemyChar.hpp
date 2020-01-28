@@ -154,6 +154,7 @@ private:
 	base& target;
 	sf::Music deathmusic;
 	sf::Music damagemusic;
+	
 	/// @brief	spawns new enemies based on time passed
 	///
 	/// @return	void
@@ -167,8 +168,6 @@ private:
 	/// @return	void
 	///
 	void setRoute(const std::vector<sf::Vector2i>& route, const float& tilesize, const sf::Vector2f& offset);
-
-
 
 	/// @brief	sets the waves of enemies the class will spawn
 	///
