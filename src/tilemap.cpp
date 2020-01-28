@@ -150,7 +150,7 @@ sf::Vector2f tilemap::getMapSize(){
 void tilemap::makeRandomTiles(const int & amount, const sf::Texture * image ){
     sf::Vector2f place;
     int random = amount;
-    for(unsigned int i=0; i<random; i++){
+    for(int i=0; i<random; i++){
         place = sf::Vector2f
         {
             float(rand() % gridSize.x),

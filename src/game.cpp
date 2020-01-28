@@ -24,7 +24,7 @@ void game::run() {
             sf::VideoMode::getDesktopMode().height
         },
         "Space Defense"
-        ,sf::Style::Fullscreen
+        ,sf::Style::Resize
     };
 
 	gameState state = gameState::PLAYING;

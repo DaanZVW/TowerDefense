@@ -108,9 +108,9 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 				placeTower = true;
 				newTower = new tower{ 
 					menuTower->name,
-					menuTower->damage,
-					menuTower->range,
-					menuTower->firerate,
+					(unsigned int)menuTower->damage,
+					(unsigned int)menuTower->range,
+					(unsigned int)menuTower->firerate,
 					menuTower->getTexture(),
 					menuTower->value
 				};

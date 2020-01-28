@@ -21,7 +21,7 @@ tower::tower(
 void tower::draw(sf::RenderWindow &window){
 	if(selected){
 		sf::CircleShape towerRange;
-		int rangeSize = getSize().x * range + getSize().x/2;
+		int rangeSize = getSize().x * (int)range + getSize().x/2;
 		towerRange.setFillColor(sf::Color(160, 160,160, 100));
 		towerRange.setPosition(getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2);
 		towerRange.setOrigin(rangeSize, rangeSize);
@@ -37,7 +37,7 @@ int tower::getDamage(){
 
 bool tower::inRange( const sf::Vector2f & pos ){
 	sf::Vector2f thisPos{getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2};
-	int rangeSize = getSize().x * range + getSize().x/2;
+	int rangeSize = getSize().x * (int)range + getSize().x/2;
 	float difx = std::abs(pos.x-thisPos.x);
 	float dify = std::abs(pos.y-thisPos.y);
 
