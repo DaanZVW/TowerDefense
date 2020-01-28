@@ -127,13 +127,5 @@ void towerGroup::draw( sf::RenderWindow &window ){
 	}
 }
 
-bool towerGroup::towersInRange( const sf::Vector2f & pos ){
-	for( auto tower : towers ){
-		if(tower->inRange(pos)){
-			return true;
-		}
-	}
-	return false;
-}
 
 

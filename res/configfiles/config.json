@@ -127,7 +127,7 @@
 
       "enemy2": {
         "damage": 10,
-        "speed": 1,
+        "speed": 2,
         "health": 10,
         "reward": 10,
         "textureFile": "../res/images/spaceInvader2.png",
