@@ -38,6 +38,14 @@
 #define TIO_TEXT_SPACING		0.05
 #define TIO_CHARSIZE_DEVIDER 	0.035
 
+// Defines for money multipliers
+#define GIVE_BACK_MULTIPLIER	0.80
+#define PAY_MULTIPLIER			1.1
+
+// Defines for upgrade stats
+#define DAMAGE_MULTIPLIER		1.1
+#define RANGE_MULTIPLIER		1.05
+
 // ===============================================================
 
 /// @brief Class between the menu and an collection of text objects
@@ -72,6 +80,7 @@ public:
 
 	bool showInfoTowerMenu = false;
 	bool insufficientMoney = true;
+	bool showUpgrades = false;
 
 	/// @brief 					Construct the collection of textObjects with tower objects
 	/// 

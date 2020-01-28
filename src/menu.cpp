@@ -129,7 +129,7 @@ void menu::draw( sf::RenderWindow &window ){
 		window.draw( *topInfoIcons[i] );
 	}
 
-	if(selectedTower == nullptr) {
+	if( selectedTower == nullptr ) {
 		// Update the strings of the selected Tower
 		std::vector<std::string> textInTextObjects;
 		for ( auto tower : allTowers ) { 
@@ -178,18 +178,33 @@ void menu::draw( sf::RenderWindow &window ){
 		for ( auto buttonObj : buttons ) {
 			buttonObj->draw( window );
 		}
+		
+		if ( showUpgrades ) {
+			// Make the vector with strings for the objects	
+			std::vector<std::string> textInTextObjects {
+				selectedTower->name,
+				std::to_string(int(selectedTower->damage)) + " -> " + std::to_string(int(selectedTower->damage * DAMAGE_MULTIPLIER)),
+				std::to_string(int(selectedTower->range)) + " -> " + std::to_string(int(selectedTower->range * RANGE_MULTIPLIER)),
+				std::to_string(int(selectedTower->firerate)),
+				std::to_string(int(selectedTower->upgrade)) + " -> " + std::to_string(int(selectedTower->upgrade + 1))
+			};
 
-		// Make the vector with strings for the objects	
-		std::vector<std::string> textInTextObjects {
-			selectedTower->name,
-			std::to_string(selectedTower->damage),
-			std::to_string(selectedTower->range),
-			std::to_string(selectedTower->firerate),
-			std::to_string(selectedTower->upgrade)
-		};
+			// Update all the strings according to the vector
+			infoMenu.updateStrings( textInTextObjects );
+		
+		} else {
+			// Make the vector with strings for the objects	
+			std::vector<std::string> textInTextObjects {
+				selectedTower->name,
+				std::to_string(int(selectedTower->damage)),
+				std::to_string(int(selectedTower->range)),
+				std::to_string(int(selectedTower->firerate)),
+				std::to_string(int(selectedTower->upgrade))
+			};
 
-		// Update all the strings according to the vector
-		infoMenu.updateStrings( textInTextObjects );
+			// Update all the strings according to the vector
+			infoMenu.updateStrings( textInTextObjects );
+		}
 
 		// Print the icons
 		for( unsigned int i = 0; i < 5; i ++ ){

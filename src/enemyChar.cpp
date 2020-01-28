@@ -56,12 +56,12 @@ const float enemyChar::getSpeed()
 
 void enemyChar::decreaseHealth(const float& damage){
 	LOGFUNCNAME(<<damage);
-	health -= damage;
+	health -= abs(damage);
 }
 
 //==========================================================================
 
-const float enemyChar::getDamage() {
+const float enemyChar::getDamage() {	
 	LOGFUNCNAME(<< baseStats["damage"].asFloat());
 	return baseStats["damage"].asFloat();
 }
@@ -270,6 +270,8 @@ enemyCharGroup::enemyCharGroup (
 	setWaves(waves);
 
 	damagemusic.openFromFile("../res/sound/headshot2.wav");
+	damagemusic.setVolume( 20 );
+	damagemusic.setPitch( 40 );
 	deathmusic.openFromFile("../res/sound/Spider_death.ogg");
 }
 
@@ -280,8 +282,12 @@ void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float &
 	if (auto t = target.lock()) {
 		if (damage >= t->getHealth()) {
 			money += t->getReward();
+
+			damagemusic.stop();
+			damagemusic.play();
 			deathmusic.stop();
 			deathmusic.play();
+			
 			for (size_t i = 0; i < enemies.size(); ++i) {
 				if (enemies[i] == t) {
 					enemies.erase(enemies.begin() +i);
