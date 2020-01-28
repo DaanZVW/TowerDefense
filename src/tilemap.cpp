@@ -8,7 +8,7 @@ tile::tile( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Co
     setPosition( position );
     setSize( size );
     setFillColor( color );
-    setOutlineColor( sf::Color::Black );
+    setOutlineColor( sf::Color::White );
     setOutlineThickness( 1 );
     allowplacement = true;
 }
@@ -24,11 +24,12 @@ bool tile::getAllowPlacement(){
 // ======================================================
 // ======================================================
 // ======================================================
-tilemap::tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color ):
+tilemap::tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color, const sf::Texture * background_image ):
     position ( position ),
     size ( size ),
     gridSize ( gridSize ),
-    color ( color )
+    color ( color ),
+    background_image ( background_image )
 {   
     makeTilemap( gridSize );
 }
@@ -62,7 +63,7 @@ void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
 void tilemap::draw( sf::RenderWindow &window ) {
     sf::RectangleShape background{position};
     background.setSize(size);
-    background.setFillColor(sf::Color::Blue);
+    background.setTexture(background_image);
     window.draw(background);
 
     for (auto row : grid){
@@ -144,4 +145,24 @@ sf::Vector2f tilemap::getMapPosition(){
 
 sf::Vector2f tilemap::getMapSize(){
     return size;
+}
+
+void tilemap::makeRandomTiles(const int & amount, const sf::Texture * image ){
+    sf::Vector2f place;
+    int random = amount;
+    for(unsigned int i=0; i<random; i++){
+        place = sf::Vector2f
+        {
+            float(rand() % gridSize.x),
+            float(rand() % gridSize.y)
+        };
+        if(grid[place.x][place.y]->getAllowPlacement()){
+            grid[place.x][place.y]->setAllowPlacement(false);
+            grid[place.x][place.y]->setFillColor(sf::Color::White);
+            grid[place.x][place.y]->setTexture(image);
+        }else{
+            random++;
+        }
+    }
+    // std::cout << rand() % amount << "\n";
 }

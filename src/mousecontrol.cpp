@@ -15,18 +15,16 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 				float(mousePointer.x - map.getTileSize()/2), 
 				float(mousePointer.y - map.getTileSize()/2)
 			});
-			newTower->setFillColor( newTower->mycolor );
 			availableSpot = true;
 		} else {
 			sf::Vector2i tilePosition = map.getTilePosition( mousePointer );
 			auto tile = map.getTileFromIndex( tilePosition );
-			sf::Color color = newTower->getFillColor();
 
 			newTower->setPosition( tile->getPosition() );
 			newTower->setSize( tile->getSize() );
 
 			if ( tile->getAllowPlacement() ){
-				newTower->setFillColor( newTower->mycolor );
+				newTower->setFillColor( sf::Color::White );
 				availableSpot = true;
 			} else {
 				newTower->setFillColor( sf::Color::Red );
@@ -100,7 +98,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					menuTower->damage,
 					menuTower->range,
 					menuTower->firerate,
-					menuTower->getFillColor(),
+					menuTower->getTexture(),
 					menuTower->value
 				};
 				newTower->setSize(menuTower->getSize());

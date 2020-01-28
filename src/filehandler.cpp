@@ -32,13 +32,15 @@ std::vector<sf::Vector2i> fileReader::makeNodes(){
 std::vector< tower* > fileReader::makeTowers(){
     std::vector< tower* > towers;
     for ( auto towerObject : fileInfo["Towers"] ) {
+        sf::Texture *texture = new sf::Texture;
+        texture->loadFromFile(towerObject["textureFile"].asString());
         towers.push_back( 
             new tower{ 
                 towerObject["Name"].asString(),
                 towerObject["Damage"].asUInt(),
                 towerObject["Range"].asUInt(),
                 towerObject["Firerate"].asUInt(),
-                towerObject["Texture"].asString(),
+                texture,
                 towerObject["Cost"].asUInt()
             } 
         );

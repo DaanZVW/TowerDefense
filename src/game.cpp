@@ -35,8 +35,12 @@ void game::run() {
 
 	uint32_t money = fileHandlerMap.getMoney();
 	
+    sf::Texture * background_image = new sf::Texture;
+    background_image->setRepeated(true);
+    background_image->loadFromFile("../res/images/background.jpg");
+
     // Make tiles
-    sf::Color standardColor = sf::Color::Green;
+    sf::Color standardColor = sf::Color::Transparent;
     tilemap map{
         sf::Vector2i{0,0}, 
         sf::Vector2i{ 
@@ -44,7 +48,8 @@ void game::run() {
             int( window.getSize().y )
         }, 
         fileHandlerMap.getGridSize(), 
-        standardColor 
+        standardColor,
+        background_image
     };
     
     // levelEditor lvlEditor{ map };
@@ -56,8 +61,12 @@ void game::run() {
 
 
     // Make the path
-    map.makePath( createdPath , sf::Color::Yellow);
+    map.makePath( createdPath , sf::Color{255, 255, 255, 100});
 
+    sf::Texture * meteor_image = new sf::Texture;
+    meteor_image->loadFromFile("../res/images/meteorGrey.png");
+
+    map.makeRandomTiles(70, meteor_image);
     // Make fileReader fot towers
 	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
