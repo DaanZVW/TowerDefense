@@ -9,7 +9,7 @@ mouseControl::mouseControl( tilemap & map, menu & menuSide, towerGroup & towers
 
 void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 	// Track the mouse and place it at the mousepointer
-	if (placeTower == true ){
+	if (placeTower ){
 		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
 			newTower->setPosition(sf::Vector2f{
 				float(mousePointer.x - map.getTileSize()/2), 
@@ -38,6 +38,7 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 
 	} else {
 		if ( map.getTilePosition(sf::Vector2i{mousePointer}) == sf::Vector2i{-1,-1} ){
+			// Check if the mouse is looking at an tower
 			for ( auto &menuTower : menuSide.getTowers() ){
 				if (menuTower->getGlobalBounds().contains( sf::Vector2f{ float(mousePointer.x), float(mousePointer.y) } )){
 					// Stop further action if the player has insufficient money
@@ -49,9 +50,9 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 
 					std::vector<std::string> textInTextObjects {
 						menuTower->name,
-						std::to_string(menuTower->damage),
-						std::to_string(menuTower->range),
-						std::to_string(menuTower->firerate),
+						std::to_string(int(menuTower->damage)),
+						std::to_string(int(menuTower->range)),
+						std::to_string(int(menuTower->firerate)),
 						std::to_string(menuTower->value)
 					};
 
@@ -64,6 +65,18 @@ void mouseControl::updateMouse( const sf::Vector2i & mousePointer ){
 				}
 			}
 			menuSide.showInfoTowerMenu = false;
+
+			// Check if the mouse is looking at a button
+			std::vector<button*> buttons = menuSide.getButtons();
+			for ( auto button : buttons ) {
+				if (button->pointInButton( mousePointer )) {
+					if ( button->getString() == "Upgrade" ) {
+						menuSide.showUpgrades = true;
+						return;
+					}
+				}
+			}
+			menuSide.showUpgrades = false;
 		}
 	}
 }
@@ -99,11 +112,11 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 				placeTower = true;
 				newTower = new tower{ 
 					menuTower->name,
-					menuTower->damage,
-					menuTower->range,
-					menuTower->firerate,
+					(unsigned int)menuTower->damage,
+					(unsigned int)menuTower->range,
+					(unsigned int)menuTower->firerate,
 					menuTower->getFillColor(),
-					menuTower->value
+					(unsigned int)menuTower->value
 				};
 				newTower->setSize(menuTower->getSize());
 
@@ -186,6 +199,11 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					for ( unsigned int i = 0; i < towers.towers.size(); i++ ) {
 						if ( towers.towers[i] == selectedTower ) {
 							menuSide.setMoney( menuSide.getMoney() + selectedTower->value * GIVE_BACK_MULTIPLIER );
+
+							sf::Vector2i tilePosition = map.getTilePosition( sf::Vector2i{towers.towers[i]->getPosition()} );
+							auto tile = map.getTileFromIndex( tilePosition );
+							tile->setAllowPlacement( true );
+
 							towers.towers.erase( towers.towers.begin() + i );
 							menuSide.setSelectedTower( nullptr );
 							break;
@@ -198,12 +216,14 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					tower *selectedTower = menuSide.getSeletedTower();
 
 					if ( selectedTower->value * PAY_MULTIPLIER < menuSide.getMoney() ) {
-						selectedTower->damage	+= DAMAGE_ADDITION;
-						selectedTower->range	+= RANGE_ADDITION;
+						selectedTower->damage	*= DAMAGE_MULTIPLIER;
+						selectedTower->range	*= RANGE_MULTIPLIER;
 						selectedTower->value	*= PAY_MULTIPLIER;
 						selectedTower->upgrade	+= 1;
 						menuSide.setMoney( menuSide.getMoney() - selectedTower->value );
 					}
+
+					menuSide.showUpgrades = false;
 				}
 			}
 		}

@@ -16,9 +16,11 @@ tower::tower(
 {
 	if(texture == "Black"){
 		setFillColor(sf::Color::Black);
-	}else if(texture == "Blue"){
+	} else if(texture == "Cyan"){
 		setFillColor(sf::Color::Cyan);
-	}else if(texture == "Aqua"){
+	} else if(texture == "Magenta"){
+		setFillColor(sf::Color::Magenta);
+	} else if(texture == "White") {
 		setFillColor(sf::Color::White);
 	}
 	mycolor = getFillColor();

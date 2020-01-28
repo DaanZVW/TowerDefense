@@ -6,9 +6,9 @@
 class tower : public sf::RectangleShape{
 public:
 	const std::string name;
-	unsigned int damage;
-	unsigned int range;
-	unsigned int firerate;
+	double damage;
+	double range;
+	double firerate;
 	sf::Color mycolor;
 	unsigned int value;
 
