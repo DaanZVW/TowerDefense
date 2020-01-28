@@ -30,35 +30,27 @@
     "Towers": [
         {
             "Name": "Fire Blaster",
-            "Texture": "Black",
             "Damage": 5,
             "Range": 2,
             "Firerate": 20,
-            "Cost" : 25
+            "Cost" : 25,
+            "textureFile": "../res/images/ufoRed.png"
         },
         {
             "Name": "Water Blaster",
-            "Texture": "Cyan",
             "Damage": 2,
             "Range": 4,
             "Firerate": 30,
-            "Cost" : 35
+            "Cost" : 35,
+            "textureFile": "../res/images/ufoBlue.png"
         },
         {
             "Name": "Wood Blaster",
-            "Texture": "White",
             "Damage": 10,
             "Range": 6,
             "Firerate": 10,
-            "Cost" : 50
-        },
-        {
-            "Name": "Love Blaster",
-            "Texture": "Magenta",
-            "Damage": 15,
-            "Range": 4,
-            "Firerate": 20,
-            "Cost": 200
+            "Cost" : 50,
+            "textureFile": "../res/images/ufoGreen.png"
         }
     ],
 
@@ -239,7 +231,55 @@
             "sizeY": 32
           }
         ]
-      }
+      },
+      "enemy4": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 211,
+              "positionY": 941,
+              "sizeX": 99,
+              "sizeY": 75
+            }
+          ]
+        },
+        "enemy5": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 224,
+              "positionY": 832,
+              "sizeX": 99,
+              "sizeY": 75
+            }
+          ]
+        },
+        "enemy6": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 112,
+              "positionY": 716,
+              "sizeX": 112,
+              "sizeY": 75
+            }
+          ]
+        }
     },
 
     "base": 
@@ -262,7 +302,19 @@
 
             {
                 "name": "enemy3",
-                "amount": 500
+                "amount": 3
+            },
+            {
+                "name": "enemy4",
+                "amount": 4
+            },
+            {
+                "name": "enemy5",
+                "amount": 4
+            },
+            {
+                "name": "enemy6",
+                "amount": 4
             }
         ],
         [

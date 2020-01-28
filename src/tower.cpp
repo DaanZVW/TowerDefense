@@ -5,7 +5,7 @@ tower::tower(
 	const unsigned int & damage, 
 	const unsigned int & range, 
 	const unsigned int & firerate, 
-	const std::string & texture, 
+	const sf::Texture * texture, 
 	const unsigned int &value = 0
 ):
 	name( name ),
@@ -14,35 +14,9 @@ tower::tower(
 	firerate( firerate ),
 	value( value )
 {
-	if(texture == "Black"){
-		setFillColor(sf::Color::Black);
-	} else if(texture == "Cyan"){
-		setFillColor(sf::Color::Cyan);
-	} else if(texture == "Magenta"){
-		setFillColor(sf::Color::Magenta);
-	} else if(texture == "White") {
-		setFillColor(sf::Color::White);
-	}
-	mycolor = getFillColor();
+	setTexture( texture );
 }
 
-tower::tower(
-	const std::string & name, 
-	const unsigned int & damage, 
-	const unsigned int & range, 
-	const unsigned int & firerate, 
-	const sf::Color & color,
-	const unsigned int &value = 0
-):
-	name( name ),
-	damage( damage ),
-	range( range ),
-	firerate( firerate ),
-	value( value )
-{
-	setFillColor( color );
-	mycolor = getFillColor();
-}
 
 void tower::draw(sf::RenderWindow &window){
 	if(selected){
@@ -71,7 +45,6 @@ bool tower::inRange( const sf::Vector2f & pos ){
 		// setFillColor( sf::Color::Red );
 		return true;
 	} else {
-		setFillColor( mycolor );
 		return false;
 	}
 }

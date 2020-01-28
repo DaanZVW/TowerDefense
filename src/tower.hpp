@@ -8,10 +8,9 @@
 class tower : public sf::RectangleShape{
 public:
 	const std::string name;
-	double damage;
-	double range;
-	double firerate;
-	sf::Color mycolor;
+	unsigned int damage;
+	unsigned int range;
+	unsigned int firerate;
 	unsigned int value;
 
 	unsigned int upgrade = 1;
@@ -35,26 +34,11 @@ public:
 		const unsigned int & damage, 
 		const unsigned int & range, 
 		const unsigned int & firerate, 
-		const std::string & texture,
+		const sf::Texture * texture,
 		const unsigned int &value
 	);
 
-	/// @brief Construct an tower with color.
-	///
-	/// @param name		The name of the tower
-	/// @param damage   The damage that an tower can give to an enemy.
-	/// @param range    The range in tiles from the tower midpoint position.
-	/// @param firerate	The number of shots in one minut. 
-	/// @param texture  The color of the tower.
-	/// @param value    The price for this tower.
-	tower( 
-		const std::string & name, 
-		const unsigned int & damage, 
-		const unsigned int & range, 
-		const unsigned int & firerate, 
-		const sf::Color & color,
-		const unsigned int &value
-	);
+
 
 	/// @brief draw this tower to window.
 	///

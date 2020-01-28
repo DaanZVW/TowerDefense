@@ -58,6 +58,9 @@ private:
     // Gridvector where all the tiles are stored
     std::vector<std::vector<tile*>> grid;
 
+    // Grid background
+    const sf::Texture * background_image;
+
     // Change the tileindex to an texture and change the allowPlacement boolean
     bool changeTile( const sf::Vector2i &position, const sf::Color &color, const bool &allowPlacement );
 
@@ -68,7 +71,7 @@ public:
 
     // Default constructor
     // NOTE: position and size is for the tilemap itself
-    tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color );
+    tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color, const sf::Texture * background_image );
 
     // Draw all the tiles
     void draw( sf::RenderWindow &window );
@@ -96,6 +99,8 @@ public:
 
     // Get map size
     sf::Vector2f getMapSize();
+
+    void makeRandomTiles(const int & amount, const sf::Texture * image);
 
 };
 
