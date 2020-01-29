@@ -31,12 +31,13 @@ class game {
 private:
 
     std::string configFilePath;
-
+	
 public:
-
+	sf::RenderWindow window;
     game( const std::string &configFilePath );
 
     void run();
+	void intro();
 };
 
 #endif /*GAME_HPP*/

@@ -7,7 +7,15 @@
 #include "game.hpp"
 
 game::game( const std::string &configFilePath ):
-    configFilePath ( configFilePath )
+    configFilePath ( configFilePath ),
+	window(
+	   sf::VideoMode {
+		   sf::VideoMode::getDesktopMode().width,
+		   sf::VideoMode::getDesktopMode().height
+	   },
+	   "Space Defense"
+	   ,sf::Style::Fullscreen
+	)
 {}
 
 // =========================================================
@@ -18,14 +26,7 @@ void game::run() {
     std::cout << "Application starting ..." << std::endl;
 
     // Make SFML window
-    sf::RenderWindow window{ 
-        sf::VideoMode { 
-            sf::VideoMode::getDesktopMode().width, 
-            sf::VideoMode::getDesktopMode().height
-        },
-        "Space Defense"
-        ,sf::Style::Resize
-    };
+   
 
 	gameState state = gameState::PLAYING;
 
@@ -120,7 +121,7 @@ void game::run() {
         sf::Vector2i mousePos = sf::Mouse::getPosition( window );
 
         // Clear the window with all excisting objects
-		window.clear( sf::Color::Black );
+		window.clear( sf::Color::White );
         
         // draw tilemap
         map.draw( window );
@@ -153,7 +154,7 @@ void game::run() {
 		// sf::sleep( sf::milliseconds( 10 ));
         
 		if (state == gameState::GAMEOVER) {
-			window.close();
+			return;
 		}
 
 		// SFML events
@@ -165,7 +166,8 @@ void game::run() {
                 case sf::Event::KeyPressed:
                     // Close screen when escape is pressed
                     if( event.key.code == sf::Keyboard::Escape ){
-                        window.close();
+                        //window.close();
+						return;
                     } else if ( event.key.code == sf::Keyboard::Return ) {
                         // lvlEditor.makeLevel( "../res/configfiles/maps/", "test", "Grote gekte" );
                         // return;
@@ -177,7 +179,8 @@ void game::run() {
                 // Close screen when closed
                 case sf::Event::Closed:
                     window.close();
-                    break;
+					return ;
+                    
 
                 case sf::Event::MouseButtonPressed:
                     if ( event.mouseButton.button == sf::Mouse::Left ) {
@@ -200,4 +203,62 @@ void game::run() {
 
     // Close main
 
+}
+
+void game::intro(){
+	sf::Sprite background;
+	sf::Texture texture;
+	sf::Text introText;
+	sf::Font font;
+	sf::Clock clock;
+	texture.loadFromFile("../res/images/intro.jpg");
+	background.setScale(float(sf::VideoMode::getDesktopMode().width) / float(texture.getSize().x), float(sf::VideoMode::getDesktopMode().height) / float(texture.getSize().y));
+	background.setTexture(texture);
+	if (!font.loadFromFile("../res/fonts/joystick.ttf")) {
+		std::cerr << "cant load font\n";
+	}
+	else {
+		introText.setFont(font);
+		introText.setString("Press space to continue...");
+		introText.setFillColor(sf::Color(255, 255, 255, 200));
+		introText.setCharacterSize(20);
+		introText.setCharacterSize(20 * ((sf::VideoMode::getDesktopMode().width * 0.60) / introText.getLocalBounds().width));
+		introText.setStyle(sf::Text::Regular);
+		introText.setOrigin(introText.getLocalBounds().width / 2, introText.getLocalBounds().height / 2);
+		introText.setPosition((float(sf::VideoMode::getDesktopMode().width / 2.0)), float(sf::VideoMode::getDesktopMode().height * (4.0 / 5.0)));
+	}
+	sf::Event event;
+
+	while (true) {
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+				return;
+			}
+			if (event.type == sf::Event::KeyPressed) {
+				switch (event.key.code) {
+				case sf::Keyboard::Space:
+					return;
+				case sf::Keyboard::Escape:
+					window.close();
+					return;
+				default:
+					break;
+				}
+			}
+		}
+		if (clock.getElapsedTime().asSeconds() > 1) {
+			clock.restart();
+			if (introText.getFillColor() == sf::Color(255, 255, 255, 200)) {
+				introText.setFillColor(sf::Color(160, 160, 160, 200));
+			}
+			else {
+				introText.setFillColor(sf::Color(255, 255, 255, 200));
+			}
+		}
+		window.clear();
+		window.draw(background);
+		window.draw(introText);
+		window.display();
+	}
 }
