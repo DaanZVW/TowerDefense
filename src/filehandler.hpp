@@ -16,9 +16,9 @@
 
 // Include External libs
 #ifdef INCLUDE
-	#include <jsoncpp/json/json.h>
+	#include <json/json.h>
 #else
-	#include <jsoncpp/json/json.h>
+	#include <json/json.h>
 #endif
 
 // Include Nessecery files

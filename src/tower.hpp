@@ -11,6 +11,7 @@ public:
 	double damage;
 	double range;
 	double firerate;
+	const sf::Texture * bulletTexture;
 	unsigned int value;
 
 	unsigned int upgrade = 1;
@@ -35,6 +36,7 @@ public:
 		const unsigned int & range, 
 		const unsigned int & firerate, 
 		const sf::Texture * texture,
+		const sf::Texture * bulletTexture,
 		const unsigned int &value
 	);
 

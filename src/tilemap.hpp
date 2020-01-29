@@ -69,6 +69,7 @@ private:
 
     const sf::Texture * background_image;
 
+
     /// @brief Change variables of a tile on the position vector2i
     /// 
     /// @param position The x and y index of the tile

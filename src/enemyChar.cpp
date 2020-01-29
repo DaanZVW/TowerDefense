@@ -320,15 +320,14 @@ std::vector<std::shared_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
 
 const bool enemyCharGroup::move(std::shared_ptr<enemyChar> & enemy, float steps) {
 	LOGFUNCNAME(<<steps);
-	
 	steps *= enemy->getSpeed();
+	enemy->tileSteps+=steps/tileSize;
 	enemy->animate(steps);
 	while (steps) {
 		if (enemy->currTargetLocation == route.end()) {
 			return false;
 		}
 		enemy->followPath( steps );
-
 		if (enemy->getPosition() == *(enemy->currTargetLocation)) {
 			++enemy->currTargetLocation;
 		}

@@ -116,6 +116,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					(unsigned int)menuTower->range,
 					(unsigned int)menuTower->firerate,
 					menuTower->getTexture(),
+					menuTower->bulletTexture,
 					menuTower->value
 				};
 				newTower->setSize(menuTower->getSize());
