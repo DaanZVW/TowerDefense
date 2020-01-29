@@ -21,8 +21,11 @@ int screenMain::run(sf::RenderWindow &window){
                         break;
                 }
             }
+            if(event.type == sf::Event::MouseMoved){
+                clock.restart();
+            }
         }
-        if(clock.getElapsedTime().asSeconds() > 5){
+        if(clock.getElapsedTime().asSeconds() > 60){
             clock.restart();
             return (0);
         }
