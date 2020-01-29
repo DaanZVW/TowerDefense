@@ -25,7 +25,7 @@ int screenMain::run(sf::RenderWindow &window){
                 clock.restart();
             }
         }
-        if(clock.getElapsedTime().asSeconds() > 60){
+        if(clock.getElapsedTime().asSeconds() > 2){
             clock.restart();
             return (0);
         }
