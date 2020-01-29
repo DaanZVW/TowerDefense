@@ -208,6 +208,7 @@ void menu::draw( sf::RenderWindow &window ){
 			// Show amount of payment required to the string
 			costShow.updateString( std::string{"-" + std::to_string(int(selectedTower->value * PAY_MULTIPLIER)) });
 
+			// Make money red if not enough
 			if ( selectedTower->value > money ) {
 				costShow.updateColor( 0, sf::Color::Red );
 			} else {
@@ -223,6 +224,9 @@ void menu::draw( sf::RenderWindow &window ){
 
 			// Show amount of payment returned to the string
 			costShow.updateString( std::string{"+" + std::to_string(int(selectedTower->value * GIVE_BACK_MULTIPLIER)) });
+
+			// Make money original color so its not red
+			costShow.updateColor( 0, costShow.getOriginalColor() );
 			
 			// Draw the picture and text object
 			costShow.draw( window );

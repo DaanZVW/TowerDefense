@@ -6,6 +6,7 @@
 #include "enemyChar.hpp"
 
 /// @brief Class for an bullet
+/// @author Bas van der Geer & Nic Jenneboer
 class bullet : public sf::CircleShape{
 private:
 	tower * myTower;

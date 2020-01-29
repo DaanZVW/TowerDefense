@@ -48,18 +48,6 @@ public:
 	///
 	void draw( sf::RenderWindow &window);
 
-	/// @brief Get the tower damage variable.
-	///
-	/// @return int
-	///
-	int getDamage();
-
-	/// @brief Get the firerate variable.
-	///
-	/// @return int
-	///
-	int getFireRate();
-
 	/// @brief returns if an position is inside the range of the tower.
 	///
 	/// @param	pos 	An given screen position.

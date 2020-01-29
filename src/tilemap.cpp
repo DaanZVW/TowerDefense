@@ -3,7 +3,9 @@
 // = Insitute: HU                       =
 // = Date: 12/12/2019                   =
 // ======================================
+
 #include "tilemap.hpp"
+
 tile::tile( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Color &color ){
     setPosition( position );
     setSize( size );
@@ -12,18 +14,23 @@ tile::tile( const sf::Vector2f &position, const sf::Vector2f &size, const sf::Co
     setOutlineThickness( 1 );
     allowplacement = true;
 }
-void tile::setAllowPlacement( const bool &value ){
+
+// ======================================================
+
+void tile::setAllowPlacement( const bool &value ){      
     allowplacement = value;
 }
+
+// ======================================================
+
 bool tile::getAllowPlacement(){
     return allowplacement;
 }
 
+// ======================================================
+// ======================================================
+// ======================================================
 
-
-// ======================================================
-// ======================================================
-// ======================================================
 tilemap::tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const sf::Vector2i &gridSize, const sf::Color &color, const sf::Texture * background_image ):
     position ( position ),
     size ( size ),
@@ -33,6 +40,8 @@ tilemap::tilemap( const sf::Vector2i &position, const sf::Vector2i &size, const 
 {   
     makeTilemap( gridSize );
 }
+
+// ======================================================
 
 void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
     grid.clear();
@@ -59,6 +68,7 @@ void tilemap::makeTilemap( const sf::Vector2i &gridSize ) {
     }
 }
 
+// ======================================================
 
 void tilemap::draw( sf::RenderWindow &window ) {
     sf::RectangleShape background{position};
@@ -72,6 +82,9 @@ void tilemap::draw( sf::RenderWindow &window ) {
         }
     }
 }
+
+// ======================================================
+
 bool tilemap::changeTile( const sf::Vector2i &tmpPosition, const sf::Color &color, const bool &allowPlacement ) {
     if ((unsigned int)tmpPosition.x >= grid.size()) {
         return false;
@@ -82,6 +95,8 @@ bool tilemap::changeTile( const sf::Vector2i &tmpPosition, const sf::Color &colo
     grid[tmpPosition.x][tmpPosition.y]->setAllowPlacement( allowPlacement );
     return true;
 }
+
+// ======================================================
 
 void tilemap::makePath( const std::vector<sf::Vector2i> &nodes, const sf::Color &color ) {
     if ( nodes.size() <= 0 ) {
@@ -111,6 +126,8 @@ void tilemap::makePath( const std::vector<sf::Vector2i> &nodes, const sf::Color 
     }
 }
 
+// ======================================================
+
 sf::Vector2i tilemap::getTilePosition( sf::Vector2i tmpPosition ){
     sf::Vector2i index{
         int(tmpPosition.x / ((size.x-(2*XOffset)) / gridSize.x) - ( XOffset / tileSize )),
@@ -123,29 +140,43 @@ sf::Vector2i tilemap::getTilePosition( sf::Vector2i tmpPosition ){
     return index;
 }
 
+// ======================================================
+
 sf::Vector2f tilemap::getPixelPosition( sf::Vector2i tmpPosition ){
     return grid[tmpPosition.x][tmpPosition.y]->getPosition();
 }
+
+// ======================================================
 
 void tilemap::clearTilemap() {
     makeTilemap( gridSize );
 } 
 
+// ======================================================
+
 tile* tilemap::getTileFromIndex( sf::Vector2i &tileindex ) {
     return grid[tileindex.x][tileindex.y];
 }
+
+// ======================================================
 
 float tilemap::getTileSize(){
     return tileSize;
 }
 
+// ======================================================
+
 sf::Vector2f tilemap::getMapPosition(){
     return position;
 }
 
+// ======================================================
+
 sf::Vector2f tilemap::getMapSize(){
     return size;
 }
+
+// ======================================================
 
 void tilemap::makeRandomTiles(const int & amount, const sf::Texture * image ){
     sf::Vector2f place;
@@ -164,5 +195,4 @@ void tilemap::makeRandomTiles(const int & amount, const sf::Texture * image ){
             random++;
         }
     }
-    // std::cout << rand() % amount << "\n";
 }

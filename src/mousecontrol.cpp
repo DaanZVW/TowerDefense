@@ -200,7 +200,11 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 						if ( towers.towers[i] == selectedTower ) {
 							menuSide.setMoney( menuSide.getMoney() + selectedTower->value * GIVE_BACK_MULTIPLIER );
 
-							sf::Vector2i tilePosition = map.getTilePosition( sf::Vector2i{towers.towers[i]->getPosition()} );
+							sf::Vector2i tilePosition = map.getTilePosition( 
+								sf::Vector2i{ towers.towers[i]->getPosition() +
+									sf::Vector2f{ towers.towers[i]->getSize().x, towers.towers[i]->getSize().y }
+								} 
+							);
 							auto tile = map.getTileFromIndex( tilePosition );
 							tile->setAllowPlacement( true );
 

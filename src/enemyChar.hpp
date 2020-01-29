@@ -36,11 +36,11 @@ class enemyChar : public sf::RectangleShape {
 	float animationCounter;
 
 	/// @brief	Follows path for n steps to the left and returns remainder if target is reached
-///
-/// @param  steps	steps enemyChar can move
-/// @param	target	target to move towards
-/// @return	const float 
-///
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	const float 
+	///
 	const float moveLeftToTarget(float steps, const float target);
 
 	/// @brief	Follows path for n steps to the right and returns remainder if target is reached

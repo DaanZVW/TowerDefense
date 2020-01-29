@@ -32,8 +32,7 @@ void bullet::updatePos(){
 }
 
 int bullet::getDamage(){
-	
-	return myTower->getDamage();
+	return myTower->damage;
 
 }
 
@@ -55,7 +54,7 @@ void shotHandler::update(){
 		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
 		for(auto& tower : towers.towers){
 			if(tower->inRange( tmpEnemeyPos )){
-				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
+				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->firerate) * 100) {
 					bullets.push_back(std::make_unique< bullet >( tower, enemy ) );
 					tower->fireclock.restart();
 				}
@@ -69,8 +68,6 @@ void shotHandler::update(){
 			bullets[i]->updatePos();
 			window.draw(*bullets[i]);
 			if (bullets[i]->intersectsEnemy()) {
-				//bullets[i]->hitEnemy();
-				
 				enemyGroupObj.damageEnemy(bullets[i].get()->getTarget(), bullets[i].get()->getDamage());
 				bullets.erase(bullets.begin() + i);
 			}
