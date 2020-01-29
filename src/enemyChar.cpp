@@ -113,13 +113,13 @@ void enemyChar::followPath(float& steps) {
 	if (getPosition().x > currNode.x) {
 		steps = moveLeftToTarget(steps, currNode.x);
 	}
-	if (getPosition().x < currNode.x) {
+	else if (getPosition().x < currNode.x) {
 		steps = moveRightToTarget(steps, currNode.x);
 	}
 	if (getPosition().y > currNode.y) {
 		steps = moveUpToTarget(steps, currNode.y);
 	}
-	if (getPosition().y < currNode.y) {
+	else if (getPosition().y < currNode.y) {
 		steps = moveDownToTarget(steps, currNode.y);
 	}
 }
@@ -144,7 +144,7 @@ unsigned int enemyChar::getReward() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void enemyCharGroup::spawnWave() {
 	LOGFUNCNAME();
-	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+	if (clockSpawn.getElapsedTime().asSeconds() >01) {
 		clockSpawn.restart();
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
@@ -170,8 +170,8 @@ void enemyCharGroup::setWaves(const Json::Value enemyWaves){
 
 void enemyCharGroup::nextWave() {
 	LOGFUNCNAME();
-	if (currWave != waves.end()) {
-		++currWave;
+	if (++currWave == waves.end()) {
+		--currWave;
 	}
 	
 }
@@ -208,6 +208,7 @@ const bool enemyCharGroup::isEnemyDefeated() {
 void enemyCharGroup::update() {
 	LOGFUNCNAME();
 	float steps= clock.restart().asSeconds() * tileSize;
+	
 	spawnWave();
 	
 	enemies.erase(remove_if(enemies.begin(), enemies.end(), [&](auto & obj)
@@ -240,7 +241,9 @@ enemyCharGroup::enemyCharGroup (
 	setWaves(waves);
 
 	damagemusic.openFromFile("../res/sound/headshot2.wav");
+	damagemusic.setVolume(10);
 	deathmusic.openFromFile("../res/sound/Spider_death.ogg");
+
 }
 
 void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float & damage){

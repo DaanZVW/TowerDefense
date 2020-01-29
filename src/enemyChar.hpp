@@ -25,7 +25,39 @@ class enemyChar : public sf::RectangleShape {
 
 	Json::Value::iterator currAnimation;
 	float animationInterval;
-	float animationCounter = 0;
+	float animationCounter;
+
+	/// @brief	Follows path for n steps to the left and returns remainder if target is reached
+///
+/// @param  steps	steps enemyChar can move
+/// @param	target	target to move towards
+/// @return	const float 
+///
+	const float moveLeftToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps to the right and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	const float 
+	///
+	const float moveRightToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps up and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	const float 
+	///
+	const float moveUpToTarget(float steps, const float target);
+
+	/// @brief	Follows path for n steps down and returns remainder if target is reached
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	const float 
+	///
+	const float moveDownToTarget(float steps, const float target);
 public:
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
@@ -33,7 +65,8 @@ public:
 	///
 	/// @param stats	Used for getting stats
 	/// @param route	route for enemy to walk
-	/// @textures		textures of all enemyChar's
+	/// @param textures	textures of all enemyChar's
+	/// @param size		size of enemyChar in pixels
 	/// 
 	enemyChar(Json::Value& stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture>& textures, const sf::Vector2f& size);
 
@@ -58,7 +91,7 @@ public:
 
 	/// @brief	Removes health from enemyChar
 	///
-	/// @param  
+	/// @param  damage	damage that will be dealt to enemyChar
 	/// @return	void
 	///
 	void decreaseHealth(const float& damage);
@@ -70,37 +103,7 @@ public:
 	///
 	const float getDamage();
 
-	/// @brief	Follows path for n steps to the left and returns remainder if target is reached
-	///
-	/// @param  steps	steps enemyChar can move
-	/// @param	target	target to move towards
-	/// @return	void
-	///
-	const float moveLeftToTarget(float steps, const float target);
 
-	/// @brief	Follows path for n steps to the right and returns remainder if target is reached
-	///
-	/// @param  steps	steps enemyChar can move
-	/// @param	target	target to move towards
-	/// @return	void
-	///
-	const float moveRightToTarget(float steps, const float target);
-
-	/// @brief	Follows path for n steps up and returns remainder if target is reached
-	///
-	/// @param  steps	steps enemyChar can move
-	/// @param	target	target to move towards
-	/// @return	void
-	///
-	const float moveUpToTarget(float steps, const float target);
-
-	/// @brief	Follows path for n steps down and returns remainder if target is reached
-	///
-	/// @param  steps	steps enemyChar can move
-	/// @param	target	target to move towards
-	/// @return	void
-	///
-	const float moveDownToTarget(float steps, const float target);
 
 
 	/// @brief	Follows path for n steps 
@@ -163,14 +166,14 @@ private:
 
 
 	/// @brief	sets the waves of enemies the class will spawn
-	///
+	/// @details sets current wave as first wave in enemyWaves
 	/// @param  enemyWaves waves of enemies 
 	/// @return	void
 	///
 	void setWaves(const Json::Value enemyWaves);
 	
 	/// @brief	makes next wave availlable to spawn
-	///
+	/// @details set next wave as current wave if it's not the last wave
 	/// @return	void
 	///
 	void nextWave();
@@ -198,11 +201,17 @@ private:
 	const bool move(std::shared_ptr<enemyChar>& enemy, float steps);
 public:
 
-	/// @brief	draws HP bar on window 
+	/// @brief	construct an enemyCharGroup
+	/// @details constructs an enemyCharGroup containing enemyChars for how many are defined in param waves.
 	///
 	/// @param enemyTemplates Json::Value of enemies config
 	/// @param route	route that enemies will walk
-	/// @return	void
+	///	@param tilesize	size of tile in route
+	/// @param offset	top left pixel position of route
+	///	@param waves	waves of enemies the class needs to spawn
+	///	@param money	increases when an enemyChar dies
+	/// @param target	target for enemyChar's
+	/// @param textures	map containing all textures
 	///
 	enemyCharGroup(Json::Value enemyTemplates, 
 		const std::vector<sf::Vector2i>& route, 

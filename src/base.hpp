@@ -17,7 +17,7 @@ private:
 	healthBar hpBar;
 	sf::Music damagemusic;
 public:
-	/// @brief	sets size of healthbar
+	/// @brief	constructs a base
 	///
 	/// @param	size		size to set base
 	/// @param	position	position to set base
@@ -34,7 +34,7 @@ public:
 	///
 	void decreaseHealth(const unsigned int& damage);
 	
-	/// @brief	sets size of healthbar
+	/// @brief	draws base to window
 	///
 	/// @param	window sf::RenderWindow to draw base onto
 	/// @return void
