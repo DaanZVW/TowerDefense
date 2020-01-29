@@ -8,9 +8,9 @@ bullet::bullet( tower * myTower, std::weak_ptr<enemyChar>  enemy ):
 	sf::Vector2f beginPos = myTower->getPosition();
 	int tileSize = myTower->getSize().x;
 	setPosition( beginPos.x+(tileSize/2), beginPos.y+(tileSize/2));
-	setRadius( tileSize/8 );
-	setOrigin( tileSize/8, tileSize/8 );
-	setFillColor( sf::Color::Black );
+	setSize( sf::Vector2f{float(tileSize/3), float(tileSize/3 )} );
+	setOrigin( tileSize/3/2, tileSize/3/2);
+	setTexture(myTower->bulletTexture);
 }
 
 void bullet::updatePos(){

@@ -6,12 +6,14 @@ tower::tower(
 	const unsigned int & range, 
 	const unsigned int & firerate, 
 	const sf::Texture * texture, 
+	const sf::Texture * bulletTexture,
 	const unsigned int &value = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
 	firerate( firerate ),
+	bulletTexture( bulletTexture ),
 	value( value )
 {
 	setTexture( texture );

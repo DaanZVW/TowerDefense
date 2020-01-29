@@ -5,8 +5,10 @@
 #include "tower.hpp"
 #include "enemyChar.hpp"
 
+static const float pi = 3.1415926;
+
 /// @brief Class for an bullet
-class bullet : public sf::CircleShape{
+class bullet : public sf::RectangleShape{
 private:
 	tower * myTower;
 	std::weak_ptr<enemyChar>  enemy;
