@@ -11,6 +11,7 @@
 #include "tower.hpp"
 
 /// @brief Class for tracking the mouse position and clicks.
+/// @author Nic Jenneboer & Daan Zimmerman van Woesik
 class mouseControl{
 private:
 	tilemap & map;

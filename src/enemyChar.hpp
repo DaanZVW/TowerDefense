@@ -35,12 +35,13 @@ class enemyChar : public sf::RectangleShape {
 	float animationInterval;
 	float animationCounter;
 
+
 	/// @brief	Follows path for n steps to the left and returns remainder if target is reached
-///
-/// @param  steps	steps enemyChar can move
-/// @param	target	target to move towards
-/// @return	const float 
-///
+	///
+	/// @param  steps	steps enemyChar can move
+	/// @param	target	target to move towards
+	/// @return	const float 
+	///
 	const float moveLeftToTarget(float steps, const float target);
 
 	/// @brief	Follows path for n steps to the right and returns remainder if target is reached
@@ -69,6 +70,8 @@ class enemyChar : public sf::RectangleShape {
 public:
 	std::vector<sf::Vector2f>::iterator currTargetLocation;
 
+
+	float tileSteps = 0;
 	/// @brief Construct an enemyChar with json
 	///
 	/// @param stats	Used for getting stats

@@ -32,8 +32,7 @@ void bullet::updatePos(){
 }
 
 int bullet::getDamage(){
-	
-	return myTower->getDamage();
+	return myTower->damage;
 
 }
 
@@ -51,17 +50,26 @@ shotHandler::shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyC
 {}
 
 void shotHandler::update(){
-	for(auto& enemy : enemyGroupObj.getEnemies()){
-		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
-		for(auto& tower : towers.towers){
-			if(tower->inRange( tmpEnemeyPos )){
-				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->getFireRate()) * 100) {
-					bullets.push_back(std::make_unique< bullet >( tower, enemy ) );
-					tower->fireclock.restart();
+	std::shared_ptr<enemyChar> tmpEnemy;
+	for(auto& tower : towers.towers){
+		float distance = 0;
+		if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->firerate) * 100){
+			for(auto& enemy : enemyGroupObj.getEnemies()){
+				sf::Vector2f tmpEnemeyPos = enemy->getPosition();
+				if(tower->inRange( tmpEnemeyPos )){
+					if(enemy->tileSteps>distance){
+						distance = enemy->tileSteps;
+						tmpEnemy = enemy;
+					}
 				}
+			}
+			if(distance!=0){
+				bullets.push_back(std::make_unique< bullet >( tower, tmpEnemy ) );
+				tower->fireclock.restart();
 			}
 		}
 	}
+
 	
 	
 	for (unsigned int i = 0; i < bullets.size(); i++) {
@@ -69,8 +77,6 @@ void shotHandler::update(){
 			bullets[i]->updatePos();
 			window.draw(*bullets[i]);
 			if (bullets[i]->intersectsEnemy()) {
-				//bullets[i]->hitEnemy();
-				
 				enemyGroupObj.damageEnemy(bullets[i].get()->getTarget(), bullets[i].get()->getDamage());
 				bullets.erase(bullets.begin() + i);
 			}

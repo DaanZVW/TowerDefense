@@ -180,7 +180,7 @@
 
       "enemy3": {
         "damage": 10,
-        "speed": 1,
+        "speed": 3,
         "health": 100,
         "reward": 20,
         "textureFile": "../res/images/spaceInvader3.png",
