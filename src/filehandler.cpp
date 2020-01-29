@@ -34,6 +34,8 @@ std::vector< tower* > fileReader::makeTowers(){
     for ( auto towerObject : fileInfo["Towers"] ) {
         sf::Texture *texture = new sf::Texture;
         texture->loadFromFile(towerObject["textureFile"].asString());
+        sf::Texture *bulletTexture = new sf::Texture;
+        bulletTexture->loadFromFile(towerObject["bulletTexture"].asString());
         towers.push_back( 
             new tower{ 
                 towerObject["Name"].asString(),
@@ -41,6 +43,7 @@ std::vector< tower* > fileReader::makeTowers(){
                 towerObject["Range"].asUInt(),
                 towerObject["Firerate"].asUInt(),
                 texture,
+                bulletTexture,
                 towerObject["Cost"].asUInt()
             } 
         );

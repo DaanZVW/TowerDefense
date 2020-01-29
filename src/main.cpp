@@ -4,6 +4,7 @@
 
 enum class states{INTRO, GAME, TUTORIAL, QUIT};
 int main() {
+
      game TowerDefense{ "../res/configfiles/config.json" };
      /*TowerDefense.run();*/
 

@@ -8,9 +8,9 @@ bullet::bullet( tower * myTower, std::weak_ptr<enemyChar>  enemy ):
 	sf::Vector2f beginPos = myTower->getPosition();
 	int tileSize = myTower->getSize().x;
 	setPosition( beginPos.x+(tileSize/2), beginPos.y+(tileSize/2));
-	setRadius( tileSize/8 );
-	setOrigin( tileSize/8, tileSize/8 );
-	setFillColor( sf::Color::Black );
+	setSize( sf::Vector2f{float(tileSize/3), float(tileSize/3 )} );
+	setOrigin( tileSize/3/2, tileSize/3/2);
+	setTexture(myTower->bulletTexture);
 }
 
 void bullet::updatePos(){
@@ -50,17 +50,26 @@ shotHandler::shotHandler( sf::RenderWindow & window, towerGroup & towers, enemyC
 {}
 
 void shotHandler::update(){
-	for(auto& enemy : enemyGroupObj.getEnemies()){
-		sf::Vector2f tmpEnemeyPos = enemy->getPosition();
-		for(auto& tower : towers.towers){
-			if(tower->inRange( tmpEnemeyPos )){
-				if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->firerate) * 100) {
-					bullets.push_back(std::make_unique< bullet >( tower, enemy ) );
-					tower->fireclock.restart();
+	std::shared_ptr<enemyChar> tmpEnemy;
+	for(auto& tower : towers.towers){
+		float distance = 0;
+		if (tower->fireclock.getElapsedTime().asMilliseconds() > (60 / tower->firerate) * 100){
+			for(auto& enemy : enemyGroupObj.getEnemies()){
+				sf::Vector2f tmpEnemeyPos = enemy->getPosition();
+				if(tower->inRange( tmpEnemeyPos )){
+					if(enemy->tileSteps>distance){
+						distance = enemy->tileSteps;
+						tmpEnemy = enemy;
+					}
 				}
+			}
+			if(distance!=0){
+				bullets.push_back(std::make_unique< bullet >( tower, tmpEnemy ) );
+				tower->fireclock.restart();
 			}
 		}
 	}
+
 	
 	
 	for (unsigned int i = 0; i < bullets.size(); i++) {
