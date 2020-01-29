@@ -18,7 +18,7 @@
 #ifdef INCLUDE
 	#include <jsoncpp/json/json.h>
 #else
-	#include <json/json.h>
+	#include <jsoncpp/json/json.h>
 #endif
 
 // Include Nessecery files
@@ -89,8 +89,9 @@ public:
 
     /// @brief Method to get menutextures
     /// @details This method gets the textures that are used in the menu out of the json file.
+    /// @param switchIndex Swaps the 2 indexes that are given, ignores when the same
     /// @return std::vector< sf::RectangleShape* >
-    std::vector< sf::RectangleShape* > getMenuTextures();
+    std::vector< sf::RectangleShape* > getMenuTextures( std::pair<int, int> switchIndex = {0,0} );
 
     /// @brief Method to get money.
     /// @details This method gets the money from the json file.

@@ -32,13 +32,15 @@ std::vector<sf::Vector2i> fileReader::makeNodes(){
 std::vector< tower* > fileReader::makeTowers(){
     std::vector< tower* > towers;
     for ( auto towerObject : fileInfo["Towers"] ) {
+        sf::Texture *texture = new sf::Texture;
+        texture->loadFromFile(towerObject["textureFile"].asString());
         towers.push_back( 
             new tower{ 
                 towerObject["Name"].asString(),
                 towerObject["Damage"].asUInt(),
                 towerObject["Range"].asUInt(),
                 towerObject["Firerate"].asUInt(),
-                towerObject["Texture"].asString(),
+                texture,
                 towerObject["Cost"].asUInt()
             } 
         );
@@ -94,7 +96,7 @@ sf::Font* fileReader::getFont() {
 
 // =================================================================================
 
-std::vector< sf::RectangleShape* > fileReader::getMenuTextures() {
+std::vector< sf::RectangleShape* > fileReader::getMenuTextures( std::pair<int, int> switchIndex ) {
     std::vector< sf::RectangleShape* > pictures;
 
     for ( auto picturePath : fileInfo["Menu"] ) {
@@ -105,6 +107,12 @@ std::vector< sf::RectangleShape* > fileReader::getMenuTextures() {
         rect->setTexture( texture );
         
         pictures.push_back( rect );
+    }
+
+    if (switchIndex.first != switchIndex.second) {
+        sf::RectangleShape *tmp = pictures[switchIndex.first];
+        pictures[switchIndex.first] = pictures[switchIndex.second];
+        pictures[switchIndex.second] = tmp;
     }
 
     return pictures;

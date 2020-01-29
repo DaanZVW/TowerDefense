@@ -5,47 +5,23 @@ tower::tower(
 	const unsigned int & damage, 
 	const unsigned int & range, 
 	const unsigned int & firerate, 
-	const std::string & texture, 
-	const unsigned int cost = 0
+	const sf::Texture * texture, 
+	const unsigned int &value = 0
 ):
 	name( name ),
 	damage( damage ),
 	range( range ),
 	firerate( firerate ),
-	cost( cost )
+	value( value )
 {
-	if(texture == "Black"){
-		setFillColor(sf::Color::Black);
-	}else if(texture == "Blue"){
-		setFillColor(sf::Color::Cyan);
-	}else if(texture == "Aqua"){
-		setFillColor(sf::Color::White);
-	}
-	mycolor = getFillColor();
+	setTexture( texture );
 }
 
-tower::tower(
-	const std::string & name, 
-	const unsigned int & damage, 
-	const unsigned int & range, 
-	const unsigned int & firerate, 
-	const sf::Color & color,
-	const unsigned int cost = 0
-):
-	name( name ),
-	damage( damage ),
-	range( range ),
-	firerate( firerate ),
-	cost( cost )
-{
-	setFillColor( color );
-	mycolor = getFillColor();
-}
 
 void tower::draw(sf::RenderWindow &window){
 	if(selected){
 		sf::CircleShape towerRange;
-		int rangeSize = getSize().x * range + getSize().x/2;
+		int rangeSize = getSize().x * (int)range + getSize().x/2;
 		towerRange.setFillColor(sf::Color(160, 160,160, 100));
 		towerRange.setPosition(getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2);
 		towerRange.setOrigin(rangeSize, rangeSize);
@@ -61,7 +37,7 @@ int tower::getDamage(){
 
 bool tower::inRange( const sf::Vector2f & pos ){
 	sf::Vector2f thisPos{getPosition().x+ (getSize().x/2), getPosition().y + getSize().y/2};
-	int rangeSize = getSize().x * range + getSize().x/2;
+	int rangeSize = getSize().x * (int)range + getSize().x/2;
 	float difx = std::abs(pos.x-thisPos.x);
 	float dify = std::abs(pos.y-thisPos.y);
 
@@ -69,7 +45,6 @@ bool tower::inRange( const sf::Vector2f & pos ){
 		// setFillColor( sf::Color::Red );
 		return true;
 	} else {
-		setFillColor( mycolor );
 		return false;
 	}
 }
@@ -123,15 +98,6 @@ void towerGroup::draw( sf::RenderWindow &window ){
 		tmpTower->selected = true;
 		tmpTower->draw( window );
 	}
-}
-
-bool towerGroup::towersInRange( const sf::Vector2f & pos ){
-	for( auto tower : towers ){
-		if(tower->inRange(pos)){
-			// return true;
-		}
-	}
-	return false;
 }
 
 

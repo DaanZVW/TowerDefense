@@ -22,3 +22,7 @@ Makefile
 *.vscode/
 
 build/
+
+# Bashscript
+run
+makeMakefile

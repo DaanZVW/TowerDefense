@@ -30,27 +30,27 @@
     "Towers": [
         {
             "Name": "Fire Blaster",
-            "Texture": "Black",
             "Damage": 5,
             "Range": 2,
             "Firerate": 20,
-            "Cost" : 25
+            "Cost" : 25,
+            "textureFile": "../res/images/ufoRed.png"
         },
         {
             "Name": "Water Blaster",
-            "Texture": "Blue",
             "Damage": 2,
             "Range": 4,
             "Firerate": 30,
-            "Cost" : 35
+            "Cost" : 35,
+            "textureFile": "../res/images/ufoBlue.png"
         },
         {
             "Name": "Wood Blaster",
-            "Texture": "Yellow",
-            "Damage": 5,
+            "Damage": 10,
             "Range": 6,
             "Firerate": 10,
-            "Cost" : 50
+            "Cost" : 50,
+            "textureFile": "../res/images/ufoGreen.png"
         }
     ],
 
@@ -61,7 +61,7 @@
             "damage": 10,
             "speed": 1,
             "health": 30,
-            "reward": 20,
+            "reward": 10,
             "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/spaceinvader.png",
             "texturedddFile": "../res/images/wovo_idle.png",
@@ -119,9 +119,9 @@
 
       "enemy2": {
         "damage": 10,
-        "speed": 1,
+        "speed": 2,
         "health": 10,
-        "reward": 10,
+        "reward": 5,
         "textureFile": "../res/images/spaceInvader2.png",
         "texturepos": [
           {
@@ -179,8 +179,8 @@
         "damage": 10,
         "speed": 1,
         "health": 100,
+        "reward": 20,
         "textureFile": "../res/images/spaceInvader3.png",
-        "reward": 0,
         "texturepos": [
           {
             "positionX": 0,
@@ -231,7 +231,55 @@
             "sizeY": 32
           }
         ]
-      }
+      },
+      "enemy4": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 211,
+              "positionY": 941,
+              "sizeX": 99,
+              "sizeY": 75
+            }
+          ]
+        },
+        "enemy5": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 224,
+              "positionY": 832,
+              "sizeX": 99,
+              "sizeY": 75
+            }
+          ]
+        },
+        "enemy6": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 112,
+              "positionY": 716,
+              "sizeX": 112,
+              "sizeY": 75
+            }
+          ]
+        }
     },
 
     "base": 
@@ -242,21 +290,32 @@
 
     "waves": 
     [
-      [
-        {
-          "amount": 2,
-          "name": "enemy1"
-        },
-        {
-          "name": "enemy2",
-          "amount": 2
-        },
-
-        {
-          "name": "enemy3",
-          "amount": 2
-        }
-      ],
+        [
+            {
+                "amount": 10,
+                "name": "enemy1"
+            },
+            {
+                "name": "enemy2",
+                "amount": 20
+            },
+            {
+                "name": "enemy3",
+                "amount": 3
+            },
+            {
+                "name": "enemy4",
+                "amount": 4
+            },
+            {
+                "name": "enemy5",
+                "amount": 4
+            },
+            {
+                "name": "enemy6",
+                "amount": 4
+            }
+        ],
         [
             {
                 "name": "enemy1",
@@ -291,7 +350,13 @@
             "Path" : "../res/images/cost.png"
         },
         {
+            "Path" : "../res/images/upgrade.png"
+        },
+        {
             "Path" : "../res/images/time.png"
+        },
+        {
+            "Path" : "../res/images/wave.png"
         }
     ]
 }
