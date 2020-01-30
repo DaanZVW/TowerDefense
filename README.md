@@ -29,4 +29,4 @@ There are some steps you need to do before you could play the game:
 If you want to explore the source code you can use the command above.
 
 ### What do you need:
-* An computer
+* A computer
