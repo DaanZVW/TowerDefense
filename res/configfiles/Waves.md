@@ -178,13 +178,13 @@ Add a property "spawnTime" to an item in a wave item for how fast you want the e
 
 
 ## Links
-[Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md)
+[Base](/res/configfiles/Base.md)
 <br>
-[Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
+[Waves](/res/configfiles/Waves.md)
 <br>
-[Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
+[Enemies](/res/configfiles/Enemies.md)
 <br>
-[Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
+[Towers](/res/configfiles/Towers.md)
 <br>
-[Map](/DaanZVW/TowerDefense/blob/master/res/configfiles/Map.md)
+[Map](/res/configfiles/Map.md)
 
