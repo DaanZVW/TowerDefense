@@ -202,10 +202,10 @@ Create an item in "in PathNodes" containing your desired path node location.
 
 ## Links
 
-[Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md)
+[Base](/res/configfiles/Base.md)
 <br>
-[Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
+[Waves](/res/configfiles/Waves.md)
 <br>
-[Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
+[Enemies](/res/configfiles/Enemies.md)
 <br>
-[Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
+[Towers](/res/configfiles/Towers.md)
