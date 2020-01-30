@@ -444,7 +444,60 @@
                 "name": "enemy5",
                 "spawntime": 1.5
             }
-          ]
+          ],
+          // [
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy1",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy2",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy3",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy4",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy5",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy6",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy7",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy8",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy9",
+          //     "spawntime": 1
+          //   },
+          //   {
+          //     "amount": 1,
+          //     "name": "enemy10",
+          //     "spawntime": 1
+          //   }
+          // ]
+
     ],
 
     "Menu" :
