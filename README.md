@@ -3,10 +3,10 @@ This is an project for the HU HBO-ICT-TI in the Netherlands in Utrecht.
 The github repository contains a game in the category Tower Defense.
 
 This project was made by:
-WilcoMatthijssen  ( https://github.com/WilcoMatthijssen )
-bgeer             ( https://github.com/bgeer )
-Nicjenneboer      ( https://github.com/Nicjenneboer )
-DaanZVW           ( https://github.com/DaanZVW )
+* WilcoMatthijssen  ( https://github.com/WilcoMatthijssen )
+* bgeer             ( https://github.com/bgeer )
+* Nicjenneboer      ( https://github.com/Nicjenneboer )
+* DaanZVW           ( https://github.com/DaanZVW )
 
 ___           
 ## What is Space Defender
@@ -25,7 +25,7 @@ There are some steps you need to do before you could play the game:
 * Now we have the nessesary things needed for the game to run, we don't have the game itself so run: *git clone https://www.github.com/DaanZVW/TowerDefense*
 
 
-**doxygen configDoxy**
+**doxygen configDoxy** <\br>
 If you want to explore the source code you can use the command above.
 
 ### What do you need:
