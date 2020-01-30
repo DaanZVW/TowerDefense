@@ -329,10 +329,10 @@
 
         "enemy9": 
         {
-            "damage": 10,
-            "speed": 2,
-            "health": 30,
-            "reward": 20,
+            "damage": 30,
+            "speed": 1,
+            "health": 400,
+            "reward": 300,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -346,10 +346,10 @@
 
         "enemy10": 
         {
-            "damage": 10,
-            "speed": 1,
-            "health": 30,
-            "reward": 20,
+            "damage": 100,
+            "speed": 2,
+            "health": 800,
+            "reward": 1000,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -559,6 +559,27 @@
                 "amount": 10,
                 "name": "enemy8",
                 "spawntime": 0.1
+            }
+          ],
+          [
+            {
+                "amount": 10,
+                "name": "enemy9",
+                "spawntime": 1
+            }
+          ],
+          [
+            {
+                "amount": 10,
+                "name": "enemy7",
+                "spawntime": 1
+            }
+          ],
+          [
+            {
+                "amount": 10,
+                "name": "enemy10",
+                "spawntime": 0.8
             }
           ]
     ],
