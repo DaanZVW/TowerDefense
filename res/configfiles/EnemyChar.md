@@ -78,7 +78,7 @@ You can add it by adding the property "damage" to your enemy property.
 
 <details>
 <summary> 
-Setting health of an enemy :two_hearts
+Setting health of an enemy :two_hearts:
 </summary>
 For defining its health you need to add the property health to your enemy property. You can do that by adding "health" to the enemy property which will be interpreted as a float with a default value of 0.
 
