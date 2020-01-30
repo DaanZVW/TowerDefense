@@ -16,7 +16,7 @@
 
 // Include External libs
 #ifdef INCLUDE
-	#include <json/json.h>
+	#include <jsoncpp/json/json.h>
 #else
 	#include <json/json.h>
 #endif
@@ -28,15 +28,14 @@
 /// @brief Class to handle JSON files
 class fileReader {
 private:
-
     // Private Variables
     std::string filename;
 
     Json::Value fileInfo;
 
 	std::map<std::string, sf::Texture> textures;
-public:
 
+public:
     /// @brief Constructor for fileHandler.
     /// @param filename Location of the file that you want to be used with the filehandler
     fileReader( const std::string &filename );

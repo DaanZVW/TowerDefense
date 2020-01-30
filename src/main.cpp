@@ -36,6 +36,11 @@ int main() {
 	/*return EXIT_SUCCESS;
 	*/
 
+	sf::Music backGroundMusic;
+	backGroundMusic.openFromFile( "../res/sound/background.wav" );
+	backGroundMusic.setLoop( true );
+	backGroundMusic.play();
+
 	states state = states::INTRO;
 	while (TowerDefense.window.isOpen()) {
 		switch (state) {
@@ -53,6 +58,8 @@ int main() {
 			std::cout << "do tutorial stuff" << std::endl;
 			break;
 		}
+		default:
+			break;
 		}
 	}
 
