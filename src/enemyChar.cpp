@@ -159,7 +159,7 @@ void enemyCharGroup::spawnWave() {
 
 	if (clockSpawn.getElapsedTime().asSeconds() > spawnTime) {
 
-		clockSpawn.restart();
+		
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
 				if (enemy["amount"].asInt() > 0) {
@@ -167,10 +167,11 @@ void enemyCharGroup::spawnWave() {
 					spawnTime = enemy["spawntime"].asFloat();
 					enemies.push_back(std::make_shared<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
+					clockSpawn.restart();
 					return;
 				}
 			}
-			if (isEnemyDefeated()) {
+			if (isEnemyDefeated() && clockSpawn.getElapsedTime().asSeconds() > 30){
 				nextWave();
 			}
 		}
@@ -315,6 +316,10 @@ void enemyCharGroup::damageEnemy(std::weak_ptr<enemyChar>& target, const float &
 std::vector<std::shared_ptr<enemyChar>>& enemyCharGroup::getEnemies(){
 	LOGFUNCNAME();
 	return enemies;
+}
+
+unsigned int enemyCharGroup::getWaveNumber() {
+	return (currWave - waves.begin())+1;
 }
 
 //==========================================================================

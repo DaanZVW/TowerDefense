@@ -32,18 +32,20 @@ std::vector<sf::Vector2i> fileReader::makeNodes(){
 std::vector< tower* > fileReader::makeTowers(){
     std::vector< tower* > towers;
     for ( auto towerObject : fileInfo["Towers"] ) {
-        sf::Texture *texture = new sf::Texture;
-        texture->loadFromFile(towerObject["textureFile"].asString());
-        sf::Texture *bulletTexture = new sf::Texture;
-        bulletTexture->loadFromFile(towerObject["bulletTexture"].asString());
+		textures[towerObject["textureFile"].asString()].loadFromFile(towerObject["textureFile"].asString());
+       // sf::Texture *texture = new sf::Texture;
+        //texture->loadFromFile(towerObject["textureFile"].asString());
+		textures[towerObject["bulletTexture"].asString()].loadFromFile(towerObject["bulletTexture"].asString());
+        //sf::Texture *bulletTexture = new sf::Texture;
+       // bulletTexture->loadFromFile(towerObject["bulletTexture"].asString());
         towers.push_back( 
             new tower{ 
                 towerObject["Name"].asString(),
                 towerObject["Damage"].asUInt(),
                 towerObject["Range"].asUInt(),
                 towerObject["Firerate"].asUInt(),
-                texture,
-                bulletTexture,
+                &textures[towerObject["textureFile"].asString()],
+                &textures[towerObject["bulletTexture"].asString()],
                 towerObject["Cost"].asUInt()
             } 
         );
@@ -103,11 +105,12 @@ std::vector< sf::RectangleShape* > fileReader::getMenuTextures( std::pair<int, i
     std::vector< sf::RectangleShape* > pictures;
 
     for ( auto picturePath : fileInfo["Menu"] ) {
-        sf::Texture *texture = new sf::Texture;
-        texture->loadFromFile( picturePath["Path"].asString() );
+       // sf::Texture *texture = new sf::Texture;
+		textures[picturePath["Path"].asString()].loadFromFile(picturePath["Path"].asString());
+        //texture->loadFromFile( picturePath["Path"].asString() );
 
         sf::RectangleShape *rect = new sf::RectangleShape;
-        rect->setTexture( texture );
+        rect->setTexture( &textures[picturePath["Path"].asString()] );
         
         pictures.push_back( rect );
     }

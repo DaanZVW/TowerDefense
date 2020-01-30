@@ -23,7 +23,7 @@ game::game( const std::string &configFilePath ):
 void game::run() {
 
     // Starting message
-    std::cout << "Application starting ..." << std::endl;
+    std::cout << "gay starting ..." << std::endl;
 
     // Make SFML window
    
@@ -64,10 +64,12 @@ void game::run() {
     // Make the path
     map.makePath( createdPath , sf::Color{255, 255, 255, 100});
 
-    sf::Texture * meteor_image = new sf::Texture;
-    meteor_image->loadFromFile("../res/images/meteorGrey.png");
+	sf::Texture meteor_image;
+    meteor_image.loadFromFile("../res/images/meteorGrey.png");
+
 
     map.makeRandomTiles(fileHandlerMap.getAmountRandomObjects(), meteor_image);
+
     // Make fileReader fot towers
 	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
@@ -121,8 +123,8 @@ void game::run() {
         sf::Vector2i mousePos = sf::Mouse::getPosition( window );
 
         // Clear the window with all excisting objects
-		window.clear( sf::Color::White );
-        
+		window.clear( sf::Color::Black );
+		sideMenu.currentWave = enemyGroupObj.getWaveNumber();
         // draw tilemap
         map.draw( window );
 
@@ -174,6 +176,10 @@ void game::run() {
                     }else if ( event.key.code == sf::Keyboard::Space ) {
 						
                     }
+					else if(event.key.code == sf::Keyboard::X)
+					{
+						money += 100;
+					}
                     break;
                 
                 // Close screen when closed
