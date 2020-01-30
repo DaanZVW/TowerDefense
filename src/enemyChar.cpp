@@ -157,13 +157,14 @@ unsigned int enemyChar::getReward() {
 void enemyCharGroup::spawnWave() {
 	LOGFUNCNAME();
 
-	if (clockSpawn.getElapsedTime().asSeconds() > 1) {
+	if (clockSpawn.getElapsedTime().asSeconds() > spawnTime) {
 
 		clockSpawn.restart();
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
 				if (enemy["amount"].asInt() > 0) {
 					enemy["amount"] = enemy["amount"].asInt() -1;
+					spawnTime = enemy["spawntime"].asFloat();
 					enemies.push_back(std::make_shared<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					return;

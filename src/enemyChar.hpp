@@ -160,7 +160,7 @@ private:
 	base& target;
 	sf::Music deathmusic;
 	sf::Music damagemusic;
-	
+	float spawnTime = 1;
 	/// @brief	spawns new enemies based on time passed
 	///
 	/// @return	void

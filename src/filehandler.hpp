@@ -97,6 +97,10 @@ public:
     /// @details This method gets the money from the json file.
     /// @return uint32_t
     uint32_t getMoney();
+
+    /// @brief Method to get the random objects from map.
+    /// @return int
+    int getAmountRandomObjects();
 };
 
 

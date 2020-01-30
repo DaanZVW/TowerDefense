@@ -33,7 +33,7 @@
             "Damage": 5,
             "Range": 2,
             "Firerate": 20,
-            "Cost" : 25,
+            "Cost" : 170,
             "textureFile": "../res/images/ufoRed.png",
             "bulletTexture": "../res/images/laserRed.png"
         },
@@ -63,7 +63,7 @@
         {
             "damage": 10,
             "speed": 1,
-            "health": 30,
+            "health": 25,
             "reward": 10,
             "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/spaceinvader.png",
@@ -122,8 +122,8 @@
 
       "enemy2": {
         "damage": 10,
-        "speed": 2,
-        "health": 10,
+        "speed": 3,
+        "health": 15,
         "reward": 5,
         "textureFile": "../res/images/spaceInvader2.png",
         "texturepos": [
@@ -295,42 +295,58 @@
     [
         [
             {
-                "amount": 10,
-                "name": "enemy1"
-            },
-            {
-                "name": "enemy2",
-                "amount": 20
-            },
-            {
-                "name": "enemy3",
-                "amount": 3
-            },
-            {
-                "name": "enemy4",
-                "amount": 4
-            },
-            {
-                "name": "enemy5",
-                "amount": 4
-            },
-            {
-                "name": "enemy6",
-                "amount": 4
+                "name": "enemy1",
+                "amount": 20,
+                "spawntime": 1
             }
         ],
         [
             {
+                "name": "enemy2",
+                "amount": 20,
+                "spawntime": 0.5
+            }
+        ],
+         [
+            {
+                "amount": 5,
                 "name": "enemy1",
-                "amount": 0
+                "spawntime": 1
             },
             {
                 "name": "enemy2",
-                "amount": 0
+                "amount": 5,
+                "spawntime": 0.5
+            },
+             {
+                "amount": 5,
+                "name": "enemy1",
+                "spawntime": 1
             },
             {
-                "name": "enemy3",
-                "amount": 0
+                "name": "enemy2",
+                "amount": 5,
+                "spawntime": 0.5
+            },
+            {
+                "amount": 5,
+                "name": "enemy1",
+                "spawntime": 1
+            },
+            {
+                "name": "enemy2",
+                "amount": 5,
+                "spawntime": 0.5
+            },
+             {
+                "amount": 5,
+                "name": "enemy1",
+                "spawntime": 1
+            },
+            {
+                "name": "enemy2",
+                "amount": 5,
+                "spawntime": 0.5
             }
         ]
     ],
