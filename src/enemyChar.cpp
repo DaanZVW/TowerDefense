@@ -171,7 +171,7 @@ void enemyCharGroup::spawnWave() {
 					return;
 				}
 			}
-			if (isEnemyDefeated() && clockSpawn.getElapsedTime().asSeconds() > 30){
+			if ( clockSpawn.getElapsedTime().asSeconds() > 10){
 				nextWave();
 			}
 		}

@@ -23,7 +23,7 @@ game::game( const std::string &configFilePath ):
 void game::run() {
 
     // Starting message
-    std::cout << "gay starting ..." << std::endl;
+    std::cout << "game starting ..." << std::endl;
 
     // Make SFML window
    
@@ -68,7 +68,7 @@ void game::run() {
     meteor_image.loadFromFile("../res/images/meteorGrey.png");
 
 
-    map.makeRandomTiles(fileHandlerMap.getAmountRandomObjects(), meteor_image);
+    map.makeRandomTiles(fileHandlerMap.getAmountRandomObjects(), &meteor_image);
 
     // Make fileReader fot towers
 	
