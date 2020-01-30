@@ -29,7 +29,7 @@
 
     "Towers": [
         {
-            "Name": "Fire Blaster",
+            "Name": "Lazer UFO",
             "Damage": 5,
             "Range": 2,
             "Firerate": 20,
@@ -38,7 +38,7 @@
             "bulletTexture": "../res/images/laserRed.png"
         },
         {
-            "Name": "Water Blaster",
+            "Name": "Water UFO",
             "Damage": 3,
             "Range": 4,
             "Firerate": 30,
@@ -47,10 +47,19 @@
             "bulletTexture": "../res/images/laserBlue.png"
         },
         {
-            "Name": "Wood Blaster",
-            "Damage": 25,
+            "Name": "Energy UFO",
+            "Damage": 2,
             "Range": 6,
-            "Firerate": 10,
+            "Firerate": 40,
+            "Cost" : 750,
+            "textureFile": "../res/images/ufoYellow.png",
+            "bulletTexture": "../res/images/star_gold.png"
+        },
+        {
+            "Name": "Chemical UFO",
+            "Damage": 25,
+            "Range": 8,
+            "Firerate": 5,
             "Cost" : 1000,
             "textureFile": "../res/images/ufoGreen.png",
             "bulletTexture": "../res/images/laserGreen.png"
