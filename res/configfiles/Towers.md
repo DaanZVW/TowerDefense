@@ -179,11 +179,11 @@ Add a propery "BulletTexture" and set the value to your desired texture's file l
 
 ## Links
 
-[Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md)
+[Base](/res/configfiles/Base.md)
 <br>
-[Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
+[Waves](/res/configfiles/Waves.md)
 <br>
-[Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
+[Enemies](/res/configfiles/Enemies.md)
 <br>
-[Map](/DaanZVW/TowerDefense/blob/master/res/configfiles/Map.md)
+[Map](/res/configfiles/Map.md)
 
