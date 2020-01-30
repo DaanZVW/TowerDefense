@@ -25,7 +25,7 @@ There are some steps you need to do before you could play the game:
 * Now we have the nessesary things needed for the game to run, we don't have the game itself so run: *git clone https://www.github.com/DaanZVW/TowerDefense*
 
 
-**doxygen configDoxy** <\br>
+**doxygen configDoxy**
 If you want to explore the source code you can use the command above.
 
 ### What do you need:
