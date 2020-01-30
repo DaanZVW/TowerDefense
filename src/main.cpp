@@ -1,46 +1,19 @@
 #include "game.hpp"
-#include "screens.hpp"
 
-
-enum class states{INTRO, GAME, TUTORIAL, QUIT};
+// Make a switchcase for states
+enum class states{INTRO, GAME};
 int main() {
-
-     game TowerDefense{ "../res/configfiles/config.json" };
-     /*TowerDefense.run();*/
-
- //   //Applications variables
-	//std::vector<cScreen*> screens;
-	//int screen = 0;
-
-	////Window creation
-	//sf::RenderWindow window(sf::VideoMode { 
- //           sf::VideoMode::getDesktopMode().width, 
- //           sf::VideoMode::getDesktopMode().height
- //       },
- //       "Space Defense"
- //       ,sf::Style::Fullscreen);
-
-	////Screens preparations
-	//screenIntro s0;
-	//screens.push_back(&s0);
-	//screenMain s1;
-	//screens.push_back(&s1);
- //   screenPlay s2;
- //   screens.push_back(&s2);
-
-	////Main loop
-	//while (screen >= 0)
-	//{
-	//	screen = screens[screen]->run(window);
-	//}
-	/*return EXIT_SUCCESS;
-	*/
-
+	
+	// Make an TowerDefense object
+     	game TowerDefense{ "../res/configfiles/config.json" };
+	
+	// Start the background music, this will play the whole game
 	sf::Music backGroundMusic;
 	backGroundMusic.openFromFile( "../res/sound/background.wav" );
 	backGroundMusic.setLoop( true );
 	backGroundMusic.play();
-
+	
+	// States switchcase
 	states state = states::INTRO;
 	while (TowerDefense.window.isOpen()) {
 		switch (state) {
@@ -52,10 +25,6 @@ int main() {
 		case states::GAME: {
 			TowerDefense.run();
 			state = states::INTRO;
-			break;
-		}
-		case states::TUTORIAL: {
-			std::cout << "do tutorial stuff" << std::endl;
 			break;
 		}
 		default:
