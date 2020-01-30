@@ -39,7 +39,7 @@
         },
         {
             "Name": "Water Blaster",
-            "Damage": 2,
+            "Damage": 3,
             "Range": 4,
             "Firerate": 30,
             "Cost" : 350,
@@ -286,10 +286,10 @@
 
         "enemy7": 
         {
-            "damage": 10,
+            "damage": 50,
             "speed": 1,
             "health": 1000,
-            "reward": 25,
+            "reward": 600,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -303,10 +303,10 @@
 
         "enemy8": 
         {
-            "damage": 10,
-            "speed": 1,
-            "health": 30,
-            "reward": 20,
+            "damage": 2,
+            "speed": 5,
+            "health": 6,
+            "reward": 5,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -321,7 +321,7 @@
         "enemy9": 
         {
             "damage": 10,
-            "speed": 1,
+            "speed": 2,
             "health": 30,
             "reward": 20,
             "textureFile": "../res/images/sheet.png",
@@ -517,60 +517,41 @@
                 "name": "enemy7",
                 "spawntime": 1
             }
+          ],
+          [
+            {
+                "amount": 100,
+                "name": "enemy8",
+                "spawntime": 0.1
+            }
+          ],
+          [
+            {
+                "amount": 6,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 10,
+                "name": "enemy8",
+                "spawntime": 0.1
+            },
+            {
+                "amount": 6,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 1,
+                "name": "enemy7",
+                "spawntime": 1
+            },
+            {
+                "amount": 10,
+                "name": "enemy8",
+                "spawntime": 0.1
+            }
           ]
-          // [
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy1",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy2",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy3",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy4",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy5",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy6",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy7",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy8",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy9",
-          //     "spawntime": 1
-          //   },
-          //   {
-          //     "amount": 1,
-          //     "name": "enemy10",
-          //     "spawntime": 1
-          //   }
-          // ]
-
     ],
 
     "Menu" :
