@@ -1,10 +1,10 @@
 
 # Towers
-
 ## Summary
-Towers are in tower defense the things used to defend the final tower or what is otherwise known as the [Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md). A tower can be bought  by a player for a certain amount of money to be placed on the playing field. Once placed it will attack [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md) who come in range of the tower and shoot bullets at them that deal damage. A tower can be upgraded and sold by clicking on them and pressing the upgrade or delete button. 
+Towers are in tower defense the things used to defend the final tower or what is otherwise known as the base. A tower can be bought  by a player for a certain amount of money to be placed on the playing field. Once placed it will attack enemies who come in range of the tower and shoot bullets at them that deal damage. A tower can be upgraded and sold by clicking on them and pressing the upgrade or delete button. 
 
 <br>
+
 <details open>
 <summary> An example of how towers are defined</summary>
 
@@ -174,16 +174,4 @@ Add a propery "BulletTexture" and set the value to your desired texture's file l
     }
 ]
 ```
-
-</details>
-
-## Links
-
-[Base](/res/configfiles/Base.md)
-<br>
-[Waves](/res/configfiles/Waves.md)
-<br>
-[Enemies](/res/configfiles/Enemies.md)
-<br>
-[Map](/res/configfiles/Map.md)
 
