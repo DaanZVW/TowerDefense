@@ -1,7 +1,7 @@
 # Base
 
 ## Summary
-The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the enemies walk and every time an [enemy](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md) reaches it the base takes damage. When the health reaches 0 the player loses.
+The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md) walk and every time an enemy reaches it the [Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md) takes damage. When the health reaches 0 the player loses.
 
 <br>
 <details open>
@@ -10,48 +10,46 @@ The base is what the player needs to defend in the game Tower Defence. It's posi
 ---
 
 ```json
-"base":{
-    "health": 100,
-    "textureFile": "../res/images/planet.png"
+{ 
+    "Info" :
+    {
+        "Difficulty" : "Easy",
+        "Name" : "Angry Shroom",
+        "GridSize" : [20, 15],
+        "BeginMoney" : 300,
+        "RandomObjects" : 150
+    },
+    "PathNodes": 
+    [
+        {
+            "x" : -1,
+            "y" : 3
+        },
+        {
+            "x" : 10,
+            "y" : 3
+        }
+    ]
 }
 ```
-
-</details>
-
-
 
 <br>
 
 ## How to create a new tower
 
-<details>
-<summary> Creating a base  :european_castle: </summary>
-Create a property called "base" and follow the other steps to configure it's properties.
-<br>
-
-* The name has to be "base"
-* It contains it's own health and path to it's texture
-* When "base" is not defined it will crash the game.
-
-```json
-"base":{...}
-```
-
-</details>
-<br>
 
 <details>
-<summary> Setting a base's health :two_hearts: </summary>
-Add a property "health" to your base and give it a value of your desired health.
+<summary> Creating a map  :european_castle: </summary>
+Create an item containing the properties "Info" and "PathNodes".
 <br>
 
-* The default value is 0
-* The type is a float
+* The names have to be "Info" and "PathNodes"
+* When "Info" and "PathNodes" are not defined it will crash the game.
 
 ```json
-"base":{
-    "health":100,
-    ...
+{
+    "Info":{...},
+    "PathNodes":[...]
 }
 ```
 
@@ -59,18 +57,143 @@ Add a property "health" to your base and give it a value of your desired health.
 <br>
 
 <details>
-<summary> Setting a base's texture  :framed_picture:  </summary>
-Add a property "textureFile" to your base and give it a value of the path to your desired texture.
+<summary> Setting the name :capital_abcd: </summary>
+Create a property in "Name" containing your desired name.
 <br>
 
-* When the program cannot find the texture, the texture will be a white square.
-* The type is a string
-* When "textureFile" is not defined it will crash the game.
+* the type of the value is a string
 
 ```json
-"base":{
-    "health":100,
-    "textureFile": "../res/images/planet.png"
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        ...
+        },
+    "PathNodes":[...]
+}
+```
+
+</details>
+<br>
+
+<details>
+<summary> Defining the difficulty :cowboy_hat_face: </summary>
+Create a property in "Difficulty" containing your desired difficulty. This is nothing more than just a name. This does not change anything other that the name.
+<br>
+
+* the type of the value is a string
+
+```json
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        "Difficulty":"easy",
+        ...
+        },
+    "PathNodes":[...]
+}
+```
+
+</details>
+<br>
+
+<details>
+<summary> Setting the map size  :1234: </summary>
+Create a property in "Size" containing your desired size. 
+<br>
+
+* the type of the value is an array containing 2 unsigned integers
+
+```json
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        "Difficulty":"easy",
+        "GridSize" : [20, 15],
+        ...
+        },
+    "PathNodes":[...]
+}
+```
+
+</details>
+<br>
+
+<details>
+<summary> Setting the begin money :moneybag: </summary>
+Create a property in "BeginMoney" containing your desired amount of money. 
+<br>
+
+* the default value is 0.
+* the type of the value is an unsigned integer
+
+```json
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        "Difficulty":"easy",
+        "GridSize" : [20, 15],
+        "BeginMoney" : 300,
+        ...
+        },
+    "PathNodes":[...]
+}
+```
+
+</details>
+<br>
+
+<details>
+<summary> Setting the amount of random objects :moyai: </summary>
+Create a property in "RandomObjects" containing your desired amount of randomObjects. 
+<br>
+
+* the default value is 0.
+* the type of the value is an unsigned integer.
+
+```json
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        "Difficulty":"easy",
+        "GridSize" : [20, 15],
+        "BeginMoney" : 300,
+        "RandomObjects" : 150
+        },
+    "PathNodes":[...]
+}
+```
+
+</details>
+<br>
+
+
+<details>
+<summary> Adding nodes in PathNodes :round_pushpin: </summary>
+Create an item in "in PathNodes" containing your desired path node location. 
+<br>
+
+* When no PathNodes are given no path will be created.
+* the type of the value 1 or more items containing an "x" and an "y" value of which both are integers.
+* paths will be created between the nodes.
+* if the x y spot is not within the size of the grid it wont get displayed.
+
+```json
+{
+    "Info":{
+        "Name" : "Angry Shroom",
+        "Difficulty":"easy",
+        "GridSize" : [20, 15],
+        "BeginMoney" : 300,
+        "RandomObjects" : 150
+        },
+    "PathNodes":[
+        {
+            "x" : -1,
+            "y" : 3
+        },
+        {...}
+    ]
 }
 ```
 
@@ -78,12 +201,11 @@ Add a property "textureFile" to your base and give it a value of the path to you
 <br>
 
 ## Links
+
+[Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md)
+<br>
 [Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
 <br>
 [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
 <br>
 [Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
-<br>
-[Map](/DaanZVW/TowerDefense/blob/master/res/configfiles/Map.md)
-
-
