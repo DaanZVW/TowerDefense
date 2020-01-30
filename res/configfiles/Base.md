@@ -79,11 +79,11 @@ Add a property "textureFile" to your base and give it a value of the path to you
 
 ## Links
 
-[Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
+[Waves](/res/configfiles/Waves.md)
 <br>
-[Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
+[Enemies](/res/configfiles/Enemies.md)
 <br>
-[Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
+[Towers](/res/configfiles/Towers.md)
 <br>
-[Map](/DaanZVW/TowerDefense/blob/master/res/configfiles/Map.md)
+[Map](/res/configfiles/Map.md)
 
