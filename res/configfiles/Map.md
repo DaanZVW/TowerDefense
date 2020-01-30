@@ -57,7 +57,7 @@ Create an item containing the properties "Info" and "PathNodes".
 <br>
 
 <details>
-<summary> Setting the name </summary>
+<summary> Setting the name :capital_abcd: </summary>
 Create a property in "Name" containing your desired name.
 <br>
 
@@ -77,7 +77,7 @@ Create a property in "Name" containing your desired name.
 <br>
 
 <details>
-<summary> Defining the difficulty </summary>
+<summary> Defining the difficulty :cowboy_hat_face: </summary>
 Create a property in "Difficulty" containing your desired difficulty. This is nothing more than just a name. This does not change anything other that the name.
 <br>
 
@@ -98,7 +98,7 @@ Create a property in "Difficulty" containing your desired difficulty. This is no
 <br>
 
 <details>
-<summary> Setting the map size </summary>
+<summary> Setting the map size  :1234: </summary>
 Create a property in "Size" containing your desired size. 
 <br>
 
@@ -120,7 +120,7 @@ Create a property in "Size" containing your desired size.
 <br>
 
 <details>
-<summary> Setting the begin money </summary>
+<summary> Setting the begin money :moneybag: </summary>
 Create a property in "BeginMoney" containing your desired amount of money. 
 <br>
 
@@ -144,7 +144,7 @@ Create a property in "BeginMoney" containing your desired amount of money.
 <br>
 
 <details>
-<summary> Setting the amount of random objects </summary>
+<summary> Setting the amount of random objects :moyai: </summary>
 Create a property in "RandomObjects" containing your desired amount of randomObjects. 
 <br>
 
@@ -169,8 +169,8 @@ Create a property in "RandomObjects" containing your desired amount of randomObj
 
 
 <details>
-<summary> Setting the amount of random objects </summary>
-Create a property in "RandomObjects" containing your desired amount of randomObjects. 
+<summary> Adding nodes in PathNodes :round_pushpin: </summary>
+Create an item in "in PathNodes" containing your desired path node location. 
 <br>
 
 * When no PathNodes are given no path will be created.
@@ -201,6 +201,7 @@ Create a property in "RandomObjects" containing your desired amount of randomObj
 <br>
 
 ## Links
+
 [Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md)
 <br>
 [Waves](/DaanZVW/TowerDefense/blob/master/res/configfiles/Waves.md)
@@ -208,4 +209,3 @@ Create a property in "RandomObjects" containing your desired amount of randomObj
 [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
 <br>
 [Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
-
