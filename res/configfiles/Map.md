@@ -208,6 +208,4 @@ Create a property in "RandomObjects" containing your desired amount of randomObj
 [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md)
 <br>
 [Towers](/DaanZVW/TowerDefense/blob/master/res/configfiles/Towers.md)
-<br>
-[Map](/DaanZVW/TowerDefense/blob/master/res/configfiles/Map.md)
 
