@@ -169,7 +169,7 @@ What distinguishes an enemy the most is it's texture. If it's not defined the pr
 
 <details>
 <summary> 
-Setting texture positions/animations of an enemy  ---OPTIONAL--- :framed_picture:framed_picture
+Setting texture positions/animations of an enemy  ---OPTIONAL--- :framed_picture: :framed_picture:
 </summary>
 One picture might be enough for you but if you want to add animations, that is possible with sprites. This is an optional addition and can be added by having the property "texturePos" with an array containing 1 or more items. Each item in the array needs x y coordinates in pixels of the sprite of the top left corner and the size of the sprite you want. An example of this can be seen below.
 
