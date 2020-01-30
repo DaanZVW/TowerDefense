@@ -28,9 +28,8 @@ void game::run() {
     // Make SFML window
    
 
-	gameState state = gameState::PLAYING;
 
-	window.setFramerateLimit(100);
+	window.setFramerateLimit(200);
     // Make fileReader for pathnodes
     fileReader fileHandlerMap{ "../res/configfiles/maps/easy.json" };
 
@@ -80,8 +79,7 @@ void game::run() {
 	base baseObj(sf::Vector2f(map.getTileSize(), map.getTileSize()),
 			map.getPixelPosition(*(createdPath.end() - 1)),
 			fileHandlerConfig.getTextures()[fileHandlerConfig.getBaseConfig()["textureFile"].asString()],
-			fileHandlerConfig.getBaseConfig()["health"].asFloat(),
-			state
+			fileHandlerConfig.getBaseConfig()["health"].asFloat()
 			);
 	
 	
@@ -155,9 +153,10 @@ void game::run() {
         // Sleep 5 miliseconds so the close event gets time
 		// sf::sleep( sf::milliseconds( 10 ));
         
-		if (state == gameState::GAMEOVER) {
+		if (baseObj.isGameFinished()) {
 			return;
 		}
+		
 
 		// SFML events
         sf::Event event;		
@@ -178,7 +177,7 @@ void game::run() {
                     }
 					else if(event.key.code == sf::Keyboard::X)
 					{
-						money += 100;
+						money -= 100;
 					}
                     break;
                 

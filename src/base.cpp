@@ -2,9 +2,8 @@
 #include "macro.hpp"
 #include <iostream>
 
-base::base(const sf::Vector2f& size, const sf::Vector2f& position, sf::Texture& texture, const unsigned int& health, gameState& state) :
+base::base(const sf::Vector2f& size, const sf::Vector2f& position, sf::Texture& texture, const unsigned int& health) :
 	health(health),
-	state(state),
 	hpBar(health)
 {
 	LOGFUNCNAME();
@@ -20,10 +19,7 @@ base::base(const sf::Vector2f& size, const sf::Vector2f& position, sf::Texture& 
 void base::decreaseHealth(const unsigned int& damage) {
 	LOGFUNCNAME(<<damage);
 	if (damage >= health) {
-		damagemusic.stop();
-		damagemusic.play();
-		sf::Clock T;
- 		while(T.getElapsedTime().asSeconds() < (damagemusic.getDuration().asSeconds()*2))
+		
 		state = gameState::GAMEOVER;
 	}
 	else {
@@ -32,6 +28,34 @@ void base::decreaseHealth(const unsigned int& damage) {
 		health -= damage;
 		hpBar.setPercentage(health);
 	}
+}
+void base::win() {
+	LOGFUNCNAME();
+	state = gameState::WON;
+}
+
+bool base::isGameFinished() {
+	LOGFUNCNAME();
+	if (state == gameState::GAMEOVER) {
+		sf::Music music;
+		music.openFromFile("../res/sound/smb_mariodie.wav");
+		music.stop();
+		music.play();
+		sf::Clock T;
+		while (T.getElapsedTime() < music.getDuration()) {}
+			return true;
+	}
+	if (state == gameState::WON) {
+		
+		sf::Music music;
+		music.openFromFile("../res/sound/smb_stage_clear.wav");
+		music.stop();
+		music.play();
+		sf::Clock T;
+		while (T.getElapsedTime() < music.getDuration() ) {}
+		return true;
+	}
+	return false;
 }
 void base::draw(sf::RenderWindow& window) {
 	LOGFUNCNAME();

@@ -191,7 +191,8 @@ void enemyCharGroup::setWaves(const Json::Value enemyWaves){
 void enemyCharGroup::nextWave() {
 	LOGFUNCNAME();
 	if (++currWave == waves.end()) {
-		--currWave;
+		target.win();
+		
 	}
 	
 }
