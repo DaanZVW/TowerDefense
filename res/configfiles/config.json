@@ -33,7 +33,7 @@
             "Damage": 5,
             "Range": 2,
             "Firerate": 20,
-            "Cost" : 25,
+            "Cost" : 170,
             "textureFile": "../res/images/ufoRed.png",
             "bulletTexture": "../res/images/laserRed.png"
         },
@@ -42,16 +42,16 @@
             "Damage": 2,
             "Range": 4,
             "Firerate": 30,
-            "Cost" : 35,
+            "Cost" : 350,
             "textureFile": "../res/images/ufoBlue.png",
             "bulletTexture": "../res/images/laserBlue.png"
         },
         {
             "Name": "Wood Blaster",
-            "Damage": 10,
+            "Damage": 50,
             "Range": 6,
             "Firerate": 10,
-            "Cost" : 50,
+            "Cost" : 1000,
             "textureFile": "../res/images/ufoGreen.png",
             "bulletTexture": "../res/images/laserGreen.png"
         }
@@ -63,8 +63,8 @@
         {
             "damage": 10,
             "speed": 1,
-            "health": 30,
-            "reward": 10,
+            "health": 20,
+            "reward": 3,
             "attic": "../res/images/4k.jpeg",
             "textureFile": "../res/images/spaceinvader.png",
             "texturedddFile": "../res/images/wovo_idle.png",
@@ -122,9 +122,9 @@
 
       "enemy2": {
         "damage": 10,
-        "speed": 2,
-        "health": 10,
-        "reward": 5,
+        "speed": 3,
+        "health": 15,
+        "reward": 2,
         "textureFile": "../res/images/spaceInvader2.png",
         "texturepos": [
           {
@@ -180,9 +180,9 @@
 
       "enemy3": {
         "damage": 10,
-        "speed": 3,
-        "health": 100,
-        "reward": 20,
+        "speed": 0.8,
+        "health": 45,
+        "reward": 8,
         "textureFile": "../res/images/spaceInvader3.png",
         "texturepos": [
           {
@@ -238,9 +238,9 @@
       "enemy4": 
         {
             "damage": 10,
-            "speed": 1,
-            "health": 30,
-            "reward": 20,
+            "speed": 4,
+            "health": 50,
+            "reward": 10,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -254,8 +254,8 @@
         "enemy5": 
         {
             "damage": 10,
-            "speed": 1,
-            "health": 30,
+            "speed": 1.5,
+            "health": 150,
             "reward": 20,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
@@ -282,6 +282,74 @@
               "sizeY": 75
             }
           ]
+        },
+
+        "enemy7": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 423,
+              "positionY": 812,
+              "sizeX": 93,
+              "sizeY": -84
+            }
+          ]
+        },
+
+        "enemy8": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 518,
+              "positionY": 493,
+              "sizeX": 82,
+              "sizeY": -84
+            }
+          ]
+        },
+
+        "enemy9": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 133,
+              "positionY": 496,
+              "sizeX": 104,
+              "sizeY": -84
+            }
+          ]
+        },
+
+        "enemy10": 
+        {
+            "damage": 10,
+            "speed": 1,
+            "health": 30,
+            "reward": 20,
+            "textureFile": "../res/images/sheet.png",
+          "texturepos": [
+            {
+              "positionX": 423,
+              "positionY": 728,
+              "sizeX": 97,
+              "sizeY": -84
+            }
+          ]
         }
     },
 
@@ -295,44 +363,88 @@
     [
         [
             {
-                "amount": 10,
-                "name": "enemy1"
-            },
-            {
-                "name": "enemy2",
-                "amount": 20
-            },
-            {
-                "name": "enemy3",
-                "amount": 3
-            },
-            {
-                "name": "enemy4",
-                "amount": 4
-            },
-            {
-                "name": "enemy5",
-                "amount": 4
-            },
-            {
-                "name": "enemy6",
-                "amount": 4
+                "name": "enemy1",
+                "amount": 40,
+                "spawntime": 1
             }
         ],
         [
             {
+                "name": "enemy2",
+                "amount": 40,
+                "spawntime": 0.5
+            }
+        ],
+         [
+            {
+                "amount": 20,
                 "name": "enemy1",
-                "amount": 0
+                "spawntime": 1
             },
             {
                 "name": "enemy2",
-                "amount": 0
+                "amount": 20,
+                "spawntime": 0.5
+            },
+             {
+                "amount": 20,
+                "name": "enemy1",
+                "spawntime": 1
             },
             {
-                "name": "enemy3",
-                "amount": 0
+                "name": "enemy2",
+                "amount": 20,
+                "spawntime": 0.5
             }
-        ]
+        ],
+           [
+            {
+                "amount": 30,
+                "name": "enemy2",
+                "spawntime": 0.3
+            },
+            {
+                "amount": 10,
+                "name": "enemy3",
+                "spawntime": 0.4
+            },
+            {
+                "amount": 20,
+                "name": "enemy1",
+                "spawntime": 1
+            }
+        ],
+         [
+            {
+                "amount": 30,
+                "name": "enemy3",
+                "spawntime": 0.7
+            }
+        ],
+         [
+            {
+                "amount": 15,
+                "name": "enemy4",
+                "spawntime": 1
+            },
+            {
+                "amount": 10,
+                "name": "enemy2",
+                "spawntime": 0.2
+            },
+            {
+                "amount": 15,
+                "name": "enemy4",
+                "spawntime": 1
+            }
+          ],
+          [
+            {
+                "amount": 15,
+                "name": "enemy5",
+                "spawntime": 1.5
+            }
+          ]
     ],
 
     "Menu" :

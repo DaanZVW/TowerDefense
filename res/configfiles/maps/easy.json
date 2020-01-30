@@ -4,7 +4,8 @@
         "Difficulty" : "Easy",
         "Name" : "Angry Shroom",
         "GridSize" : [15, 15],
-        "BeginMoney" : 50
+        "BeginMoney" : 300,
+        "RandomObjects" : 150
     },
     "PathNodes": 
     [

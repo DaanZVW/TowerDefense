@@ -4,7 +4,6 @@
 // ==============================================================================
 // ==============================================================================
 
-
 menu::menu(
 	const sf::Vector2f & position,
 	const sf::Vector2f & size, 
@@ -209,7 +208,7 @@ void menu::draw( sf::RenderWindow &window ){
 			costShow.updateString( std::string{"-" + std::to_string(int(selectedTower->value * PAY_MULTIPLIER)) });
 
 			// Make money red if not enough
-			if ( selectedTower->value > money ) {
+			if ( selectedTower->value * PAY_MULTIPLIER > money ) {
 				costShow.updateColor( 0, sf::Color::Red );
 			} else {
 				costShow.updateColor( 0, costShow.getOriginalColor() );

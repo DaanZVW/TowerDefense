@@ -203,7 +203,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 
 							sf::Vector2i tilePosition = map.getTilePosition( 
 								sf::Vector2i{ towers.towers[i]->getPosition() +
-									sf::Vector2f{ towers.towers[i]->getSize().x, towers.towers[i]->getSize().y }
+									sf::Vector2f{ towers.towers[i]->getSize().x/2, towers.towers[i]->getSize().y/2 }
 								} 
 							);
 							auto tile = map.getTileFromIndex( tilePosition );

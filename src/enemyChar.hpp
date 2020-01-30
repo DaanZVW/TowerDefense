@@ -10,7 +10,7 @@
 
 // Include external libs
 #ifdef INCLUDE
-	#include <json/json.h>
+	#include <jsoncpp/json/json.h>
 #else
 	#include <json/json.h>
 #endif // INCLUDE
@@ -160,7 +160,7 @@ private:
 	base& target;
 	sf::Music deathmusic;
 	sf::Music damagemusic;
-	
+	float spawnTime = 1;
 	/// @brief	spawns new enemies based on time passed
 	///
 	/// @return	void

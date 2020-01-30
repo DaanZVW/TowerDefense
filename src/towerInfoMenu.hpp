@@ -40,7 +40,7 @@
 #define PAY_MULTIPLIER			1.1
 
 // Defines for upgrade stats
-#define DAMAGE_MULTIPLIER		1.5
+#define DAMAGE_MULTIPLIER		1.2
 #define RANGE_MULTIPLIER		1.05
 
 // ===============================================================

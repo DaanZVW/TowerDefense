@@ -67,7 +67,9 @@ void game::run() {
 	sf::Texture meteor_image;
     meteor_image.loadFromFile("../res/images/meteorGrey.png");
 
-    map.makeRandomTiles(100,&meteor_image);
+
+    map.makeRandomTiles(fileHandlerMap.getAmountRandomObjects(), meteor_image);
+
     // Make fileReader fot towers
 	
     fileReader fileHandlerConfig{ "../res/configfiles/config.json" };
