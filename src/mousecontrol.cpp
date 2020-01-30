@@ -221,7 +221,7 @@ void mouseControl::selectClick( const sf::Vector2i & mousePointer ){
 					tower *selectedTower = menuSide.getSeletedTower();
 
 					if ( selectedTower->value * PAY_MULTIPLIER < menuSide.getMoney() ) {
-						selectedTower->damage	*= DAMAGE_MULTIPLIER;
+						selectedTower->damage	+= DAMAGE_MULTIPLIER+(DAMAGE_MULTIPLIER*selectedTower->upgrade)/2;
 						selectedTower->range	*= RANGE_MULTIPLIER;
 						selectedTower->value	*= PAY_MULTIPLIER;
 						selectedTower->upgrade	+= 1;

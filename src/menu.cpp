@@ -195,7 +195,7 @@ void menu::draw( sf::RenderWindow &window ){
 			// Make the vector with strings for the objects	
 			std::vector<std::string> textInTextObjects {
 				selectedTower->name,
-				std::to_string(int(selectedTower->damage)) + " -> " + std::to_string(int(selectedTower->damage * DAMAGE_MULTIPLIER)),
+				std::to_string(int(selectedTower->damage)) + " -> " + std::to_string(int(selectedTower->damage + DAMAGE_MULTIPLIER+(DAMAGE_MULTIPLIER*selectedTower->upgrade)/2)),
 				std::to_string(int(selectedTower->range)) + " -> " + std::to_string(int(selectedTower->range * RANGE_MULTIPLIER)),
 				std::to_string(int(selectedTower->firerate)),
 				std::to_string(int(selectedTower->upgrade)) + " -> " + std::to_string(int(selectedTower->upgrade + 1))

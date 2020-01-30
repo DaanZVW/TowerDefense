@@ -37,10 +37,10 @@
 
 // Defines for money multipliers
 #define GIVE_BACK_MULTIPLIER	0.80
-#define PAY_MULTIPLIER			1.1
+#define PAY_MULTIPLIER			1.7
 
 // Defines for upgrade stats
-#define DAMAGE_MULTIPLIER		1.2
+#define DAMAGE_MULTIPLIER		2
 #define RANGE_MULTIPLIER		1.05
 
 // ===============================================================

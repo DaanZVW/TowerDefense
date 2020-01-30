@@ -48,7 +48,7 @@
         },
         {
             "Name": "Wood Blaster",
-            "Damage": 50,
+            "Damage": 25,
             "Range": 6,
             "Firerate": 10,
             "Cost" : 1000,
@@ -270,9 +270,9 @@
         "enemy6": 
         {
             "damage": 10,
-            "speed": 1,
-            "health": 30,
-            "reward": 20,
+            "speed": 3,
+            "health": 100,
+            "reward": 25,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -288,8 +288,8 @@
         {
             "damage": 10,
             "speed": 1,
-            "health": 30,
-            "reward": 20,
+            "health": 1000,
+            "reward": 25,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
             {
@@ -443,6 +443,79 @@
                 "amount": 15,
                 "name": "enemy5",
                 "spawntime": 1.5
+            }
+          ],
+          [
+            {
+                "amount": 5,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 2,
+                "name": "enemy4",
+                "spawntime": 0.5
+            },
+            {
+                "amount": 5,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 2,
+                "name": "enemy4",
+                "spawntime": 0.5
+            },
+            {
+                "amount": 5,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 2,
+                "name": "enemy4",
+                "spawntime": 0.5
+            }
+          ],
+          [
+            {
+                "amount": 10,
+                "name": "enemy6",
+                "spawntime": 0.6
+            }
+          ],
+          [
+            {
+                "amount": 3,
+                "name": "enemy4",
+                "spawntime": 0.5
+            },
+            {
+                "amount": 3,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 3,
+                "name": "enemy6",
+                "spawntime": 0.6
+            },
+            {
+                "amount": 3,
+                "name": "enemy5",
+                "spawntime": 1.5
+            },
+            {
+                "amount": 3,
+                "name": "enemy4",
+                "spawntime": 0.5
+            }
+          ],
+          [
+            {
+                "amount": 1,
+                "name": "enemy7",
+                "spawntime": 1
             }
           ]
     ],
