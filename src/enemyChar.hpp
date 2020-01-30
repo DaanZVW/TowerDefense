@@ -259,5 +259,12 @@ public:
 	/// @return	std::vector<std::unique_ptr<enemyChar>>
 	///
 	std::vector<std::shared_ptr<enemyChar>> & getEnemies();
+
+
+	/// @brief	returns the current wave number
+	///
+	/// @return	unsigned int
+	///
+	unsigned int getWaveNumber();
 };
 #endif // ENEMYCHAR__HPP

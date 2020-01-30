@@ -18,6 +18,10 @@ base::base(const sf::Vector2f& size, const sf::Vector2f& position, sf::Texture& 
 void base::decreaseHealth(const unsigned int& damage) {
 	LOGFUNCNAME(<<damage);
 	if (damage >= health) {
+		damagemusic.stop();
+		damagemusic.play();
+		sf::Clock T;
+ 		while(T.getElapsedTime().asSeconds() < (damagemusic.getDuration().asSeconds()*2))
 		state = gameState::GAMEOVER;
 	}
 	else {
