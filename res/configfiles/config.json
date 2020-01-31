@@ -47,22 +47,22 @@
             "bulletTexture": "../res/images/laserBlue.png"
         },
         {
-            "Name": "Energy UFO",
-            "Damage": 2,
-            "Range": 6,
-            "Firerate": 40,
-            "Cost" : 750,
-            "textureFile": "../res/images/ufoYellow.png",
-            "bulletTexture": "../res/images/star_gold.png"
-        },
-        {
             "Name": "Chemical UFO",
             "Damage": 25,
             "Range": 8,
-            "Firerate": 5,
-            "Cost" : 1000,
+            "Firerate": 10,
+            "Cost" : 750,
             "textureFile": "../res/images/ufoGreen.png",
             "bulletTexture": "../res/images/laserGreen.png"
+        },
+        {
+          "Name": "Energy UFO",
+          "Damage": 2,
+          "Range": 6,
+          "Firerate": 40,
+          "Cost" : 1000,
+          "textureFile": "../res/images/ufoYellow.png",
+          "bulletTexture": "../res/images/star_gold.png"
         }
     ],
 
@@ -297,7 +297,7 @@
         {
             "damage": 50,
             "speed": 1,
-            "health": 1000,
+            "health": 1300,
             "reward": 600,
             "textureFile": "../res/images/sheet.png",
           "texturepos": [
@@ -580,6 +580,18 @@
                 "amount": 10,
                 "name": "enemy10",
                 "spawntime": 0.8
+            }
+          ],
+          [
+            {
+              "amount": 20,
+              "name": "enemy7",
+              "spawntime": 0.6
+            },
+            {
+                "amount": 20,
+                "name": "enemy10",
+                "spawntime": 0.4
             }
           ]
     ],
