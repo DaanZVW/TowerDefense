@@ -2,8 +2,8 @@
 # Enemies
 
 ## Summary
-In Tower Defense there are enemies that follow a prefined path to deal damage to your base. The goal of the player is to defend that [Base](/DaanZVW/TowerDefense/blob/master/res/configfiles/Base.md) by killing the [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md).
-All [Enemies](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md) are defined within the config json with predefined types of attributes. Here will be explained how to add and configure them
+In Tower Defense there are enemies that follow a prefined path to deal damage to your base. The goal of the player is to defend that [Base](/res/configfiles/Base.md) by killing the enemies.
+All enemies are defined within the config json with predefined types of attributes. Here will be explained how to add and configure them
 
 
 
@@ -238,6 +238,7 @@ Add a propery "texturePos" and set the value to your desired texture position an
 </details>
 
 <br>
+
 ## Links
 
 [Base](/res/configfiles/Base.md)
