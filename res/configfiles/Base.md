@@ -1,7 +1,7 @@
 # Base
 
 ## Summary
-The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the enemies walk and every time an [enemy](/DaanZVW/TowerDefense/blob/master/res/configfiles/Enemies.md) reaches it the base takes damage. When the health reaches 0 the player loses.
+The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the enemies walk and every time an [enemy](/master/res/configfiles/Enemies.md) reaches it the base takes damage. When the health reaches 0 the player loses.
 
 <br>
 <details open>
@@ -22,7 +22,7 @@ The base is what the player needs to defend in the game Tower Defence. It's posi
 
 <br>
 
-## How to create a new tower
+## How to create a base
 
 <details>
 <summary> Creating a base  :european_castle: </summary>
