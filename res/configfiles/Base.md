@@ -1,7 +1,7 @@
 # Base
 
 ## Summary
-The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the enemies walk and every time an [enemy](/master/res/configfiles/Enemies.md) reaches it the base takes damage. When the health reaches 0 the player loses.
+The base is what the player needs to defend in the game Tower Defence. It's position is at the end of the predefined route the enemies walk and every time an [enemy](/res/configfiles/Enemies.md) reaches it the base takes damage. When the health reaches 0 the player loses.
 
 <br>
 <details open>
