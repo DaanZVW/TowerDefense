@@ -10,7 +10,7 @@ All enemies are defined within the config json with predefined types of attribut
 <details open>
 <summary>An example of how enemies are defined</summary>
 
-```json
+```yaml
 "enemyChar":{
     "enemy_name": 
         {
