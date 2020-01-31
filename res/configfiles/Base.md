@@ -5,7 +5,7 @@ The base is what the player needs to defend in the game Tower Defence. It's posi
 
 <br>
 <details open>
-<summary> An example of how towers are defined</summary>
+<summary> An example of how maps are defined</summary>
 
 ---
 
