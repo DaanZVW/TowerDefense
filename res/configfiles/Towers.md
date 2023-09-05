@@ -174,16 +174,4 @@ Add a propery "BulletTexture" and set the value to your desired texture's file l
     }
 ]
 ```
-</details>
 
-<br>
-
-## Links
-
-[Waves](/res/configfiles/Waves.md)
-<br>
-[Enemies](/res/configfiles/Enemies.md)
-<br>
-[Base](/res/configfiles/Base.md)
-<br>
-[Map](/res/configfiles/Map.md)

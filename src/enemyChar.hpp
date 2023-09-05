@@ -8,12 +8,17 @@
 #include <vector>
 #include <memory>
 
-// Include external libs
-#ifdef INCLUDE
-	#include <jsoncpp/json/json.h>
-#else
-	#include <json/json.h>
-#endif // INCLUDE
+// // Include external libs
+// #ifdef INCLUDE
+// 	#include <jsoncpp/json/json.h>
+// #else
+// 	#include <json/json.h>
+// 	using json = nlohmann::json;
+// #endif // INCLUDE
+#include <nlohmann/json.h>
+using json = nlohmann::json;
+
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 

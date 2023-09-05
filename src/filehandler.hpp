@@ -14,12 +14,14 @@
 #include <string>
 #include <vector>
 
-// Include External libs
-#ifdef INCLUDE
-	#include <jsoncpp/json/json.h>
-#else
-	#include <json/json.h>
-#endif
+// // Include External libs
+// #ifdef INCLUDE
+// 	#include <jsoncpp/json/json.h>
+// #else
+// 	#include <json/json.h>
+// #endif
+#include <nlohmann/json.h>
+using json = nlohmann::json;
 
 // Include Nessecery files
 #include <SFML/Graphics.hpp>
