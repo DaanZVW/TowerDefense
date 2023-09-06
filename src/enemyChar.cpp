@@ -2,10 +2,10 @@
 
 //==========================================================================
 
-enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size):
+enemyChar::enemyChar(Json & stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture> & textures, const sf::Vector2f & size):
 	baseStats(stats),
-	hpBar(stats["health"].asFloat()),
-	health(stats["health"].asFloat()),
+	hpBar(stats["health"].get<float>()),
+	health(stats["health"].get<float>()),
 	currAnimation(stats["texturepos"].begin()),
 	animationInterval(size.x/4),
 	animationCounter(size.x/4)
@@ -14,7 +14,7 @@ enemyChar::enemyChar(Json::Value & stats, std::vector<sf::Vector2f>& route, std:
 	setPosition(*route.begin());
 	setSize(size);
 	hpBar.setSize(sf::Vector2f(getLocalBounds().height , getLocalBounds().width* 0.1));
-	setTexture(&textures[stats["textureFile"].asString()]);
+	setTexture(&textures[stats["textureFile"].get<std::string>()]);
 	currTargetLocation = route.begin();
 }
 
@@ -28,10 +28,10 @@ void enemyChar::animate(const float steps){
 			}
 			currAnimation = baseStats["texturepos"].begin();
 		}
-		setTextureRect(sf::IntRect((*currAnimation)["positionX"].asInt(),
-				(*currAnimation)["positionY"].asInt(),
-				(*currAnimation)["sizeX"].asInt(),
-				(*currAnimation)["sizeY"].asInt()));
+		setTextureRect(sf::IntRect((*currAnimation)["positionX"].get<int32_t>(),
+				(*currAnimation)["positionY"].get<int32_t>(),
+				(*currAnimation)["sizeX"].get<int32_t>(),
+				(*currAnimation)["sizeY"].get<int32_t>()));
 				++currAnimation;
 				animationCounter = 0;
 				
@@ -49,7 +49,7 @@ const float enemyChar::getHealth(){
 
 const float enemyChar::getSpeed()
 {
-	return baseStats["speed"].asFloat();
+	return baseStats["speed"].get<float>();
 }
 
 //==========================================================================
@@ -62,8 +62,8 @@ void enemyChar::decreaseHealth(const float& damage){
 //==========================================================================
 
 const float enemyChar::getDamage() {	
-	LOGFUNCNAME(<< baseStats["damage"].asFloat());
-	return baseStats["damage"].asFloat();
+	LOGFUNCNAME(<< baseStats["damage"].get<float>());
+	return baseStats["damage"].get<float>();
 }
 
 //==========================================================================
@@ -147,7 +147,7 @@ void enemyChar::drawHP(sf::RenderWindow& window){
 //==========================================================================
 
 unsigned int enemyChar::getReward() {
-	return baseStats["reward"].asUInt();
+	return baseStats["reward"].get<uint32_t>();
 }
 
 //==========================================================================
@@ -162,10 +162,10 @@ void enemyCharGroup::spawnWave() {
 		
 		if (currWave != waves.end()){
 			for (auto& enemy : *currWave) {
-				if (enemy["amount"].asInt() > 0) {
-					enemy["amount"] = enemy["amount"].asInt() -1;
-					spawnTime = enemy["spawntime"].asFloat();
-					enemies.push_back(std::make_shared<enemyChar>(enemyTemplates[enemy["name"].asString()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
+				if (enemy["amount"].get<int32_t>() > 0) {
+					enemy["amount"] = enemy["amount"].get<int32_t>() -1;
+					spawnTime = enemy["spawntime"].get<float>();
+					enemies.push_back(std::make_shared<enemyChar>(enemyTemplates[enemy["name"].get<std::string>()] ,route, textures, sf::Vector2f(tileSize / 2, tileSize / 2)));
 					(*(enemies.end() - 1)).get()->setOrigin(sf::Vector2f(tileSize/4, tileSize/4));
 					clockSpawn.restart();
 					return;
@@ -180,7 +180,7 @@ void enemyCharGroup::spawnWave() {
 
 //==========================================================================
 
-void enemyCharGroup::setWaves(const Json::Value enemyWaves){
+void enemyCharGroup::setWaves(const Json enemyWaves){
 	LOGFUNCNAME();
 	waves = enemyWaves;
 	currWave = waves.begin();
@@ -257,11 +257,11 @@ void enemyCharGroup::update() {
 //==========================================================================
 
 enemyCharGroup::enemyCharGroup (
-	Json::Value enemyTemplates, 
+	Json enemyTemplates, 
 	const std::vector<sf::Vector2i>& route, 
 	const float& tilesize, 
 	const sf::Vector2f& offset, 
-	Json::Value waves, 
+	Json waves, 
 	unsigned int & money,
 	base &target,
 	std::map<std::string, sf::Texture>& textures

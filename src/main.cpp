@@ -3,9 +3,8 @@
 // Make a switchcase for states
 enum class states{INTRO, GAME};
 int main() {
-	
 	// Make an TowerDefense object
-     	game TowerDefense{ "../res/configfiles/config.json" };
+	game TowerDefense{ "../res/configfiles/config.json" };
 	
 	// Start the background music, this will play the whole game
 	sf::Music backGroundMusic;

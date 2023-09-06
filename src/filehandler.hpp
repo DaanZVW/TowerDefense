@@ -13,12 +13,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-// // Include External libs
-// #ifdef INCLUDE
-// 	#include <jsoncpp/json/json.h>
-// #else
-// 	#include <json/json.h>
-// #endif
+
+
 #include <nlohmann/json.hpp>
 using Json = nlohmann::json;
 
@@ -32,7 +28,7 @@ private:
     // Private Variables
     std::string filename;
 
-    Json::Value fileInfo;
+    Json fileInfo;
 
 	std::map<std::string, sf::Texture> textures;
 
@@ -56,20 +52,20 @@ public:
     /// @brief Method to get enemy info.
     /// @details This method gets the enemy info out of the json file.
     /// @details The info is used to generate enemy's in the waves.
-    /// @return const Json::Value
-	const Json::Value & getEnemyConfig();
+    /// @return const Json
+	const Json & getEnemyConfig();
 
     /// @brief Method to get waves.
     /// @details This method gets the waves out of the json file.
     /// @details These waves are pre-defined with how many enemy's there are in a wave.
-    /// @return const Json::Value
-	const Json::Value & getWaves();
+    /// @return const Json
+	const Json & getWaves();
 
     /// @brief Method to get base.
     /// @details This method gets the base config out of the json file.
     /// @details Based on this config is a base generated later in the program.
-    /// @return const Json::Value
-	const Json::Value & getBaseConfig();
+    /// @return const Json
+	const Json & getBaseConfig();
 
     /// @brief Method to get textures.
     /// @details This method gets the textures that are needed ingame.

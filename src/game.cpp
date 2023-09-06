@@ -78,8 +78,8 @@ void game::run() {
 	baseText.loadFromFile("../res/images/wovo_idle.png");
 	base baseObj(sf::Vector2f(map.getTileSize(), map.getTileSize()),
 			map.getPixelPosition(*(createdPath.end() - 1)),
-			fileHandlerConfig.getTextures()[fileHandlerConfig.getBaseConfig()["textureFile"].asString()],
-			fileHandlerConfig.getBaseConfig()["health"].asFloat()
+			fileHandlerConfig.getTextures()[fileHandlerConfig.getBaseConfig()["textureFile"].get<std::string>()],
+			fileHandlerConfig.getBaseConfig()["health"].get<float>()
 			);
 	
 	

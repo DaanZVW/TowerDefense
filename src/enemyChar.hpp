@@ -32,11 +32,11 @@ using Json = nlohmann::json;
 /// @author Wilco Matthijssen
 class enemyChar : public sf::RectangleShape {
 
-	Json::Value& baseStats;
+	Json& baseStats;
 	healthBar hpBar;
 	float health;
 
-	Json::Value::iterator currAnimation;
+	Json::iterator currAnimation;
 	float animationInterval;
 	float animationCounter;
 
@@ -84,7 +84,7 @@ public:
 	/// @param textures	textures of all enemyChar's
 	/// @param size		size of enemyChar in pixels
 	/// 
-	enemyChar(Json::Value& stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture>& textures, const sf::Vector2f& size);
+	enemyChar(Json& stats, std::vector<sf::Vector2f>& route, std::map<std::string, sf::Texture>& textures, const sf::Vector2f& size);
 
 	/// @brief	Changes texture when interval is reached
 	///
@@ -150,7 +150,7 @@ class enemyCharGroup {
 private:
 
 	//std::shared_ptr<base> target;
-	Json::Value enemyTemplates;
+	Json enemyTemplates;
 	std::vector<sf::Vector2f>  route;
 	sf::Texture texture;
 	sf::Clock clock;
@@ -158,9 +158,9 @@ private:
 	sf::Clock clockSpawn;
 	std::map<std::string, sf::Texture> &textures;
 	//unsigned int counter = 0;
-	Json::Value waves;
+	Json waves;
 	std::vector< std::shared_ptr< enemyChar > > enemies;
-	Json::Value::iterator currWave;
+	Json::iterator currWave;
 	unsigned int &money;
 	base& target;
 	sf::Music deathmusic;
@@ -185,7 +185,7 @@ private:
 	/// @param  enemyWaves waves of enemies 
 	/// @return	void
 	///
-	void setWaves(const Json::Value enemyWaves);
+	void setWaves(const Json enemyWaves);
 	
 	/// @brief	makes next wave availlable to spawn
 	/// @details set next wave as current wave if it's not the last wave
@@ -219,7 +219,7 @@ public:
 	/// @brief	construct an enemyCharGroup
 	/// @details constructs an enemyCharGroup containing enemyChars for how many are defined in param waves.
 	///
-	/// @param enemyTemplates Json::Value of enemies config
+	/// @param enemyTemplates Json of enemies config
 	/// @param route	route that enemies will walk
 	///	@param tilesize	size of tile in route
 	/// @param offset	top left pixel position of route
@@ -228,11 +228,11 @@ public:
 	/// @param target	target for enemyChar's
 	/// @param textures	map containing all textures
 	///
-	enemyCharGroup(Json::Value enemyTemplates, 
+	enemyCharGroup(Json enemyTemplates, 
 		const std::vector<sf::Vector2i>& route, 
 		const float& tilesize, 
 		const sf::Vector2f& offset, 
-		Json::Value waves, 
+		Json waves, 
 		unsigned int & money,
 		base & target,
 		std::map<std::string, sf::Texture>& textures);
