@@ -15,8 +15,8 @@
 // 	#include <json/json.h>
 // 	using json = nlohmann::json;
 // #endif // INCLUDE
-#include <nlohmann/json.h>
-using json = nlohmann::json;
+#include <nlohmann/json.hpp>
+using Json = nlohmann::json;
 
 
 #include <SFML/Graphics.hpp>

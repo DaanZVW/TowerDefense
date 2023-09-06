@@ -19,15 +19,14 @@ FetchContent_MakeAvailable(json)
 #     # lots of warnings and all warnings as errors
 #     add_compile_options(-Wall -Wextra -pedantic -Werror)
 # endif()
+file(GLOB sources src/*.cpp)
 
-
-add_executable(${CMAKE_PROJECT_NAME} src/main.cpp)
+add_executable(${CMAKE_PROJECT_NAME} ${sources})
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE sfml-graphics nlohmann_json::nlohmann_json)
 set_property(TARGET ${CMAKE_PROJECT_NAME} PROPERTY CXX_STANDARD 20)
-
 
 if (WIN32 AND BUILD_SHARED_LIBS)
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
