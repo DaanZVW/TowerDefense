@@ -12,13 +12,6 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
-# if (MSVC)
-#     # warning level 4 and all warnings as errors
-#     add_compile_options(/W4 /WX)
-# else()
-#     # lots of warnings and all warnings as errors
-#     add_compile_options(-Wall -Wextra -pedantic -Werror)
-# endif()
 file(GLOB sources src/*.cpp)
 
 add_executable(${CMAKE_PROJECT_NAME} ${sources})
